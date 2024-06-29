@@ -6,7 +6,8 @@ use App\Http\Controllers\NumberController;
 use App\Http\Controllers\UserNumberController;
 use App\Http\Controllers\CallRecordController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,6 +47,22 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('user')->name('user.')->group(function(){
        Route::get('/', [UserController::class, 'index'])->name('index');
+       Route::get('create', [UserController::class, 'create'])->name('create');
+       Route::post('store', [UserController::class, 'store'])->name('store');
+       Route::get('edit/{user}', [UserController::class, 'edit'])->name('edit');
+       Route::post('update/{user}', [UserController::class, 'update'])->name('update');
+       Route::get('delete/{user}', [UserController::class, 'delete'])->name('delete');
+    });
+
+    Route::prefix('role')->name('role.')->group(function(){
+       Route::get('/', [RoleController::class, 'index'])->name('index');
+       Route::get('create', [RoleController::class, 'create'])->name('create');
+       Route::post('store', [RoleController::class, 'store'])->name('store');
+       Route::get('delete/{role}', [RoleController::class, 'delete'])->name('delete');
+    });
+
+    Route::prefix('permission')->name('permission.')->group(function(){
+       Route::get('/', [PermissionController::class, 'index'])->name('index');
     });
 });
 

@@ -9,6 +9,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Role</th>
+                    <th>Action</th>
     {{--                <th style="width: 40px">Label</th>--}}
                 </tr>
             </thead>
@@ -19,6 +20,12 @@
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
                     <td>{{$user->getRoleNames()}}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="{{route('user.edit', ['user' => $user])}}" class="btn btn-primary">Edit</a>
+                            <a href="{{route('user.delete', ['user' => $user])}}" class="btn btn-danger">Delete</a>
+                        </div>
+                    </td>
 {{--                    <td>--}}
 {{--                        <div class="progress progress-xs progress-striped active">--}}
 {{--                            <div class="progress-bar bg-success" style="width: 90%"></div>--}}

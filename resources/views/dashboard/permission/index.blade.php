@@ -10,16 +10,28 @@
             </div>
             <!-- /.card-header -->
 
-            <div class="form-check">
-                <div class="form-group">
-                    <label>Select</label>
-                    <select class="form-control" name="user_id">
+
+            <div class="form-row align-items-center">
+                <div class="col-auto">
+                    <label for="userSelect" class="col-form-label">Select User</label>
+                    <select class="form-control" id="userSelect" name="user_id">
                         <option value="">Select User</option>
                         @foreach($users as $user)
-                            <option value="{{$user->id}}">{{$user->name}}</option>
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
                         @endforeach
                     </select>
-                    <input type="submit" value="Assign" class="btn btn-success">
+                </div>
+                <div class="col-auto">
+                    <label for="roleSelect" class="col-form-label">Select Role</label>
+                    <select class="form-control" id="roleSelect" name="role_id">
+                        <option value="">Select Role</option>
+                        @foreach($roles as $role)
+                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-auto mt-4">
+                    <input type="submit" value="Give Permission" class="btn btn-success">
                 </div>
             </div>
 
@@ -34,28 +46,21 @@
                                 <label class="form-check-label" for="selectAll">All</label>
                             </div>
                         </th>
-                        <th>Business Name</th>
-                        <th>Phone Number</th>
-                        <th>City</th>
-                        <th>Action</th>
-    {{--                    <th>CSS grade</th>--}}
+                        <th>Permission name</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($numbers as $number)
+                    @foreach($permissions as $permission)
                         <tr>
                             <td>
                                 <div class="form-check">
-                                    <input class="form-check-input" name="numbers[]" value="{{$number->id}}" type="checkbox" id="{{$number->id}}" >
+                                    <input class="form-check-input" name="permissions[]" value="{{$permission->id}}" type="checkbox" id="{{$permission->id}}" >
                                     <label class="form-check-label"></label>
                                 </div>
                             </td>
                             <td>
-                                <label class="form-check-label" for="{{$number->id}}">{{$number->business_name}}</label>
+                                <label class="form-check-label" for="{{$permission->id}}">{{$permission->name}}</label>
                             </td>
-                            <td>{{$number->phone_number}}</td>
-                            <td>{{$number->city}}</td>
-                            <td>U</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -94,7 +99,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const selectAllCheckbox = document.getElementById('selectAll');
-            const checkboxes = document.querySelectorAll('input[name="numbers[]"]');
+            const checkboxes = document.querySelectorAll('input[name="permissions[]"]');
 
             selectAllCheckbox.addEventListener('change', function () {
                 checkboxes.forEach(checkbox => {

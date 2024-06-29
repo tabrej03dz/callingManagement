@@ -97,25 +97,44 @@
                                 <p>All Users</p>
                             </a>
                         </li>
-{{--                        <li class="nav-item">--}}
-{{--                            <a href="{{route('number.notAssigned')}}" class="nav-link">--}}
-{{--                                <i class="far fa-circle nav-icon"></i>--}}
-{{--                                <p>Not Assigned</p>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        @endrole--}}
-{{--                        <li class="nav-item">--}}
-{{--                            <a href="{{route('number.upload')}}" class="nav-link">--}}
-{{--                                <i class="far fa-circle nav-icon"></i>--}}
-{{--                                <p>Upload Numbers</p>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        <li class="nav-item">--}}
-{{--                            <a href="{{route('number.assigned')}}" class="nav-link">--}}
-{{--                                <i class="far fa-circle nav-icon"></i>--}}
-{{--                                <p>Assigned Numbers</p>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
+                        <li class="nav-item">
+                            <a href="{{route('user.create')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create User</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-edit"></i>
+                        <p>
+                            Role & Permission
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        {{--                        @role('admin|super_admin')--}}
+                        <li class="nav-item">
+                            <a href="{{route('role.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Roles</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('role.create')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create Role</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('permission.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Permission </p>
+                            </a>
+                        </li>
+
                     </ul>
                 </li>
 
