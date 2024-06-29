@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Dashboard</title>
+    <title>{{$title ?? 'Dashboard'}}</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="{{asset('logo.jpg')}}" type="image/x-icon">
@@ -28,6 +28,9 @@
     <link rel="stylesheet" href="{{ asset('asset/plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('asset/plugins/summernote/summernote-bs4.css') }}">
+
+    <link rel="stylesheet" href="{{asset('asset/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{asset('asset/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
@@ -59,7 +62,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Dashboard</h1>
+                        <h1 class="m-0 text-dark">{{$title ?? 'Dashboard'}}</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -71,6 +74,32 @@
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
+
+        @if($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Whoops! Something went wrong.</strong>
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
+
+    @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+
+        @elseif(session('success'))
+            <div class="alert alert-primary">
+                {{ session('success') }}
+            </div>
+        @endif
 
         <!-- Main content -->
         @yield('content')
@@ -89,6 +118,7 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
+
 <script src="{{asset('asset/plugins/jquery/jquery.min.js')}}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{asset('asset/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
@@ -116,8 +146,14 @@
 <script src="{{asset('asset/plugins/summernote/summernote-bs4.min.js')}}"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('asset/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+
+<script src="{{asset('asset/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('asset/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('asset/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('asset/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+
 <!-- AdminLTE App -->
-<script src="{{asset('asset/dist/js/adminlte.js')}}"></script>
+<script src="{{asset('asset/dist/js/adminlte.min.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('asset/dist/js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
@@ -136,7 +172,6 @@
             }
         });
     });
-
 </script>
 <script>
     $(document).ready(function(){

@@ -11,7 +11,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{asset('asset/images/jevarMahalLogo.png')}}" class="img-circle elevation-2" alt="User Image">
+{{--                <img src="{{asset('asset/images/jevarMahalLogo.png')}}" class="img-circle elevation-2" alt="User Image">--}}
             </div>
             <div class="info">
                 <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -35,16 +35,98 @@
                         </p>
                     </a>
                 </li>
-{{--                <li class="nav-item">--}}
-{{--                     <a href="{{route('banner.index')}}" class="nav-link">--}}
-{{--                        <i class="nav-icon fas fa-images"></i>--}}
-{{--                        <p>--}}
-{{--                            Banner--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                <li class="nav-item">
+                     <a href="{{route('number.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-images"></i>
+                        <p>
+                            Numbers
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-edit"></i>
+                        <p>
+                            Numbers
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @role('admin|super_admin')
+                        <li class="nav-item">
+                            <a href="{{route('number.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>All Numbers</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('number.notAssigned')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Not Assigned</p>
+                            </a>
+                        </li>
+                        @endrole
+                        <li class="nav-item">
+                            <a href="{{route('number.upload')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Upload Numbers</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('number.assigned')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Assigned Numbers</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
-{{--                <li class="nav-item">--}}
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-edit"></i>
+                        <p>
+                            Users
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+{{--                        @role('admin|super_admin')--}}
+                        <li class="nav-item">
+                            <a href="{{route('user.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>All Users</p>
+                            </a>
+                        </li>
+{{--                        <li class="nav-item">--}}
+{{--                            <a href="{{route('number.notAssigned')}}" class="nav-link">--}}
+{{--                                <i class="far fa-circle nav-icon"></i>--}}
+{{--                                <p>Not Assigned</p>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                        @endrole--}}
+{{--                        <li class="nav-item">--}}
+{{--                            <a href="{{route('number.upload')}}" class="nav-link">--}}
+{{--                                <i class="far fa-circle nav-icon"></i>--}}
+{{--                                <p>Upload Numbers</p>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                        <li class="nav-item">--}}
+{{--                            <a href="{{route('number.assigned')}}" class="nav-link">--}}
+{{--                                <i class="far fa-circle nav-icon"></i>--}}
+{{--                                <p>Assigned Numbers</p>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{route('logout')}}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Logout</p>
+                    </a>
+                </li>
+
+                {{--                <li class="nav-item">--}}
 {{--                    <a href="{{route('update.index')}}" class="nav-link">--}}
 {{--                        <i class="nav-icon fas fa-sync"></i>--}}
 {{--                        <p>--}}
