@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('status_id')->constrained('statuses')->cascadeOnDelete();
             $table->text('description')->nullable();
             $table->dateTime('have_to_call')->nullable();
-            $table->enum('recalled', ['true'])->nullable();
+            $table->enum('recalled', ['true', 'false'])->nullable();
             $table->timestamps();
         });
     }
