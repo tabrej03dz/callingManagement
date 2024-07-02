@@ -1,68 +1,68 @@
-@extends('dash_layouts.aap', ['title' => 'Numbers'])
+@extends('dash_layouts.aap', ['title' => 'Permissions'])
 @section('content')
 
     <!-- /.card -->
     <div class="card">
-        <form action="{{route('number.assignToUser')}}" method="post">
+        <form action="{{route('permission.giveToUserOrRole')}}" method="post">
             @csrf
             <div class="card-header">
                 <h3 class="card-title">DataTable with default features</h3>
             </div>
             <!-- /.card-header -->
 
-
-            <div class="form-row align-items-center">
-                <div class="col-auto">
-                    <label for="userSelect" class="col-form-label">Select User</label>
-                    <select class="form-control" id="userSelect" name="user_id">
-                        <option value="">Select User</option>
-                        @foreach($users as $user)
-                            <option value="{{ $user->id }}">{{ $user->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-auto">
-                    <label for="roleSelect" class="col-form-label">Select Role</label>
-                    <select class="form-control" id="roleSelect" name="role_id">
-                        <option value="">Select Role</option>
-                        @foreach($roles as $role)
-                            <option value="{{ $role->id }}">{{ $role->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-auto mt-4">
-                    <input type="submit" value="Give Permission" class="btn btn-success">
+            <div class="card-body">
+                <div class="form-row align-items-center">
+                    <div class="col-auto">
+                        <label for="userSelect" class="col-form-label">Select User</label>
+                        <select class="form-control" id="userSelect" name="user_id">
+                            <option value="">Select User</option>
+                            @foreach($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <label for="roleSelect" class="col-form-label">Select Role</label>
+                        <select class="form-control" id="roleSelect" name="role_id">
+                            <option value="">Select Role</option>
+                            @foreach($roles as $role)
+                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-auto mt-4">
+                        <input type="submit" value="Give Permission" class="btn btn-success">
+                    </div>
                 </div>
             </div>
-
 
             <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
-                    <tr>
-                        <th>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="selectAll">
-                                <label class="form-check-label" for="selectAll">All</label>
-                            </div>
-                        </th>
-                        <th>Permission name</th>
-                    </tr>
+                        <tr>
+                            <th>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="selectAll">
+                                    <label class="form-check-label" for="selectAll">All</label>
+                                </div>
+                            </th>
+                            <th>Permission name</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    @foreach($permissions as $permission)
-                        <tr>
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input" name="permissions[]" value="{{$permission->id}}" type="checkbox" id="{{$permission->id}}" >
-                                    <label class="form-check-label"></label>
-                                </div>
-                            </td>
-                            <td>
-                                <label class="form-check-label" for="{{$permission->id}}">{{$permission->name}}</label>
-                            </td>
-                        </tr>
-                    @endforeach
+                        @foreach($permissions as $permission)
+                            <tr>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="permissions[]" value="{{$permission->name}}" type="checkbox" id="{{$permission->id}}" >
+                                        <label class="form-check-label"></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <label class="form-check-label" for="{{$permission->id}}">{{$permission->name}}</label>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

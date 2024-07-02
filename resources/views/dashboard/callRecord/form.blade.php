@@ -15,7 +15,7 @@
                             </select>
                         </div>
                         <div class="form-group mb-3">
-                            <textarea name="description" id="description" cols="30" rows="1" class="form-control" placeholder="Description" style="resize: none;"></textarea>
+                            <textarea name="description" id="description" cols="30" rows="5" class="form-control" placeholder="Description" style="resize: none;"></textarea>
                         </div>
                         <div class="form-group mb-3">
                             <input name="have_to_call" type="datetime-local" class="form-control" placeholder="Have to call" />

@@ -14,4 +14,8 @@ class CallRecord extends Model
     public function status(){
         return $this->belongsTo(Status::class, 'status_id');
     }
+
+    public function number(){
+        return $this->belongsTo(Number::class, 'number_id');
+    }
 }

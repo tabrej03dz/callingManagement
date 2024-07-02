@@ -3,7 +3,7 @@
 
 
     <!-- /.card -->
-    <div class="card">
+    <div class="card" style="overflow-x: auto;">
             <div class="card-header">
                 <h3 class="card-title">DataTable with default features</h3>
             </div>
@@ -23,7 +23,7 @@
 {{--            </div>--}}
 
             <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
+                <table id="example1" class="table table-bordered table-striped" >
                     <thead>
                     <tr>
                         @role('super_admin|admin')
@@ -42,6 +42,9 @@
                         <th>Last Call</th>
                         <th>Have to call</th>
                         <th>Count</th>
+                        @role('super_admin')
+                            <th>Assigned User</th>
+                        @endrole
                         <th>Action</th>
                         {{--                    <th>CSS grade</th>--}}
                     </tr>
@@ -71,6 +74,15 @@
                             <td>{{$record?->created_at}}</td>
                             <td>{{$record?->have_to_call}}</td>
                             <td>{{$number->callRecords->count()}}</td>
+                            @role('super_admin|admin')
+                            <td>
+                                <ul style="list-style: none; padding: 0px;">
+                                    @foreach($number->userNumbers as $user)
+                                        <li>{{$user->user->name}}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                            @endrole
 
                             <td>
                                 <div class="btn-group">

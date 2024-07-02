@@ -8,6 +8,7 @@ use App\Http\Controllers\CallRecordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\StatusController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,6 +44,7 @@ Route::middleware('auth')->group(function () {
         Route::get('show/{number}', [CallRecordController::class, 'show'])->name('show');
         Route::get('create/{number}', [CallRecordController::class, 'create'])->name('create');
         Route::post('store/{number}', [CallRecordController::class, 'store'])->name('store');
+        Route::get('markAsRecalled/{record}', [CallRecordController::class, 'markAsRecalled'])->name('markAsRecalled');
     });
 
     Route::prefix('user')->name('user.')->group(function(){
@@ -63,6 +65,14 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('permission')->name('permission.')->group(function(){
        Route::get('/', [PermissionController::class, 'index'])->name('index');
+       Route::post('giveToUserOrRole', [PermissionController::class, 'givePermissionToUserOrRole'])->name('giveToUserOrRole');
+    });
+
+    Route::prefix('status')->name('status.')->group(function (){
+        Route::get('/', [StatusController::class, 'index'])->name('index');
+        Route::get('create', [StatusController::class, 'create'])->name('create');
+        Route::post('store', [StatusController::class, 'store'])->name('store');
+        Route::get('delete/{status}', [StatusController::class, 'delete'])->name('delete');
     });
 });
 

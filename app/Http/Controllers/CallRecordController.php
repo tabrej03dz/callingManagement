@@ -26,6 +26,12 @@ class CallRecordController extends Controller
 
         ]);
         CallRecord::create($request->all() + ['number_id' => $number->id, 'user_id' => auth()->user()->id]);
-        return back()->with('success', 'record created successfully');
+        return redirect('number/assigned')->with('success', 'record created successfully');
+    }
+
+    public function markAsRecalled($record){
+        $callRecord = CallRecord::find($record);
+        $callRecord->update(['recalled' => 'true']);
+        return back()->with('success', 'Mark As Recalled');
     }
 }

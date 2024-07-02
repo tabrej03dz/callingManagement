@@ -27,7 +27,7 @@ class NumberController extends Controller
 
         $role = Role::where('name', 'caller')->first();
         $users = $role->users;
-        $numbers = Number::where('assigned', '0')->paginate(10);
+        $numbers = Number::where('assigned', '0')->get();
 
         return view('dashboard.number.index', compact('numbers', 'users'));
     }

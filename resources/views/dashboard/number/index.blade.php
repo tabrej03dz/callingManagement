@@ -10,16 +10,24 @@
             </div>
             <!-- /.card-header -->
 
-            <div class="form-check">
-                <div class="form-group">
-                    <label>Select</label>
-                    <select class="form-control" name="user_id">
-                        <option value="">Select User</option>
-                        @foreach($users as $user)
-                            <option value="{{$user->id}}">{{$user->name}}</option>
-                        @endforeach
-                    </select>
-                    <input type="submit" value="Assign" class="btn btn-success">
+            <div class="card-body">
+                <div class="form-row align-items-center">
+                    <div class="col-auto">
+                        <label for="userSelect" class="col-form-label">Select User</label>
+                        <select class="form-control" id="userSelect" name="user_id">
+                            <option value="">Select User</option>
+                            @foreach($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <label for="roleSelect" class="col-form-label">Item number</label>
+                        <input type="number" class="form-control" name="items">
+                    </div>
+                    <div class="col-auto mt-4">
+                        <input type="submit" value="Assign" class="btn btn-success">
+                    </div>
                 </div>
             </div>
 
@@ -38,7 +46,6 @@
                         <th>Phone Number</th>
                         <th>City</th>
                         <th>Action</th>
-    {{--                    <th>CSS grade</th>--}}
                     </tr>
                     </thead>
                     <tbody>
@@ -69,10 +76,10 @@
 
     <!-- page script -->
     <script>
-
         function selectAll(){
             alert(this.value);
         }
+
 
         $(function () {
             $("#example1").DataTable({
