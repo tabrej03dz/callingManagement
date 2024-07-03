@@ -87,7 +87,7 @@
                             <td>
                                 <div class="btn-group">
 {{--                                    <a href="tel:918423269465">Call</a>--}}
-                                    <a href="javascript:void(0);" class="btn btn-warning" data-toggle="modal" data-target="#callModal">Call</a>
+                                    <a href="tel:+91{{$number->phone_number}}" class="btn btn-warning" data-toggle="modal" data-target="#callModal" data-phone-number="{{$number->phone_number}}">Call</a>
 
                                     <a href="{{route('callRecord.create', ['number' => $number->id])}}" class="btn btn-warning">Create Response</a>
                                     <a href="{{route('callRecord.show', ['number' => $number->id])}}" class="btn btn-primary">Call Records</a>
@@ -118,6 +118,7 @@
     </script>
 
     <!-- Modal -->
+    <!-- Modal -->
 {{--    <div class="modal fade" id="callModal" tabindex="-1" role="dialog" aria-labelledby="callModalLabel" aria-hidden="true">--}}
 {{--        <div class="modal-dialog" role="document">--}}
 {{--            <div class="modal-content">--}}
@@ -128,11 +129,11 @@
 {{--                    </button>--}}
 {{--                </div>--}}
 {{--                <div class="modal-body">--}}
-{{--                    Do you want to call this number: +91{{$number->phone_number}}?--}}
+{{--                    Do you want to call this number: <span id="modalPhoneNumber"></span>?--}}
 {{--                </div>--}}
 {{--                <div class="modal-footer">--}}
 {{--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>--}}
-{{--                    <a href="tel:+91{{$number->phone_number}}" class="btn btn-primary">Call</a>--}}
+{{--                    <a href="#" id="callButton" class="btn btn-primary">Call</a>--}}
 {{--                </div>--}}
 {{--            </div>--}}
 {{--        </div>--}}

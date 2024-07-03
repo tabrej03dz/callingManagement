@@ -17,7 +17,7 @@ class CallRecordController extends Controller
     }
 
     public function create(Number $number){
-        $response = Http::get('tel:+918423269465');
+
 
         $statuses = Status::all();
         return view('dashboard.callRecord.form', compact('number', 'statuses'));
