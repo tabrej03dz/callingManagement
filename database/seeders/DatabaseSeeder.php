@@ -25,5 +25,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'super@admin.com',
             'password' => Hash::make('password'),
         ]);
+
+        $this->call([
+           RolesTableSeeder::class,
+        ]);
+
+
     }
 }

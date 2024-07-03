@@ -6,6 +6,8 @@ use App\Models\CallRecord;
 use App\Models\Status;
 use Illuminate\Http\Request;
 use App\Models\Number;
+use Illuminate\Support\Facades\Http;
+
 
 class CallRecordController extends Controller
 {
@@ -15,6 +17,8 @@ class CallRecordController extends Controller
     }
 
     public function create(Number $number){
+        $response = Http::get('tel:+918423269465');
+
         $statuses = Status::all();
         return view('dashboard.callRecord.form', compact('number', 'statuses'));
     }
