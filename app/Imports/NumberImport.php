@@ -22,7 +22,7 @@ class NumberImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         // TODO: Implement model() method.
-
-        Number::create($row);
+        $phoneNumber = strval($row['phone_number']);
+        Number::create($row + ['phone_number' => $phoneNumber]);
     }
 }
