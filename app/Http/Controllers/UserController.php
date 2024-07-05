@@ -58,4 +58,8 @@ class UserController extends Controller
         $user->delete();
         return back()->with('success', 'Deleted successfully');
     }
+
+    public function userAssignedNumbers(User $user){
+        return view('dashboard.user.assignedNumbers', compact('user'));
+    }
 }

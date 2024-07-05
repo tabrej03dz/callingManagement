@@ -15,7 +15,9 @@ class NumberController extends Controller
 {
     public function index(){
         $numbers = Number::all();
-        return view('dashboard.number.all', compact('numbers'));
+        $role = Role::where('name', 'calling team')->first();
+        $users = $role->users;
+        return view('dashboard.number.all', compact('numbers', 'users'));
     }
 
     public function notAssigned(){
@@ -59,7 +61,7 @@ class NumberController extends Controller
     }
 
     public function assignedNumbers(){
-        if (auth()->user()->hasRole('caller')){
+        if (auth()->user()->hasRole('calling team')){
             $userNumebrs = auth()->user()->userNumbers->pluck('number_id');
             $numbers = Number::whereIn('id', $userNumebrs)->get();
         }else{
@@ -67,4 +69,6 @@ class NumberController extends Controller
         }
         return view('dashboard.number.assigned', compact('numbers'));
     }
+
+
 }

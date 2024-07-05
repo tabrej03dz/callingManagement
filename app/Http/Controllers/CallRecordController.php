@@ -17,18 +17,20 @@ class CallRecordController extends Controller
     }
 
     public function create(Number $number){
-
-
-        $statuses = Status::all();
-        return view('dashboard.callRecord.form', compact('number', 'statuses'));
+        return view('dashboard.callRecord.form', compact('number'));
     }
 
     public function store(Request $request, Number $number){
         $request->validate([
-            'status_id' => 'required',
+            'number_status' => '',
+            'status' => '',
             'description' => '',
-
+            'have_to_call' => '',
         ]);
+        if ($request->number_status){
+            $number->status = $request->number_status;
+            $number->save();
+        }
         CallRecord::create($request->all() + ['number_id' => $number->id, 'user_id' => auth()->user()->id]);
         return redirect('number/assigned')->with('success', 'record created successfully');
     }

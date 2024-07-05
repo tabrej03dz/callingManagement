@@ -24,6 +24,7 @@
                         <div class="btn-group">
                             <a href="{{route('user.edit', ['user' => $user])}}" class="btn btn-primary">Edit</a>
                             <a href="{{route('user.delete', ['user' => $user])}}" class="btn btn-danger">Delete</a>
+                            <a href="{{route('user.assignedNumbers', ['user' => $user])}}" class="btn btn-danger">Assigned Numbers</a>
                         </div>
                     </td>
 {{--                    <td>--}}

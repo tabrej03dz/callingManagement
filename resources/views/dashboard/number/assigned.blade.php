@@ -1,5 +1,6 @@
 @extends('dash_layouts.aap', ['title' => 'Assigned Numbers'])
 @section('content')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 
     <!-- /.card -->
@@ -37,6 +38,7 @@
                         <th>Business Name</th>
                         <th>Phone Number</th>
                         <th>City</th>
+                        <th>Status</th>
                         <th>Response</th>
                         <th>Description</th>
                         <th>Last Call</th>
@@ -69,11 +71,15 @@
                             </td>
                             <td>{{$number->phone_number}}</td>
                             <td>{{$number->city}}</td>
-                            <td>{{$record?->status->name}}</td>
+                            <td>{{$number->status}}</td>
+                            <td>{{$record?->status}}</td>
                             <td>{{$record?->description}}</td>
                             <td>{{$record?->created_at}}</td>
                             <td>{{$record?->have_to_call}}</td>
                             <td>{{$number->callRecords->count()}}</td>
+                            <td>
+                                <div class="qr-code" data-phone="{{$number->phone_number}}"></div>
+                            </td>
                             @role('super_admin|admin')
                             <td>
                                 <ul style="list-style: none; padding: 0px;">
@@ -87,8 +93,7 @@
                             <td>
                                 <div class="btn-group">
 {{--                                    <a href="tel:918423269465">Call</a>--}}
-                                    <a href="tel:+91{{$number->phone_number}}" class="btn btn-warning" data-toggle="modal" data-target="#callModal" data-phone-number="{{$number->phone_number}}">Call</a>
-
+{{--                                    <a href="tel:+91{{$number->phone_number}}" class="btn btn-warning" data-toggle="modal" data-target="#callModal" data-phone-number="{{$number->phone_number}}">Call</a>--}}
                                     <a href="{{route('callRecord.create', ['number' => $number->id])}}" class="btn btn-warning">Create Response</a>
                                     <a href="{{route('callRecord.show', ['number' => $number->id])}}" class="btn btn-primary">Call Records</a>
 {{--                                    <a href="tel" class="btn btn-primary">Call Records</a>--}}
@@ -117,28 +122,17 @@
         });
     </script>
 
-    <!-- Modal -->
-    <!-- Modal -->
-{{--    <div class="modal fade" id="callModal" tabindex="-1" role="dialog" aria-labelledby="callModalLabel" aria-hidden="true">--}}
-{{--        <div class="modal-dialog" role="document">--}}
-{{--            <div class="modal-content">--}}
-{{--                <div class="modal-header">--}}
-{{--                    <h5 class="modal-title" id="callModalLabel">Call Confirmation</h5>--}}
-{{--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-{{--                        <span aria-hidden="true">&times;</span>--}}
-{{--                    </button>--}}
-{{--                </div>--}}
-{{--                <div class="modal-body">--}}
-{{--                    Do you want to call this number: <span id="modalPhoneNumber"></span>?--}}
-{{--                </div>--}}
-{{--                <div class="modal-footer">--}}
-{{--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>--}}
-{{--                    <a href="#" id="callButton" class="btn btn-primary">Call</a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('.qr-code').forEach(function(element) {
+                var phoneNumber = element.getAttribute('data-phone');
+                new QRCode(element, {
+                    text: 'tel:' + phoneNumber,
+                    width: 100,
+                    height: 100
+                });
+            });
+        });
+    </script>
 
-
-{{--    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>--}}
 @endsection

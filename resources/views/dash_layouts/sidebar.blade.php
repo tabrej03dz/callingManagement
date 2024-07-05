@@ -135,23 +135,23 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>
-                                Status
+                                Reports
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
+                        @php
+                            $callingTeam = App\Models\User::role('calling team')->get();
+                        @endphp
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{route('status.index')}}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Index</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('status.create')}}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Create Status</p>
-                                </a>
-                            </li>
+                            {{--                        @role('admin|super_admin')--}}
+                            @foreach($callingTeam as $member)
+                                <li class="nav-item">
+                                    <a href="{{route('report.user', ['user' => $member->id])}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>{{$member->name}}</p>
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </li>
                 @endrole

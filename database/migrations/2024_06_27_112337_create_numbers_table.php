@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('phone_number');
             $table->string('city');
             $table->enum('assigned', ['0', '1'])->default('0');
+            $table->enum('status', ['interested', 'not interested', 'wrong number', null])->nullable();
             $table->timestamps();
         });
     }
