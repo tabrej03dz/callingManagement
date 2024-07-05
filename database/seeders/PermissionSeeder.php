@@ -29,5 +29,6 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'assign permission']);
         Permission::create(['name' => 'show status']);
         Permission::create(['name' => 'create status']);
+        Permission::create(['name' => 'show report']);
     }
 }
