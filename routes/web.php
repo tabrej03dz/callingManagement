@@ -57,6 +57,8 @@ Route::middleware('auth')->group(function () {
        Route::post('update/{user}', [UserController::class, 'update'])->name('update');
        Route::get('delete/{user}', [UserController::class, 'delete'])->name('delete');
        Route::get('assignedNumbers/{user}', [UserController::class, 'userAssignedNumbers'])->name('assignedNumbers');
+       Route::get('permissions/{user}', [UserController::class, 'userPermission'])->name('permissions');
+       Route::get('permissionRemove/{permission}/{user}', [UserController::class, 'permissionRemove'])->name('permissionRemove');
     });
 
     Route::prefix('role')->name('role.')->group(function(){
@@ -64,6 +66,8 @@ Route::middleware('auth')->group(function () {
        Route::get('create', [RoleController::class, 'create'])->name('create');
        Route::post('store', [RoleController::class, 'store'])->name('store');
        Route::get('delete/{role}', [RoleController::class, 'delete'])->name('delete');
+       Route::get('permission/{role}', [RoleController::class, 'rolePermission'])->name('permission');
+       Route::get('permissionRemove/{permission}/{role}', [RoleController::class, 'permissionRemove'])->name('permissionRemove');
     });
 
     Route::prefix('permission')->name('permission.')->group(function(){

@@ -44,6 +44,7 @@
                         <th>Last Call</th>
                         <th>Have to call</th>
                         <th>Count</th>
+                        <th>QR</th>
                         @role('super_admin')
                             <th>Assigned User</th>
                         @endrole

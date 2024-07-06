@@ -20,6 +20,7 @@
                         <div class="btn-group">
 {{--                            <a href="{{route('role.edit', ['role' => $role])}}" class="btn btn-primary">Edit</a>--}}
                             <a href="{{route('role.delete', ['role' => $role])}}" class="btn btn-danger">Delete</a>
+                            <a href="{{route('role.permission', ['role' => $role])}}" class="btn btn-danger">Permission</a>
                         </div>
                     </td>
                 </tr>

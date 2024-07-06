@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class PermissionSeeder extends Seeder
 {
@@ -30,5 +31,9 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'show status']);
         Permission::create(['name' => 'create status']);
         Permission::create(['name' => 'show report']);
+
+        $superAdmin = Role::findByName('super_admin');
+        $permissions = Permission::all();
+        $superAdmin->syncPermissions($permissions);
     }
 }
