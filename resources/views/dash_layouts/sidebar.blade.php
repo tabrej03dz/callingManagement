@@ -158,7 +158,9 @@
                             </p>
                         </a>
                         @php
-                            $callingTeam = App\Models\User::role('calling team')->get();
+                            $callingTeam = App\Models\User::whereDoesntHave('roles', function($query) {
+                                $query->where('name', 'super_admin');
+                            })->get();
                         @endphp
                         <ul class="nav nav-treeview">
                             {{--                        @role('admin|super_admin')--}}

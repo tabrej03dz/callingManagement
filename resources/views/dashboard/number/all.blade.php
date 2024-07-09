@@ -10,14 +10,32 @@
                     <form action="{{route('number.unAssign')}}" method="post">
                         @csrf
                         <div class="form-group">
-                            <ul class="list-unstyled">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Assigned Numbers</th>
+                                    <th scope="col">Assigned User</th>
+                                </tr>
+                                </thead>
+                                <tbody>
                                 @foreach(session('alreadyAssigned') as $assigned)
-                                    <li class="d-flex align-items-center mb-2">
-                                        <input type="checkbox" name="alreadyAssignedNumbers[]" hidden checked value="{{$assigned->id}}" class="mr-2">
-                                        <span>{{$assigned->number->phone_number}}</span>
-                                    </li>
+                                    <tr>
+                                        <td class="d-flex align-items-center">
+                                            <input type="checkbox" name="alreadyAssignedNumbers[]" hidden checked value="{{$assigned->id}}" class="mr-2">
+                                            <span>{{$assigned->number->phone_number}}</span>
+                                        </td>
+                                        <td>
+                                            @foreach($assigned->number->userNumbers as $userNumber)
+                                                <span>Name: {{$userNumber->user?->name}}, Assigned At: {{$userNumber->assigned_at}}, Assigned By: {{$userNumber->assignedBy?->name}}</span>
+                                                <br>
+                                            @endforeach
+
+                                        </td>
+                                    </tr>
                                 @endforeach
-                            </ul>
+                                </tbody>
+                            </table>
+
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-danger mr-2" value="Cancel">
@@ -81,7 +99,6 @@
                         <th>Business Name</th>
                         <th>Phone Number</th>
                         <th>City</th>
-                        <th>Status</th>
                         <th>Assigned User</th>
                         {{--                    <th>CSS grade</th>--}}
                     </tr>
@@ -100,7 +117,6 @@
                             </td>
                             <td>{{$number->phone_number}}</td>
                             <td>{{$number->city}}</td>
-                            <td>{{$number->assigned == '1' ? 'Assigned' : 'Not Assigned'}}</td>
                             <td>
                                 @foreach($number->userNumbers as $user)
 

@@ -47,4 +47,8 @@ class User extends Authenticatable
     public function userNumbers(){
         return $this->hasMany(UserNumber::class, 'user_id');
     }
+
+    public function numbersAssignedToOthers(){
+        return $this->hasMany(UserNumber::class, 'assigned_by');
+    }
 }

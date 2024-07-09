@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CallRecord;
 use App\Models\Status;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Number;
 use Illuminate\Support\Facades\Http;
@@ -39,5 +40,14 @@ class CallRecordController extends Controller
         $callRecord = CallRecord::find($record);
         $callRecord->update(['recalled' => 'true']);
         return back()->with('success', 'Mark As Recalled');
+    }
+
+    public function dayWise(Request $request){
+        if($request->date){
+            $callRecords = CallRecord::whereDate('created_at', $request->date)->get();
+        }else{
+            $callRecords = CallRecord::whereDate('created_at', Carbon::today())->get();
+        }
+        return view('dashboard.callRecord.dayWise', compact('callRecords'));
     }
 }

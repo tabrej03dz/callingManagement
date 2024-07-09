@@ -13,15 +13,13 @@
             <table id="example1" class="table table-bordered table-striped" >
                 <thead>
                 <tr>
-                    <th>Business Name</th>
                     <th>Phone Number</th>
-                    <th>City</th>
                     <th>Response</th>
                     <th>Description</th>
                     <th>Last Call</th>
                     <th>Have to call</th>
                     <th>Count</th>
-                    @role('super_admin')
+                    @role('super_admin|admin')
                     <th>Assigned User</th>
                     @endrole
                     <th>Action</th>
@@ -36,12 +34,14 @@
                     @endphp
                     <tr>
                         <td>{{$number->number->phone_number}}</td>
-                        <td>{{$number->number->city}}</td>
-                        <td>{{$record?->status->name}}</td>
+                        <td>{{$record?->response}}</td>
                         <td>{{$record?->description}}</td>
                         <td>{{$record?->created_at}}</td>
                         <td>{{$record?->have_to_call}}</td>
                         <td>{{$number->number->callRecords->count()}}</td>
+                        @role('super_admin|admin')
+                            <td>{{$number->user->name}}</td>
+                        @endrole
                         <td>
                             <div class="btn-group">
                                 <a href="{{route('callRecord.show', ['number' => $number->id])}}" class="btn btn-primary">Call Records</a>

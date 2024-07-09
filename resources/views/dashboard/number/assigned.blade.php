@@ -72,7 +72,14 @@
                             </td>
                             <td>{{$number->phone_number}}</td>
                             <td>{{$number->city}}</td>
-                            <td>{{$number->status}}</td>
+                            <td>
+                                <select name="status" id="statusDropdown" onchange="updateStatus(this)">
+                                    <option value="">Select Status</option>
+                                    <option value="wrong number">Wrong Number</option>
+                                    <option value="not interested">Not Interested</option>
+                                    <option value="interested">Interested</option>
+                                </select>
+                            </td>
                             <td>{{$record?->status}}</td>
                             <td>{{$record?->description}}</td>
                             <td>{{$record?->created_at}}</td>
@@ -111,6 +118,16 @@
 
 
     <script>
+        function updateStatus(select) {
+            var status = select.value;
+            var numberId = {{ $number->id }}; // Replace this with the appropriate variable to get the number ID
+            if (status) {
+                var url = "{{ route('number.status', ['number' => ':number', 'status' => ':status']) }}";
+                url = url.replace(':number', numberId).replace(':status', status);
+                window.location.href = url;
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             const selectAllCheckbox = document.getElementById('selectAll');
             const checkboxes = document.querySelectorAll('input[name="numbers[]"]');
@@ -121,9 +138,7 @@
                 });
             });
         });
-    </script>
 
-    <script>
         document.addEventListener("DOMContentLoaded", function() {
             document.querySelectorAll('.qr-code').forEach(function(element) {
                 var phoneNumber = element.getAttribute('data-phone');

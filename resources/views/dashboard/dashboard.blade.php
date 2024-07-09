@@ -27,7 +27,7 @@
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('number.statusWise')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -42,7 +42,7 @@
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('number.statusWise', ['status' => 'interested'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -57,7 +57,7 @@
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('number.statusWise', ['status' => 'not interested'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -71,7 +71,7 @@
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('number.statusWise', ['status' => 'wrong number'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
 
@@ -88,7 +88,7 @@
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('callRecord.dayWise')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -319,32 +319,32 @@
 
                     <!-- Map card -->
                     <div class="card bg-gradient-primary">
-                        <div class="card-header border-0">
-                            <h3 class="card-title">
-                                <i class="fas fa-map-marker-alt mr-1"></i>
-                                Visitors
-                            </h3>
-                            <!-- card tools -->
-                            <div class="card-tools">
-                                <button type="button"
-                                        class="btn btn-primary btn-sm daterange"
-                                        data-toggle="tooltip"
-                                        title="Date range">
-                                    <i class="far fa-calendar-alt"></i>
-                                </button>
-                                <button type="button"
-                                        class="btn btn-primary btn-sm"
-                                        data-card-widget="collapse"
-                                        data-toggle="tooltip"
-                                        title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                            <!-- /.card-tools -->
-                        </div>
-                        <div class="card-body">
-                            <div id="world-map" style="height: 250px; width: 100%;"></div>
-                        </div>
+{{--                        <div class="card-header border-0">--}}
+{{--                            <h3 class="card-title">--}}
+{{--                                <i class="fas fa-map-marker-alt mr-1"></i>--}}
+{{--                                Visitors--}}
+{{--                            </h3>--}}
+{{--                            <!-- card tools -->--}}
+{{--                            <div class="card-tools">--}}
+{{--                                <button type="button"--}}
+{{--                                        class="btn btn-primary btn-sm daterange"--}}
+{{--                                        data-toggle="tooltip"--}}
+{{--                                        title="Date range">--}}
+{{--                                    <i class="far fa-calendar-alt"></i>--}}
+{{--                                </button>--}}
+{{--                                <button type="button"--}}
+{{--                                        class="btn btn-primary btn-sm"--}}
+{{--                                        data-card-widget="collapse"--}}
+{{--                                        data-toggle="tooltip"--}}
+{{--                                        title="Collapse">--}}
+{{--                                    <i class="fas fa-minus"></i>--}}
+{{--                                </button>--}}
+{{--                            </div>--}}
+{{--                            <!-- /.card-tools -->--}}
+{{--                        </div>--}}
+{{--                        <div class="card-body">--}}
+{{--                            <div id="world-map" style="height: 250px; width: 100%;"></div>--}}
+{{--                        </div>--}}
                         <!-- /.card-body-->
                         <div class="card-footer bg-transparent">
                             <div class="row">

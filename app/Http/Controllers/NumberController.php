@@ -70,5 +70,19 @@ class NumberController extends Controller
         return view('dashboard.number.assigned', compact('numbers'));
     }
 
+    public function status(Number $number, $status){
+        $number->status = $status;
+        $number->save();
+        return back()->with('success', 'status changed successfully');
+    }
+
+    public function statusWise($status = null){
+        if ($status == null){
+            $numbers = Number::all();
+        }else{
+            $numbers = Number::where('status', $status)->get();
+        }
+        return view('dashboard.number.statusWise', compact('numbers', 'status'));
+    }
 
 }

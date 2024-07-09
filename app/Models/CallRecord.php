@@ -18,4 +18,8 @@ class CallRecord extends Model
     public function number(){
         return $this->belongsTo(Number::class, 'number_id');
     }
+
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

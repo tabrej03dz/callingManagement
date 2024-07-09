@@ -40,6 +40,9 @@ Route::middleware('auth')->group(function () {
         Route::post('assignToUser', [UserNumberController::class, 'assign'])->name('assignToUser');
         Route::get('assigned', [NumberController::class, 'assignedNumbers'])->name('assigned');
         Route::post('unAssign', [UserNumberController::class, 'unAssignTheNumber'])->name('unAssign');
+
+        Route::get('status/{number}/{status}', [NumberController::class, 'status'])->name('status');
+        Route::get('statusWise/{status?}', [NumberController::class, 'statusWise'])->name('statusWise');
     });
 
     Route::prefix('callRecord')->name('callRecord.')->group(function(){
@@ -47,6 +50,7 @@ Route::middleware('auth')->group(function () {
         Route::get('create/{number}', [CallRecordController::class, 'create'])->name('create');
         Route::post('store/{number}', [CallRecordController::class, 'store'])->name('store');
         Route::get('markAsRecalled/{record}', [CallRecordController::class, 'markAsRecalled'])->name('markAsRecalled');
+        Route::get('dayWise', [CallRecordController::class, 'dayWise'])->name('dayWise');
     });
 
     Route::prefix('user')->name('user.')->group(function(){
@@ -59,6 +63,7 @@ Route::middleware('auth')->group(function () {
        Route::get('assignedNumbers/{user}', [UserController::class, 'userAssignedNumbers'])->name('assignedNumbers');
        Route::get('permissions/{user}', [UserController::class, 'userPermission'])->name('permissions');
        Route::get('permissionRemove/{permission}/{user}', [UserController::class, 'permissionRemove'])->name('permissionRemove');
+       Route::get('unAssignNumber/{userNumber}', [UserNumberController::class, 'unAssign'])->name('unAssignNumber');
     });
 
     Route::prefix('role')->name('role.')->group(function(){
