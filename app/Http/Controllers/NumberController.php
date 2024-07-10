@@ -14,7 +14,7 @@ use Spatie\Permission\Models\Role;
 class NumberController extends Controller
 {
     public function index(){
-        $numbers = Number::where('status', null)->get();
+        $numbers = Number::where('status', null)->paginate(100);
 //        dd($numbers);
         $role = Role::where('name', 'calling team')->first();
         $users = $role->users;

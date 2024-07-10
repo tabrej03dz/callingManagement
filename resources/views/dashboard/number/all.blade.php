@@ -133,7 +133,7 @@
             </div>
         <!-- /.card-body -->
         </form>
-{{--        {{$numbers->links()}}--}}
+        {{$numbers->links()}}
     </div>
     <!-- /.card -->
     <script>
