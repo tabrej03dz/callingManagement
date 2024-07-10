@@ -28,10 +28,10 @@ class NumberController extends Controller
 //        $user->assignRole('caller');
 
 
-        $role = Role::where('name', 'caller')->first();
+//        $role = Role::where('name', 'caller')->first();
 
 
-        $role = Role::where('name', 'calling')->first();
+        $role = Role::where('name', 'calling team')->first();
 
         $users = $role->users;
         $numbers = Number::where('assigned', '0')->get();

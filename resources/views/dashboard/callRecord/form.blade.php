@@ -34,7 +34,6 @@
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
