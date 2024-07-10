@@ -51,7 +51,7 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-success">
+                    <div class="small-box bg-primary">
                         <div class="inner">
                             <h3>{{$numbers->where('status', 'interested')->count()}}<sup style="font-size: 20px"></sup></h3>
 
@@ -66,7 +66,7 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-warning">
+                    <div class="small-box bg-danger">
                         <div class="inner">
                             <h3>{{$numbers->where('status', 'not interested')->count()}}</h3>
 
@@ -95,7 +95,7 @@
 
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-dark">
+                    <div class="small-box bg-success">
                         <div class="inner">
                             <h3>{{$numbers->where('status', 'converted')->count()}}</h3>
                             <p>Converted</p>
@@ -111,7 +111,7 @@
 
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-dark">
+                    <div class="small-box bg-secondary">
                         <div class="inner">
                             <h3>{{$numbers->where('status', 'call back')->count()}}</h3>
                             <p>Today's Call back</p>
@@ -125,7 +125,7 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-dark">
+                    <div class="small-box bg-warning">
                         <div class="inner">
                             <h3>{{$numbers->where('status', 'call not pick')->count()}}</h3>
                             <p>Call not pic
