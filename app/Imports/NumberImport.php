@@ -24,15 +24,17 @@ class NumberImport implements ToModel, WithHeadingRow
         // TODO: Implement model() method.
         // Ensure phone number is treated as a string
         $phoneNumber = (string) $row['phone_number'];
-//     dd($phoneNumber);
+
+        if(!Number::where('phone_number', $phoneNumber)->exists()){
+            $number = Number::create($row);
+            $number->phone_number = $phoneNumber;
+            $number->save();
+        }
         // Create the Number model
-        $number = Number::create($row);
 
         // Assign the phone number explicitly
-        $number->phone_number = $phoneNumber;
 
         // Save the model
-        $number->save();
 
 
     }
