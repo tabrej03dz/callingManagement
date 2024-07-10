@@ -44,7 +44,7 @@ class NumberController extends Controller
     }
 
     public function numberUpload(Request $request){
-        dd($request->all());
+//        dd($request->all());
         $request->validate([
             'file' => 'required|mimes:xlsx,xls|max:2048',
         ]);
