@@ -27,12 +27,12 @@ class NumberController extends Controller
 //        $role = Role::create(['name' => 'caller']);
 //        $user->assignRole('caller');
 
-<<<<<<< HEAD
+
         $role = Role::where('name', 'caller')->first();
-=======
+
 
         $role = Role::where('name', 'calling')->first();
->>>>>>> 8be27e9277a17f14512a3df5e2ed0f918ee18fae
+
         $users = $role->users;
         $numbers = Number::where('assigned', '0')->get();
 
