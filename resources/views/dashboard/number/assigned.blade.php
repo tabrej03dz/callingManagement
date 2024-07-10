@@ -188,5 +188,4 @@
         });
     </script>
 
->>>>>>> 8be27e9277a17f14512a3df5e2ed0f918ee18fae
 @endsection
