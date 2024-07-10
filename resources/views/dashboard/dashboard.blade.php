@@ -16,6 +16,8 @@
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="row">
+                @can('show all numbers')
+
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
                     <div class="small-box bg-info">
@@ -30,6 +32,22 @@
                         <a href="{{route('number.statusWise')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
+                @else
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>{{auth()->user()->userNumbers()->count()}}</h3>
+
+                                <p>Total Assigned Numbers</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag"></i>
+                            </div>
+                            <a href="{{route('number.statusWise')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                @endcan
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
