@@ -45,7 +45,6 @@
                         <th>Business Name</th>
                         <th>Phone Number</th>
                         <th>City</th>
-                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -62,7 +61,6 @@
                             </td>
                             <td>{{$number->phone_number}}</td>
                             <td>{{$number->city}}</td>
-                            <td>U</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -73,26 +71,6 @@
     </div>
     <!-- /.card -->
 
-
-    <!-- page script -->
-    <script>
-        $(function () {
-            $("#example1").DataTable({
-                "responsive": true,
-                "autoWidth": false,
-            });
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-        });
-
-    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const selectAllCheckbox = document.getElementById('selectAll');
