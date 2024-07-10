@@ -90,4 +90,23 @@ class NumberController extends Controller
         return view('dashboard.number.statusWise', compact('numbers', 'status'));
     }
 
+    public function addForm(){
+        return view('dashboard.number.addForm');
+    }
+
+    public function saveNumber(Request $request){
+        $request->validate([
+            'business_name' => 'required',
+            'phone_number' => 'required',
+            'city' => 'required',
+        ]);
+        $number = Number::create($request->all() + ['added_by' => auth()->user()->id]);
+
+        if(auth()->user()->role('calling team')){
+            
+        }
+
+        return back()->with('success', 'Number Added Successfully');
+    }
+
 }

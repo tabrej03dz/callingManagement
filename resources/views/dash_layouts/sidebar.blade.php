@@ -69,6 +69,14 @@
                             </a>
                         </li>
                         @endcan
+                        @can('add number')
+                            <li class="nav-item">
+                                <a href="{{route('number.add')}}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add Number</p>
+                                </a>
+                            </li>
+                        @endcan
                         @can('show assign numbers')
                         <li class="nav-item">
                             <a href="{{route('number.assigned')}}" class="nav-link">
