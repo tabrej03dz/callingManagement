@@ -117,7 +117,6 @@
     <!-- /.card -->
 
 
-<<<<<<< HEAD
 {{--    <script>--}}
 {{--        document.addEventListener('DOMContentLoaded', function () {--}}
 {{--            const selectAllCheckbox = document.getElementById('selectAll');--}}
@@ -154,17 +153,17 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-=======
+
     <script>
-        function updateStatus(select) {
-            var status = select.value;
-            var numberId = {{ $number->id }}; // Replace this with the appropriate variable to get the number ID
-            if (status) {
-                var url = "{{ route('number.status', ['number' => ':number', 'status' => ':status']) }}";
-                url = url.replace(':number', numberId).replace(':status', status);
-                window.location.href = url;
-            }
-        }
+        {{--function updateStatus(select) {--}}
+        {{--    var status = select.value;--}}
+        {{--    var numberId = {{ $number->id }}; // Replace this with the appropriate variable to get the number ID--}}
+        {{--    if (status) {--}}
+        {{--        var url = "{{ route('number.status', ['number' => ':number', 'status' => ':status']) }}";--}}
+        {{--        url = url.replace(':number', numberId).replace(':status', status);--}}
+        {{--        window.location.href = url;--}}
+        {{--    }--}}
+        {{--}--}}
 
         document.addEventListener('DOMContentLoaded', function () {
             const selectAllCheckbox = document.getElementById('selectAll');
