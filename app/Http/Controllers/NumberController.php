@@ -24,7 +24,6 @@ class NumberController extends Controller
 //        $role = Role::create(['name' => 'caller']);
 //        $user->assignRole('caller');
 
-
         $role = Role::where('name', 'caller')->first();
         $users = $role->users;
         $numbers = Number::where('assigned', '0')->get();
