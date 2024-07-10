@@ -44,6 +44,7 @@ class NumberController extends Controller
     }
 
     public function numberUpload(Request $request){
+//        dd($request->all());
         $request->validate([
             'file' => 'required|mimes:xlsx,xls|max:2048',
         ]);
@@ -103,7 +104,7 @@ class NumberController extends Controller
         $number = Number::create($request->all() + ['added_by' => auth()->user()->id]);
 
         if(auth()->user()->role('calling team')){
-            
+
         }
 
         return back()->with('success', 'Number Added Successfully');
