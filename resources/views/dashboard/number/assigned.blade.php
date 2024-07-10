@@ -70,7 +70,9 @@
                             <td>
                                 <label class="form-check-label" for="{{$number->id}}">{{$number->business_name}}</label>
                             </td>
-                            <td>{{$number->phone_number}}</td>
+                            <td>
+                                <a href="tel:{{$number->phone_number}}">{{$number->phone_number}}</a>
+                            </td>
                             <td>{{$number->city}}</td>
                             <td>
                                 <select name="status" id="statusDropdown" onchange="updateStatus(this)">
