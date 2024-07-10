@@ -2,7 +2,57 @@
 @section('content')
 
     <!-- /.card -->
+    @if (session()->has('alreadyAssigned') && session('alreadyAssigned'))
+        <div class="card">
+            <div class="card-head">
+                <h6 class="ml-4 mt-3 mb-0">These numbers had been assigned to another user</h6>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <form action="{{route('number.unAssign')}}" method="post">
+                        @csrf
+                        <div class="form-group">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Assigned Numbers</th>
+                                    <th scope="col">Assigned User</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach(session('alreadyAssigned') as $assigned)
+                                    <tr>
+                                        <td class="d-flex align-items-center">
+                                            <input type="checkbox" name="alreadyAssignedNumbers[]" hidden checked value="{{$assigned->id}}" class="mr-2">
+                                            <span>{{$assigned->number->phone_number}}</span>
+                                        </td>
+                                        <td>
+                                            @foreach($assigned->number->userNumbers as $userNumber)
+                                                <span>Name: {{$userNumber->user?->name}}, Assigned At: {{$userNumber->assigned_at}}, Assigned By: {{$userNumber->assignedBy?->name}}</span>
+                                                <br>
+                                            @endforeach
+
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-danger mr-2" value="Cancel">
+                            <a href="{{route('number.index')}}" class="btn btn-success">Yes! Keep It</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endif
+
+
+    <!-- /.card -->
     <div class="card">
+
         <form action="{{route('number.assignToUser')}}" method="post">
             @csrf
             <div class="card-header">
@@ -22,8 +72,12 @@
                         </select>
                     </div>
                     <div class="col-auto">
-                        <label for="roleSelect" class="col-form-label">Item number</label>
-                        <input type="number" class="form-control" name="items">
+                        <label for="roleSelect" class="col-form-label">Select From</label>
+                        <input type="number" class="form-control" name="from" placeholder="From">
+                    </div>
+                    <div class="col-auto">
+                        <label for="roleSelect" class="col-form-label">Select To</label>
+                        <input type="number" class="form-control" name="to" placeholder="To">
                     </div>
                     <div class="col-auto mt-4">
                         <input type="submit" value="Assign" class="btn btn-success">
