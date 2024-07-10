@@ -44,36 +44,42 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        @role('admin|super_admin')
+                        @can('show all numbers')
                             <li class="nav-item">
                                 <a href="{{route('number.index')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>All Numbers</p>
                                 </a>
                             </li>
+                        @endcan
+                        @can('show not assigned number')
+
                             <li class="nav-item">
                                 <a href="{{route('number.notAssigned')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Not Assigned</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{route('number.upload')}}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Upload Numbers</p>
-                                </a>
-                            </li>
-                        @endrole
-
+                        @endcan
+                        @can('upload numbers')
+                        <li class="nav-item">
+                            <a href="{{route('number.upload')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Upload Numbers</p>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('show assign numbers')
                         <li class="nav-item">
                             <a href="{{route('number.assigned')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Assigned Numbers</p>
                             </a>
                         </li>
+                        @endcan
                     </ul>
                 </li>
-                @role('admin|super_admin')
+                    @can('show all users')
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-edit"></i>
@@ -98,8 +104,11 @@
                             </li>
                         </ul>
                     </li>
+                    @endcan
 
-                    <li class="nav-item has-treeview">
+
+
+                <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>
@@ -109,52 +118,65 @@
                         </a>
                         <ul class="nav nav-treeview">
                             {{--                        @role('admin|super_admin')--}}
+                            @can('show role')
+
                             <li class="nav-item">
                                 <a href="{{route('role.index')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Roles</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            @endcan
+                            @can('create role')
+                                <li class="nav-item">
                                 <a href="{{route('role.create')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Create Role</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            @endcan
+                            @can('show permission')
+                                <li class="nav-item">
                                 <a href="{{route('permission.index')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Permission </p>
                                 </a>
                             </li>
+                            @endcan
 
                         </ul>
                     </li>
+
+                @can('show report')
 
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>
-                                Status
+                                Reports
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
+                        @php
+                            $callingTeam = App\Models\User::whereDoesntHave('roles', function($query) {
+                                $query->where('name', 'super_admin');
+                            })->get();
+                        @endphp
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{route('status.index')}}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Index</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('status.create')}}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Create Status</p>
-                                </a>
-                            </li>
+                            {{--                        @role('admin|super_admin')--}}
+                            @foreach($callingTeam as $member)
+                                <li class="nav-item">
+                                    <a href="{{route('report.user', ['user' => $member->id])}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>{{$member->name}}</p>
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </li>
-                @endrole
+                @endcan
+
+
 
                 <li class="nav-item">
                     <a href="{{route('logout')}}" class="nav-link">

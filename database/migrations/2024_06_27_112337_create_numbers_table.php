@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('numbers', function (Blueprint $table) {
             $table->id();
-            $table->string('business_name');
-            $table->string('phone_number');
-            $table->string('city');
+            $table->string('business_name')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('city')->nullable();
             $table->enum('assigned', ['0', '1'])->default('0');
+            $table->enum('status', ['interested', 'not interested', 'wrong number', 'converted', null])->nullable();
             $table->timestamps();
         });
     }

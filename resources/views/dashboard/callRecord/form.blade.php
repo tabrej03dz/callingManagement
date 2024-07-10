@@ -7,11 +7,19 @@
                     <form role="form" action="{{ route('callRecord.store', ['number' => $number->id]) }}" method="post" enctype="multipart/form-data" >
                         @csrf
                         <div class="form-group mb-3">
-                            <select name="status_id" class="form-control custom-select">
+                            <select name="number_status" class="form-control custom-select">
+                                <option value="">Number Status</option>
+                                <option value="interested">Interested</option>
+                                <option value="not interested">Not Interested</option>
+                                <option value="wrong number">Wrong Number</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <select name="status" class="form-control custom-select">
                                 <option value="">Response</option>
-                                @foreach($statuses as $status)
-                                    <option value="{{ $status->id }}">{{ $status->name }}</option>
-                                @endforeach
+                                <option value="call pick">Call Pick</option>
+                                <option value="call not pick">Call Not Pick</option>
+                                <option value="call back">Call Back</option>
                             </select>
                         </div>
                         <div class="form-group mb-3">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -57,5 +58,19 @@ class UserController extends Controller
     public function delete(User $user){
         $user->delete();
         return back()->with('success', 'Deleted successfully');
+    }
+
+    public function userAssignedNumbers(User $user){
+        return view('dashboard.user.assignedNumbers', compact('user'));
+    }
+
+    public function userPermission(User $user){
+        $permissions = $user->permissions;
+        return view('dashboard.user.permissions', compact('permissions', 'user'));
+    }
+
+    public function permissionRemove(Permission $permission, User $user){
+        $user->revokePermissionTo($permission);
+        return back()->with('success', 'Removed successfully');
     }
 }

@@ -37,6 +37,4 @@ class PermissionController extends Controller
 
 
     }
-
-
 }

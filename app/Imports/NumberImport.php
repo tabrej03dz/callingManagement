@@ -22,7 +22,6 @@ class NumberImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         // TODO: Implement model() method.
-
         Number::create($row);
     }
 }

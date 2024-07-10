@@ -20,14 +20,14 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>150</h3>
+                            <h3>{{$numbers->count()}}</h3>
 
-                            <p>New Orders</p>
+                            <p>Total Numbers</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('number.statusWise')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -35,14 +35,14 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>53<sup style="font-size: 20px">%</sup></h3>
+                            <h3>{{$numbers->where('status', 'interested')->count()}}<sup style="font-size: 20px"></sup></h3>
 
-                            <p>Bounce Rate</p>
+                            <p>Interested</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('number.statusWise', ['status' => 'interested'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -50,14 +50,14 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>44</h3>
+                            <h3>{{$numbers->where('status', 'not interested')->count()}}</h3>
 
-                            <p>User Registrations</p>
+                            <p>Not Interested</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('number.statusWise', ['status' => 'not interested'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -65,14 +65,44 @@
                     <!-- small box -->
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>65</h3>
-
-                            <p>Unique Visitors</p>
+                            <h3>{{$numbers->where('status', 'wrong number')->count()}}</h3>
+                            <p>Wrong Numbers</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('number.statusWise', ['status' => 'wrong number'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3>{{$numbers->where('status', 'converted')->count()}}</h3>
+                            <p>Converted</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="{{route('number.statusWise', ['status' => 'converted'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    @php
+                        $calls = \App\Models\CallRecord::whereDate('created_at', Carbon\Carbon::today())->get();
+                    @endphp
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3>{{$calls->count()}}</h3>
+                            <p>Today's Calls</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="{{route('callRecord.dayWise')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -303,32 +333,32 @@
 
                     <!-- Map card -->
                     <div class="card bg-gradient-primary">
-                        <div class="card-header border-0">
-                            <h3 class="card-title">
-                                <i class="fas fa-map-marker-alt mr-1"></i>
-                                Visitors
-                            </h3>
-                            <!-- card tools -->
-                            <div class="card-tools">
-                                <button type="button"
-                                        class="btn btn-primary btn-sm daterange"
-                                        data-toggle="tooltip"
-                                        title="Date range">
-                                    <i class="far fa-calendar-alt"></i>
-                                </button>
-                                <button type="button"
-                                        class="btn btn-primary btn-sm"
-                                        data-card-widget="collapse"
-                                        data-toggle="tooltip"
-                                        title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                            <!-- /.card-tools -->
-                        </div>
-                        <div class="card-body">
-                            <div id="world-map" style="height: 250px; width: 100%;"></div>
-                        </div>
+{{--                        <div class="card-header border-0">--}}
+{{--                            <h3 class="card-title">--}}
+{{--                                <i class="fas fa-map-marker-alt mr-1"></i>--}}
+{{--                                Visitors--}}
+{{--                            </h3>--}}
+{{--                            <!-- card tools -->--}}
+{{--                            <div class="card-tools">--}}
+{{--                                <button type="button"--}}
+{{--                                        class="btn btn-primary btn-sm daterange"--}}
+{{--                                        data-toggle="tooltip"--}}
+{{--                                        title="Date range">--}}
+{{--                                    <i class="far fa-calendar-alt"></i>--}}
+{{--                                </button>--}}
+{{--                                <button type="button"--}}
+{{--                                        class="btn btn-primary btn-sm"--}}
+{{--                                        data-card-widget="collapse"--}}
+{{--                                        data-toggle="tooltip"--}}
+{{--                                        title="Collapse">--}}
+{{--                                    <i class="fas fa-minus"></i>--}}
+{{--                                </button>--}}
+{{--                            </div>--}}
+{{--                            <!-- /.card-tools -->--}}
+{{--                        </div>--}}
+{{--                        <div class="card-body">--}}
+{{--                            <div id="world-map" style="height: 250px; width: 100%;"></div>--}}
+{{--                        </div>--}}
                         <!-- /.card-body-->
                         <div class="card-footer bg-transparent">
                             <div class="row">

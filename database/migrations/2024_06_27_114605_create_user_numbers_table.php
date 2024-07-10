@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('number_id')->constrained('numbers')->cascadeOnDelete();
+            $table->dateTime('assigned_at');
+            $table->unsignedBigInteger('assigned_by')->nullable();
+            $table->foreign('assigned_by')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
         });
     }

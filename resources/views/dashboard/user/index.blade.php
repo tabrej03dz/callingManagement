@@ -24,14 +24,10 @@
                         <div class="btn-group">
                             <a href="{{route('user.edit', ['user' => $user])}}" class="btn btn-primary">Edit</a>
                             <a href="{{route('user.delete', ['user' => $user])}}" class="btn btn-danger">Delete</a>
+                            <a href="{{route('user.assignedNumbers', ['user' => $user])}}" class="btn btn-danger">Assigned Numbers</a>
+                            <a href="{{route('user.permissions', ['user' => $user])}}" class="btn btn-danger">Permissions</a>
                         </div>
                     </td>
-{{--                    <td>--}}
-{{--                        <div class="progress progress-xs progress-striped active">--}}
-{{--                            <div class="progress-bar bg-success" style="width: 90%"></div>--}}
-{{--                        </div>--}}
-{{--                    </td>--}}
-{{--                    <td><span class="badge bg-success">90%</span></td>--}}
                 </tr>
             @endforeach
             </tbody>

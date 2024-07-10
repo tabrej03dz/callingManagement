@@ -14,8 +14,11 @@ use Spatie\Permission\Models\Role;
 class NumberController extends Controller
 {
     public function index(){
-        $numbers = Number::all();
-        return view('dashboard.number.all', compact('numbers'));
+        $numbers = Number::where('status', null)->paginate(100);
+//        dd($numbers);
+        $role = Role::where('name', 'calling team')->first();
+        $users = $role->users;
+        return view('dashboard.number.all', compact('numbers', 'users'));
     }
 
     public function notAssigned(){
@@ -24,7 +27,12 @@ class NumberController extends Controller
 //        $role = Role::create(['name' => 'caller']);
 //        $user->assignRole('caller');
 
+<<<<<<< HEAD
         $role = Role::where('name', 'caller')->first();
+=======
+
+        $role = Role::where('name', 'calling')->first();
+>>>>>>> 8be27e9277a17f14512a3df5e2ed0f918ee18fae
         $users = $role->users;
         $numbers = Number::where('assigned', '0')->get();
 
@@ -58,7 +66,7 @@ class NumberController extends Controller
     }
 
     public function assignedNumbers(){
-        if (auth()->user()->hasRole('caller')){
+        if (auth()->user()->hasRole('calling team')){
             $userNumebrs = auth()->user()->userNumbers->pluck('number_id');
             $numbers = Number::whereIn('id', $userNumebrs)->get();
         }else{
@@ -66,4 +74,20 @@ class NumberController extends Controller
         }
         return view('dashboard.number.assigned', compact('numbers'));
     }
+
+    public function status(Number $number, $status){
+        $number->status = $status;
+        $number->save();
+        return back()->with('success', 'status changed successfully');
+    }
+
+    public function statusWise($status = null){
+        if ($status == null){
+            $numbers = Number::all();
+        }else{
+            $numbers = Number::where('status', $status)->get();
+        }
+        return view('dashboard.number.statusWise', compact('numbers', 'status'));
+    }
+
 }

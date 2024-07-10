@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\StatusController;
+use App\Http\Controllers\ReportController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,6 +39,10 @@ Route::middleware('auth')->group(function () {
         Route::post('upload', [NumberController::class, 'numberUpload'])->name('upload');
         Route::post('assignToUser', [UserNumberController::class, 'assign'])->name('assignToUser');
         Route::get('assigned', [NumberController::class, 'assignedNumbers'])->name('assigned');
+        Route::post('unAssign', [UserNumberController::class, 'unAssignTheNumber'])->name('unAssign');
+
+        Route::get('status/{number}/{status}', [NumberController::class, 'status'])->name('status');
+        Route::get('statusWise/{status?}', [NumberController::class, 'statusWise'])->name('statusWise');
     });
 
     Route::prefix('callRecord')->name('callRecord.')->group(function(){
@@ -45,6 +50,7 @@ Route::middleware('auth')->group(function () {
         Route::get('create/{number}', [CallRecordController::class, 'create'])->name('create');
         Route::post('store/{number}', [CallRecordController::class, 'store'])->name('store');
         Route::get('markAsRecalled/{record}', [CallRecordController::class, 'markAsRecalled'])->name('markAsRecalled');
+        Route::get('dayWise', [CallRecordController::class, 'dayWise'])->name('dayWise');
     });
 
     Route::prefix('user')->name('user.')->group(function(){
@@ -54,6 +60,10 @@ Route::middleware('auth')->group(function () {
        Route::get('edit/{user}', [UserController::class, 'edit'])->name('edit');
        Route::post('update/{user}', [UserController::class, 'update'])->name('update');
        Route::get('delete/{user}', [UserController::class, 'delete'])->name('delete');
+       Route::get('assignedNumbers/{user}', [UserController::class, 'userAssignedNumbers'])->name('assignedNumbers');
+       Route::get('permissions/{user}', [UserController::class, 'userPermission'])->name('permissions');
+       Route::get('permissionRemove/{permission}/{user}', [UserController::class, 'permissionRemove'])->name('permissionRemove');
+       Route::get('unAssignNumber/{userNumber}', [UserNumberController::class, 'unAssign'])->name('unAssignNumber');
     });
 
     Route::prefix('role')->name('role.')->group(function(){
@@ -61,6 +71,8 @@ Route::middleware('auth')->group(function () {
        Route::get('create', [RoleController::class, 'create'])->name('create');
        Route::post('store', [RoleController::class, 'store'])->name('store');
        Route::get('delete/{role}', [RoleController::class, 'delete'])->name('delete');
+       Route::get('permission/{role}', [RoleController::class, 'rolePermission'])->name('permission');
+       Route::get('permissionRemove/{permission}/{role}', [RoleController::class, 'permissionRemove'])->name('permissionRemove');
     });
 
     Route::prefix('permission')->name('permission.')->group(function(){
@@ -73,6 +85,10 @@ Route::middleware('auth')->group(function () {
         Route::get('create', [StatusController::class, 'create'])->name('create');
         Route::post('store', [StatusController::class, 'store'])->name('store');
         Route::get('delete/{status}', [StatusController::class, 'delete'])->name('delete');
+    });
+
+    Route::prefix('report')->name('report.')->group(function(){
+       Route::get('user/{user}', [ReportController::class, 'userReport'])->name('user');
     });
 });
 

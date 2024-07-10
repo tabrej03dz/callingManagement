@@ -76,11 +76,6 @@
 
     <!-- page script -->
     <script>
-        function selectAll(){
-            alert(this.value);
-        }
-
-
         $(function () {
             $("#example1").DataTable({
                 "responsive": true,

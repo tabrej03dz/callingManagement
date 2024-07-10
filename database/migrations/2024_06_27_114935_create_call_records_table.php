@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('number_id')->constrained('numbers')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('status_id')->constrained('statuses')->cascadeOnDelete();
             $table->text('description')->nullable();
             $table->dateTime('have_to_call')->nullable();
+            $table->enum('status', ['call pick', 'call not pick', 'call back', null])->nullable();
             $table->enum('recalled', ['true', 'false'])->nullable();
             $table->timestamps();
         });
