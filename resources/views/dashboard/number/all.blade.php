@@ -1,5 +1,6 @@
 @extends('dash_layouts.aap', ['title' => 'Numbers'])
 @section('content')
+    <script src="https://cdn.tailwindcss.com"></script>
     @if (session()->has('alreadyAssigned') && session('alreadyAssigned'))
         <div class="card">
             <div class="card-head">
@@ -88,6 +89,7 @@
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
+                        <th>#</th>
                         @role('super_admin|admin')
                         <th>
                             <div class="form-check">
@@ -106,6 +108,7 @@
                     <tbody>
                     @foreach($numbers as $number)
                         <tr>
+                            <td>{{$loop->iteration}}</td>
                             <td>
                                 <div class="form-check">
                                     <input class="form-check-input" name="numbers[]" value="{{$number->id}}" type="checkbox" id="{{$number->id}}" >
@@ -130,6 +133,7 @@
             </div>
         <!-- /.card-body -->
         </form>
+        {{$numbers->links()}}
     </div>
     <!-- /.card -->
     <script>

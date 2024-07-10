@@ -14,7 +14,7 @@ use Spatie\Permission\Models\Role;
 class NumberController extends Controller
 {
     public function index(){
-        $numbers = Number::all();
+        $numbers = Number::paginate(100);
         $role = Role::where('name', 'calling team')->first();
         $users = $role->users;
         return view('dashboard.number.all', compact('numbers', 'users'));
