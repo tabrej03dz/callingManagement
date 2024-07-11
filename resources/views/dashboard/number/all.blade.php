@@ -47,6 +47,25 @@
             </div>
         </div>
     @endif
+    
+    <div class="card">
+        <div class="card-body">
+            <form action="{{route('number.index')}}" method="get" class="form-inline">
+                <div class="form-group mb-2">
+                    <label for="city" class="sr-only">City</label>
+                    <input type="text" class="form-control" id="city" name="city" placeholder="City">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="date" class="sr-only">Date</label>
+                    <input type="date" class="form-control" id="date" name="date" placeholder="Date">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Apply</button>
+                <a href="{{route('number.index')}}" class="btn btn-secondary mb-2 ml-3">Clear</a>
+            </form>
+        </div>
+    </div>
+
+
 
 
     <!-- /.card -->

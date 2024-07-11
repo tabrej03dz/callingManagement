@@ -14,7 +14,7 @@
                     <label for="exampleInputFile">Business Name</label>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="text" name="business_name" class="custom-file-input">
+                            <input type="text" name="business_name" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                     <label for="exampleInputFile">Mobile Number</label>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="text" name="mobile_number" class="custom-file-input">
+                            <input type="text" name="phone_number" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                     <label for="exampleInputFile">City</label>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="text" name="city" class="custom-file-input">
+                            <input type="text" name="city" class="form-control">
                         </div>
                     </div>
                 </div>

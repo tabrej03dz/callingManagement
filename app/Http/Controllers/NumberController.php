@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Number;
 use App\Models\User;
+use App\Models\UserNumber;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Imports\NumberImport;
 use Illuminate\Support\Facades\Hash;
@@ -13,9 +15,20 @@ use Spatie\Permission\Models\Role;
 
 class NumberController extends Controller
 {
-    public function index(){
-        $numbers = Number::where('assigned' , '0')->paginate(100);
-//        dd($numbers);
+    public function index(Request $request){
+
+        $query = Number::query();
+//        dd($query);
+
+        if ($request->filled('city')) {
+            $query->where('city', $request->city);
+        }
+
+        if ($request->filled('date')) {
+            $query->whereDate('created_at', $request->date);
+        }
+
+        $numbers = $query->where('assigned' , '0')->paginate(100);
         $role = Role::where('name', 'calling team')->first();
         $users = $role->users;
         return view('dashboard.number.all', compact('numbers', 'users'));
@@ -101,10 +114,13 @@ class NumberController extends Controller
             'phone_number' => 'required',
             'city' => 'required',
         ]);
+        if (Number::where('phone_number', $request->phone_number)->exists()){
+            return back()->with('error', 'This'.$request->phone_number.'already exists');
+        }
         $number = Number::create($request->all() + ['added_by' => auth()->user()->id]);
 
-        if(auth()->user()->role('calling team')){
-
+        if(auth()->user()->hasRole('calling team')){
+            UserNumber::create(['user_id' => auth()->user()->id, 'number_id' => $number->id, 'assigned_at' => Carbon::now(), 'assigned_by' => auth()->user()->id]);
         }
 
         return back()->with('success', 'Number Added Successfully');

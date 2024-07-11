@@ -69,14 +69,14 @@
                             </a>
                         </li>
                         @endcan
-                        @can('add number')
+{{--                        @can('add number')--}}
                             <li class="nav-item">
                                 <a href="{{route('number.add')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add Number</p>
                                 </a>
                             </li>
-                        @endcan
+{{--                        @endcan--}}
                         @can('show assign numbers')
                         <li class="nav-item">
                             <a href="{{route('number.assigned')}}" class="nav-link">
@@ -170,7 +170,7 @@
                             $callingTeam = App\Models\User::whereDoesntHave('roles', function($query) {
                                 $query->where('name', 'super_admin');
                             })->get();
-                            
+
                         @endphp
                         <ul class="nav nav-treeview">
                             {{--                        @role('admin|super_admin')--}}
@@ -196,6 +196,32 @@
                         </ul>
                     </li>
                 @endcan
+
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-edit"></i>
+                        <p>
+                            Demoes
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('demo.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Index</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('demo.create')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
 
 
