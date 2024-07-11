@@ -458,9 +458,4 @@
             });
         };
     </script>
-
-
-
-
-
 @endsection
