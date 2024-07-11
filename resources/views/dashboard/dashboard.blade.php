@@ -245,7 +245,7 @@
                                 <tbody>
                                 @foreach($recentCalls as $call)
                                     <tr>
-                                        <td>{{$call->number->phone_number}}</td>
+                                        <td><a href="tel:{{$call->number->phone_number}}">{{$call->number->phone_number}}</a></td>
                                         <td class="haveToCall" data-time="{{$call->have_to_call}}">
                                             {{$call->have_to_call}}
                                         </td>
