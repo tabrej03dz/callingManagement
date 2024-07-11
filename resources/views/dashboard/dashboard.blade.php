@@ -107,10 +107,27 @@
                     </div>
                 </div>
 
+<<<<<<< HEAD
 
                  @php
                      $callRecords = \App\Models\CallRecord::whereDate('created_at', \Carbon\Carbon::today())->get();
                  @endphp
+=======
+{{--                    <div class="col-lg-3 col-6">--}}
+{{--                        <!-- small box -->--}}
+{{--                        <div class="small-box bg-secondary">--}}
+{{--                            <div class="inner">--}}
+{{--                                <h3>{{$numbers->where('status', 'today call')->count()}}</h3>--}}
+{{--                                <p>Today's Call </p>--}}
+{{--                            </div>--}}
+{{--                            <div class="icon">--}}
+{{--                                <i class="ion ion-pie-graph"></i>--}}
+{{--                            </div>--}}
+{{--                            <a href="{{route('number.statusWise', ['status' => 'converted'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <!-- ./col -->--}}
+>>>>>>> 1e39ef50caab3be7e95b191754e960ba6b0e0aec
 
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
