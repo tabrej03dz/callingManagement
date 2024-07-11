@@ -10,11 +10,11 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function dashboard(){
-        $notAssignedNumbers = Number::where('assigned', '0')->get();
-        foreach ($notAssignedNumbers as $number){
-            $number->delete();
-        }
-        dd('not assigned numbers deleted successfully');
+//        $notAssignedNumbers = Number::where('assigned', '0')->get();
+//        foreach ($notAssignedNumbers as $number){
+//            $number->delete();
+//        }
+//        dd('not assigned numbers deleted successfully');
 
 
 
