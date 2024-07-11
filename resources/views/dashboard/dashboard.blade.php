@@ -107,12 +107,12 @@
                     </div>
                 </div>
 
-<<<<<<< HEAD
+
 
                  @php
                      $callRecords = \App\Models\CallRecord::whereDate('created_at', \Carbon\Carbon::today())->get();
                  @endphp
-=======
+
 {{--                    <div class="col-lg-3 col-6">--}}
 {{--                        <!-- small box -->--}}
 {{--                        <div class="small-box bg-secondary">--}}
@@ -127,7 +127,7 @@
 {{--                        </div>--}}
 {{--                    </div>--}}
 {{--                    <!-- ./col -->--}}
->>>>>>> 1e39ef50caab3be7e95b191754e960ba6b0e0aec
+
 
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
