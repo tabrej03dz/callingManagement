@@ -50,4 +50,14 @@ class CallRecordController extends Controller
         }
         return view('dashboard.callRecord.dayWise', compact('callRecords'));
     }
+
+    public function callRecordStatusWise($status = null){
+        if($status == null){
+            $callRecords = CallRecord::whereDate('created_at', Carbon::today())->get();
+        }else{
+
+            $callRecords = CallRecord::whereDate('created_at', Carbon::today())->where('status', $status)->get();
+        }
+        return view('dashboard.callRecord.dayWise', compact('callRecords'));
+    }
 }
