@@ -11,7 +11,7 @@
                     <div class="small-box bg-info">
                         <div class="inner">
                             @php
-                                $callRecord = App\Models\CallRecord::whereDate('created_at', \Carbon\Carbon::today())->first();
+                                $callRecord = App\Models\CallRecord::whereDate('created_at', \Carbon\Carbon::today())->where('user_id', $user->id)->first();
                             @endphp
                             <h3>{{$callRecord?->created_at->format('h:i') ?? '__:__'}}</h3>
 
@@ -29,7 +29,7 @@
                     <div class="small-box bg-info">
                         <div class="inner">
                             @php
-                                $callRecord = App\Models\CallRecord::whereDate('created_at', \Carbon\Carbon::today())->count();
+                                $callRecord = App\Models\CallRecord::whereDate('created_at', \Carbon\Carbon::today())->where('user_id', $user->id)->count();
                             @endphp
                             <h3>{{$callRecord}}</h3>
 

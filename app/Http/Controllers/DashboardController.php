@@ -18,7 +18,12 @@ class DashboardController extends Controller
 
 
 
-        $recentCalls = CallRecord::whereBetween('have_to_call', [Carbon::now(), Carbon::now()->addMinutes(50)])->where('recalled', null)->get();
+        if(auth()->user()->hasRole('calling team')){
+            $recentCalls = CallRecord::whereBetween('have_to_call', [Carbon::now(), Carbon::now()->addMinutes(50)])->where('recalled', null)->where('user_id', auth()->user()->id)->get();
+        }else{
+//            $recentCalls = CallRecord::whereBetween('have_to_call', [Carbon::now(), Carbon::now()->addMinutes(50)])->where('recalled', null)->get();
+            $recentCalls = CallRecord::whereDate('have_to_call', Carbon::today())->where('recalled', null)->get();
+        }
         $numbers = Number::all();
 //        dd(Carbon::now()->addMinutes(50));
         return view('dashboard.dashboard', compact('recentCalls', 'numbers'));

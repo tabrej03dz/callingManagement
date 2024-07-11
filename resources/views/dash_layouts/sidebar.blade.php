@@ -166,12 +166,16 @@
                             </p>
                         </a>
                         @php
+
                             $callingTeam = App\Models\User::whereDoesntHave('roles', function($query) {
                                 $query->where('name', 'super_admin');
                             })->get();
+                            
                         @endphp
                         <ul class="nav nav-treeview">
                             {{--                        @role('admin|super_admin')--}}
+
+                            @role('super_admin|admin')
                             @foreach($callingTeam as $member)
                                 <li class="nav-item">
                                     <a href="{{route('report.user', ['user' => $member->id])}}" class="nav-link">
@@ -180,6 +184,15 @@
                                     </a>
                                 </li>
                             @endforeach
+                            @else
+                                <li class="nav-item">
+                                    <a href="{{route('report.user', ['user' => auth()->user()->id])}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>{{auth()->user()->name}}</p>
+                                    </a>
+                                </li>
+                            @endrole
+
                         </ul>
                     </li>
                 @endcan
