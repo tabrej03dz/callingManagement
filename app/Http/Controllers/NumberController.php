@@ -104,17 +104,16 @@ class NumberController extends Controller
                 $numbers = Number::all();
             }
         }else{
-<<<<<<< HEAD
+
             if (auth()->user()->hasRole('calling team')){
                 $numberIds = auth()->user()->userNumbers()->pluck('number_id');
                 $numbers = Number::whereIn('id', $numberIds)->where('status', $status)->get();
             }else{
                 $numbers = Number::where('status', $status)->get();
             }
-=======
+
             $numbers = Number::where('status', $status)->get();
 //            dd($numbers);
->>>>>>> 856ce023b7a48a2fccfc20928218aab048b80f93
         }
         return view('dashboard.number.statusWise', compact('numbers', 'status'));
     }
