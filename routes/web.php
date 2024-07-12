@@ -10,6 +10,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\DemoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -92,6 +93,11 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('report')->name('report.')->group(function(){
        Route::get('user/{user}', [ReportController::class, 'userReport'])->name('user');
+    });
+
+    Route::prefix('demo')->name('demo.')->group(function (){
+       Route::get('/', [DemoController::class, 'index'])->name('index');
+       Route::get('create', [DemoController::class, 'create'])->name('create');
     });
 });
 

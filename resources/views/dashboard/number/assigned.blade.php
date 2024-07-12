@@ -7,8 +7,10 @@
     <div class="card" style="overflow-x: auto;">
             <div class="card-header">
                 <h3 class="card-title">DataTable with default features</h3>
+{{--                <a href="{{route('number.add')}}" class="btn btn-primary">Add</a>--}}
             </div>
             <!-- /.card-header -->
+
 
 {{--            <div class="form-check">--}}
 {{--                <div class="form-group">--}}
@@ -38,7 +40,7 @@
                         <th>Business Name</th>
                         <th>Phone Number</th>
                         <th>City</th>
-                        <th>Status</th>
+{{--                        <th>Status</th>--}}
                         <th>Response</th>
                         <th>Description</th>
                         <th>Last Call</th>
@@ -74,14 +76,14 @@
                                 <a href="tel:{{$number->phone_number}}">{{$number->phone_number}}</a>
                             </td>
                             <td>{{$number->city}}</td>
-                            <td>
-                                <select name="status" id="statusDropdown" onchange="updateStatus(this)">
-                                    <option value="">Select Status</option>
-                                    <option value="wrong number">Wrong Number</option>
-                                    <option value="not interested">Not Interested</option>
-                                    <option value="interested">Interested</option>
-                                </select>
-                            </td>
+{{--                            <td>--}}
+{{--                                <select name="status" id="statusDropdown" onchange="updateStatus(this)">--}}
+{{--                                    <option value="">Select Status</option>--}}
+{{--                                    <option value="wrong number">Wrong Number</option>--}}
+{{--                                    <option value="not interested">Not Interested</option>--}}
+{{--                                    <option value="interested">Interested</option>--}}
+{{--                                </select>--}}
+{{--                            </td>--}}
                             <td>{{$record?->status}}</td>
                             <td>{{$record?->description}}</td>
                             <td>{{$record?->created_at}}</td>
