@@ -97,9 +97,19 @@ class NumberController extends Controller
 
     public function statusWise($status = null){
         if ($status == null){
-            $numbers = Number::all();
+            if (auth()->user()->hasRole('calling team')){
+                $numberIds = auth()->user()->userNumbers()->pluck('number_id');
+                $numbers = Number::whereIn('id', $numberIds)->get();
+            }else{
+                $numbers = Number::all();
+            }
         }else{
-            $numbers = Number::where('status', $status)->get();
+            if (auth()->user()->hasRole('calling team')){
+                $numberIds = auth()->user()->userNumbers()->pluck('number_id');
+                $numbers = Number::whereIn('id', $numberIds)->where('status', $status)->get();
+            }else{
+                $numbers = Number::where('status', $status)->get();
+            }
         }
         return view('dashboard.number.statusWise', compact('numbers', 'status'));
     }

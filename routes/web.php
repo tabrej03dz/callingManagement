@@ -98,6 +98,15 @@ Route::middleware('auth')->group(function () {
     Route::prefix('demo')->name('demo.')->group(function (){
        Route::get('/', [DemoController::class, 'index'])->name('index');
        Route::get('create', [DemoController::class, 'create'])->name('create');
+       Route::post('store', [DemoController::class, 'store'])->name('store');
+       Route::get('edit/{demo}', [DemoController::class, 'edit'])->name('edit');
+       Route::post('update/{demo}', [DemoController::class, 'update'])->name('update');
+       Route::get('delete/{demo}', [DemoController::class, 'delete'])->name('delete');
+       Route::get('imageDelete/{image}', [DemoController::class, 'imageDelete'])->name('imageDelete');
+
+       Route::get('images/{demo}', [DemoController::class, 'demoImages'])->name('images');
+       Route::get('addImage/{demo}', [DemoController::class, 'addImage'])->name('addImage');
+       Route::post('storeImage/{demo}', [DemoController::class, 'storeImage'])->name('storeImage');
     });
 });
 
