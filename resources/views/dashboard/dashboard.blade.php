@@ -295,11 +295,17 @@
 {{--                            <div id="world-map" style="height: 250px; width: 100%;"></div>--}}
 {{--                        </div>--}}
                         <!-- /.card-body-->
+
+                      @php
+                          $userCount = \App\Models\User::role('calling team')->count();
+                        @endphp
+
                         <div class="card-footer bg-transparent">
                             <div class="row">
                                 <div class="col-4 text-center">
                                     <div id="sparkline-1"></div>
-                                    <div class="text-white">Visitors</div>
+                                    <div class="text-white">All User</div>
+                                    {{$userCount}}
                                 </div>
                                 <!-- ./col -->
                                 <div class="col-4 text-center">
