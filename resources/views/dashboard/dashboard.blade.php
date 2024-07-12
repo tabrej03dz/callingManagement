@@ -20,6 +20,7 @@
 
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
+
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3>{{$numbers->count()}}</h3>
@@ -31,6 +32,7 @@
                         </div>
                         <a href="{{route('number.statusWise')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
+
                 </div>
                 @else
                     <div class="col-lg-3 col-6">
