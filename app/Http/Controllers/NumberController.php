@@ -100,6 +100,7 @@ class NumberController extends Controller
             $numbers = Number::all();
         }else{
             $numbers = Number::where('status', $status)->get();
+//            dd($numbers);
         }
         return view('dashboard.number.statusWise', compact('numbers', 'status'));
     }
