@@ -587,12 +587,12 @@
                     // Update the row's text content
                     row.textContent = formattedTime;
 
-                    // Play alarm and show alert if time difference is less than or equal to 1 minute and alarm has not played yet
-                    if (timeDifference <= 60000 && !alarmPlayed) {
-                        alarm.play();
-                        alert("One minute remaining!");
-                        alarmPlayed = true;
-                    }
+                    // // Play alarm and show alert if time difference is less than or equal to 1 minute and alarm has not played yet
+                    // if (timeDifference <= 60000 && !alarmPlayed) {
+                    //     alarm.play();
+                    //     alert("One minute remaining!");
+                    //     alarmPlayed = true;
+                    // }
 
                     // Optional: console log the time difference for debugging
                     console.log(`Time difference for this row: ${formattedTime}`);
