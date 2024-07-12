@@ -2,6 +2,12 @@
 @section('content')
 
     <div class="card">
+        <div class="card-body">
+
+        </div>
+    </div>
+
+    <div class="card">
         <div class="card-head">
         </div>
         <div class="card-body">
@@ -118,7 +124,9 @@
                         <td>{{$record?->description}}</td>
                         <td>
                             <a href="{{route('callRecord.show', ['number' => $number->number->id])}}">Call records</a>
-                            <a href="{{route('user.unAssignNumber', ['userNumber' => $number->id])}}" class="btn btn-danger">Un Assign</a>
+                            @role('super_admin|admin')
+                                <a href="{{route('user.unAssignNumber', ['userNumber' => $number->id])}}" class="btn btn-danger">Un Assign</a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -127,7 +135,4 @@
         </div>
         <!-- /.card-body -->
     </div>
-
-
-
 @endsection

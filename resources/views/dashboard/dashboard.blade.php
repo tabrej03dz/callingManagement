@@ -34,22 +34,6 @@
                     </div>
 
                 </div>
-                @else
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-info">
-                            <div class="inner">
-                                <h3>{{auth()->user()->userNumbers()->count()}}</h3>
-
-                                <p>Total Assigned Numbers</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-bag"></i>
-                            </div>
-                            <a href="{{route('number.statusWise')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                @endcan
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
@@ -66,48 +50,140 @@
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3>{{$numbers->where('status', 'not interested')->count()}}</h3>
 
-                            <p>Not Interested</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-person-add"></i>
-                        </div>
-                        <a href="{{route('number.statusWise', ['status' => 'not interested'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-secondary">
-                        <div class="inner">
-                            <h3>{{$numbers->where('status', 'wrong number')->count()}}</h3>
-                            <p>Wrong Numbers</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
-                        </div>
-                        <a href="{{route('number.statusWise', ['status' => 'wrong number'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
 
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3>{{$numbers->where('status', 'converted')->count()}}</h3>
-                            <p>Converted</p>
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-danger">
+                            <div class="inner">
+                                <h3>{{$numbers->where('status', 'not interested')->count()}}</h3>
+
+                                <p>Not Interested</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-add"></i>
+                            </div>
+                            <a href="{{route('number.statusWise', ['status' => 'not interested'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
-                        </div>
-                        <a href="{{route('number.statusWise', ['status' => 'converted'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
-                </div>
+                    <!-- ./col -->
+
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-secondary">
+                            <div class="inner">
+                                <h3>{{$numbers->where('status', 'wrong number')->count()}}</h3>
+                                <p>Wrong Numbers</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-pie-graph"></i>
+                            </div>
+                            <a href="{{route('number.statusWise', ['status' => 'wrong number'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                <h3>{{$numbers->where('status', 'converted')->count()}}</h3>
+                                <p>Converted</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-pie-graph"></i>
+                            </div>
+                            <a href="{{route('number.statusWise', ['status' => 'converted'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                @else
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>{{auth()->user()->userNumbers()->count()}}</h3>
+
+                                <p>Total Assigned Numbers</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag"></i>
+                            </div>
+                            <a href="{{route('number.statusWise')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-primary">
+                            <div class="inner">
+                                @php
+                                    $numberIds = auth()->user()->userNumbers()->pluck('number_id');
+                                @endphp
+                                <h3> {{$numbers->whereIn('id', $numberIds)->where('status', 'interested')->count()}}<sup style="font-size: 20px"></sup></h3>
+
+                                <p>Interested</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-stats-bars"></i>
+                            </div>
+                            <a href="{{route('number.statusWise', ['status' => 'interested'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-danger">
+                            <div class="inner">
+                                @php
+                                    $numberIds = auth()->user()->userNumbers()->pluck('number_id');
+                                @endphp
+                                <h3> {{$numbers->whereIn('id', $numberIds)->where('status', 'not interested')->count()}}<sup style="font-size: 20px"></sup></h3>
+
+                                <p>Not Interested</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-add"></i>
+                            </div>
+                            <a href="{{route('number.statusWise', ['status' => 'not interested'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-secondary">
+                            <div class="inner">
+                                @php
+                                    $numberIds = auth()->user()->userNumbers()->pluck('number_id');
+                                @endphp
+                                <h3> {{$numbers->whereIn('id', $numberIds)->where('status', 'wrong interested')->count()}}<sup style="font-size: 20px"></sup></h3>
+                                <p>Wrong Numbers</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-pie-graph"></i>
+                            </div>
+                            <a href="{{route('number.statusWise', ['status' => 'wrong number'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                @php
+                                    $numberIds = auth()->user()->userNumbers()->pluck('number_id');
+                                @endphp
+                                <h3> {{$numbers->whereIn('id', $numberIds)->where('status', 'wrong interested')->count()}}<sup style="font-size: 20px"></sup></h3>
+                                <p>Converted</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-pie-graph"></i>
+                            </div>
+                            <a href="{{route('number.statusWise', ['status' => 'converted'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                @endcan
+
 
 
 
@@ -131,49 +207,99 @@
 {{--                    <!-- ./col -->--}}
 
 
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-primary">
-                            <div class="inner">
-                                <h3>{{$callRecords->count()}}</h3>
-                                <p>Today's Call</p>
+                    @if(auth()->user()->hasRole('calling team'))
+
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-primary">
+                                <div class="inner">
+                                    <h3>{{$callRecords->where('user_id', auth()->user()->id)->count()}}</h3>
+                                    <p>Today's Call</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-pie-graph"></i>
+                                </div>
+                                <a href="{{route('callRecord.statusWise')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
-                            <div class="icon">
-                                <i class="ion ion-pie-graph"></i>
+                        </div>
+
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-secondary">
+                                <div class="inner">
+                                    <h3>{{$callRecords->where('user_id', auth()->user()->id)->where('status', 'call back')->count()}}</h3>
+                                    <p>Today's Call back</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-pie-graph"></i>
+                                </div>
+                                <a href="{{route('callRecord.statusWise', ['status' => 'call back'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
-                            <a href="{{route('callRecord.statusWise')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
-                    </div>
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-secondary">
-                        <div class="inner">
-                            <h3>{{$callRecords->where('status', 'call back')->count()}}</h3>
-                            <p>Today's Call back</p>
+
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3>{{$callRecords->where('user_id', auth()->user()->id)->where('status', 'call not pick')->count()}}</h3>
+                                    <p>
+                                        Call not pic
+                                    </p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-pie-graph"></i>
+                                </div>
+                                <a href="{{route('callRecord.statusWise', ['status' => 'call not pick'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
+
+                    @else
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-primary">
+                                <div class="inner">
+                                    <h3>{{$callRecords->count()}}</h3>
+                                    <p>Today's Call</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-pie-graph"></i>
+                                </div>
+                                <a href="{{route('callRecord.statusWise')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
                         </div>
-                        <a href="{{route('callRecord.statusWise', ['status' => 'call back'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3>{{$callRecords->where('status', 'call not pick')->count()}}</h3>
-                            <p>
-                                Call not pic
-                            </p>
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-secondary">
+                                <div class="inner">
+                                    <h3>{{$callRecords->where('status', 'call back')->count()}}</h3>
+                                    <p>Today's Call back</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-pie-graph"></i>
+                                </div>
+                                <a href="{{route('callRecord.statusWise', ['status' => 'call back'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
+                        <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3>{{$callRecords->where('status', 'call not pick')->count()}}</h3>
+                                    <p>
+                                        Call not pic
+                                    </p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-pie-graph"></i>
+                                </div>
+                                <a href="{{route('callRecord.statusWise', ['status' => 'call not pick'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
                         </div>
-                        <a href="{{route('callRecord.statusWise', ['status' => 'call not pick'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <!-- ./col -->
+                    <!-- ./col -->
+
+                    @endif
+
             </div>
             <!-- /.row -->
             <!-- Main row -->

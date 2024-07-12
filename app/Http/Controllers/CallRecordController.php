@@ -44,19 +44,18 @@ class CallRecordController extends Controller
 
     public function dayWise(Request $request){
         if($request->date){
-            $callRecords = CallRecord::whereDate('created_at', $request->date)->get();
+            $callRecords = auth()->user()->hasRole('calling team') ? CallRecord::whereDate('created_at', $request->date)->where('user_id', auth()->user()->id)->get() : CallRecord::whereDate('created_at', $request->date)->get();
         }else{
-            $callRecords = CallRecord::whereDate('created_at', Carbon::today())->get();
+            $callRecords = auth()->user()->hasRole('calling team') ? CallRecord::whereDate('created_at', Carbon::today())->where('user_id', auth()->user()->id)->get() : CallRecord::whereDate('created_at', Carbon::today())->get();
         }
         return view('dashboard.callRecord.dayWise', compact('callRecords'));
     }
 
     public function callRecordStatusWise($status = null){
         if($status == null){
-            $callRecords = CallRecord::whereDate('created_at', Carbon::today())->get();
+            $callRecords = auth()->user()->hasRole('calling team') ? CallRecord::whereDate('created_at', Carbon::today())->where('user_id', auth()->user()->id)->get() : CallRecord::whereDate('created_at', Carbon::today())->get();
         }else{
-
-            $callRecords = CallRecord::whereDate('created_at', Carbon::today())->where('status', $status)->get();
+            $callRecords = auth()->user()->hasRole('calling team') ? CallRecord::whereDate('created_at', Carbon::today())->where(['status' => $status, 'user_id' => auth()->user()->id])->get() : CallRecord::whereDate('created_at', Carbon::today())->where('status', $status)->get();
         }
         return view('dashboard.callRecord.dayWise', compact('callRecords'));
     }

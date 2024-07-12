@@ -8,7 +8,7 @@
                         <th>#</th>
                         <th>Name</th>
                         <th>City</th>
-                        {{--                    <th>CSS grade</th>--}}
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -17,6 +17,12 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{$demo->name}}</td>
                             <td>{{$demo->city}}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{{route('demo.edit', ['demo' => $demo->id])}}" class="btn btn-primary">Edit</a>
+                                    <a href="{{route('demo.images', ['demo' => $demo])}}" class="btn btn-warning">Images</a>
+                                </div>
+                            </td>
 
                         </tr>
                     @endforeach
