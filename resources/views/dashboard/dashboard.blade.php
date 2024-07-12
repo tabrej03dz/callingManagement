@@ -210,7 +210,7 @@
                         <div class="small-box bg-primary">
                             <div class="inner">
                                 <h3>{{$callRecords->count()}}</h3>
-                                <p>Today's Total Call</p>
+                                <p>Today's Call</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-pie-graph"></i>
@@ -237,7 +237,8 @@
                     <div class="small-box bg-warning">
                         <div class="inner">
                             <h3>{{$callRecords->where('status', 'call not pick')->count()}}</h3>
-                            <p>Call not pic
+                            <p>
+                                Call not pic
                             </p>
                         </div>
                         <div class="icon">
@@ -315,6 +316,7 @@
                                 <tr>
                                     <th>Number</th>
                                     <th>Remain Time</th>
+                                    <th>User</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -325,6 +327,7 @@
                                         <td class="haveToCall" data-time="{{$call->have_to_call}}">
                                             {{$call->have_to_call}}
                                         </td>
+                                        <td>{{$call->user->name}}</td>
                                         <td class="text-center">
                                             <a href="{{route('callRecord.markAsRecalled', ['record' => $call->id])}}" class="btn btn-success btn-sm">Mark as Call</a>
                                         </td>
@@ -371,16 +374,27 @@
 {{--                            <div id="world-map" style="height: 250px; width: 100%;"></div>--}}
 {{--                        </div>--}}
                         <!-- /.card-body-->
+
+                      @php
+                          $userCount = \App\Models\User::role('calling team')->count();
+                           $loggedInUsersToday = \App\Models\User::role('calling team')->whereDate('created_at', \Illuminate\Support\Carbon::today())->get();
+                        @endphp
+
                         <div class="card-footer bg-transparent">
                             <div class="row">
                                 <div class="col-4 text-center">
                                     <div id="sparkline-1"></div>
-                                    <div class="text-white">Visitors</div>
+                                    <div class="text-white">All User</div>
+                                    {{$userCount}}
                                 </div>
                                 <!-- ./col -->
+
                                 <div class="col-4 text-center">
                                     <div id="sparkline-2"></div>
-                                    <div class="text-white">Online</div>
+                                    <div class="text-white">Logged In Today</div>
+                                    @foreach($loggedInUsersToday as $user)
+                                        <div>{{ $user->name }}</div>
+                                    @endforeach
                                 </div>
                                 <!-- ./col -->
                                 <div class="col-4 text-center">
