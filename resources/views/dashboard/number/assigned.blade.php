@@ -7,7 +7,7 @@
     <div class="card" style="overflow-x: auto;">
             <div class="card-header">
                 <h3 class="card-title">DataTable with default features</h3>
-{{--                <a href="{{route('number.add')}}" class="btn btn-primary">Add</a>--}}
+                <a href="{{route('number.add')}}" class="btn btn-primary">Add</a>
             </div>
             <!-- /.card-header -->
 
@@ -46,7 +46,7 @@
                         <th>Last Call</th>
                         <th>Have to call</th>
                         <th>Count</th>
-                        <th>QR</th>
+{{--                        <th>QR</th>--}}
                         @role('super_admin')
                             <th>Assigned User</th>
                         @endrole
@@ -89,9 +89,9 @@
                             <td>{{$record?->created_at}}</td>
                             <td>{{$record?->have_to_call}}</td>
                             <td>{{$number->callRecords->count()}}</td>
-                            <td>
-                                <div class="qr-code" data-phone="{{$number->phone_number}}"></div>
-                            </td>
+{{--                            <td>--}}
+{{--                                <div class="qr-code" data-phone="{{$number->phone_number}}"></div>--}}
+{{--                            </td>--}}
                             @role('super_admin|admin')
                             <td>
                                 <ul style="list-style: none; padding: 0px;">
