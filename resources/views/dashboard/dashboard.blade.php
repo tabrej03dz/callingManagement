@@ -134,7 +134,7 @@
                         <div class="small-box bg-primary">
                             <div class="inner">
                                 <h3>{{$callRecords->count()}}</h3>
-                                <p>Today's Total Call</p>
+                                <p>Today's Call</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-pie-graph"></i>
@@ -161,7 +161,8 @@
                     <div class="small-box bg-warning">
                         <div class="inner">
                             <h3>{{$callRecords->where('status', 'call not pick')->count()}}</h3>
-                            <p>Call not pic
+                            <p>
+                                Call not pic
                             </p>
                         </div>
                         <div class="icon">
@@ -239,6 +240,7 @@
                                 <tr>
                                     <th>Number</th>
                                     <th>Remain Time</th>
+                                    <th>User</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -249,6 +251,7 @@
                                         <td class="haveToCall" data-time="{{$call->have_to_call}}">
                                             {{$call->have_to_call}}
                                         </td>
+                                        <td>{{$call->user->name}}</td>
                                         <td class="text-center">
                                             <a href="{{route('callRecord.markAsRecalled', ['record' => $call->id])}}" class="btn btn-success btn-sm">Mark as Call</a>
                                         </td>
