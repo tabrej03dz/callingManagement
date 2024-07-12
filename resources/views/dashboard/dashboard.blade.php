@@ -298,6 +298,7 @@
 
                       @php
                           $userCount = \App\Models\User::role('calling team')->count();
+                           $loggedInUsersToday = \App\Models\User::role('calling team')->whereDate('created_at', \Illuminate\Support\Carbon::today())->get();
                         @endphp
 
                         <div class="card-footer bg-transparent">
@@ -308,9 +309,13 @@
                                     {{$userCount}}
                                 </div>
                                 <!-- ./col -->
+
                                 <div class="col-4 text-center">
                                     <div id="sparkline-2"></div>
-                                    <div class="text-white">Online</div>
+                                    <div class="text-white">Logged In Today</div>
+                                    @foreach($loggedInUsersToday as $user)
+                                        <div>{{ $user->name }}</div>
+                                    @endforeach
                                 </div>
                                 <!-- ./col -->
                                 <div class="col-4 text-center">
