@@ -3,9 +3,16 @@
 
     <div class="card">
         <div class="card-body">
-
+            <form action="{{ route('report.user', ['user' => $user]) }}" method="get" class="form-inline mb-3">
+                <div class="form-group mr-2">
+                    <input type="date" name="date" class="form-control" placeholder="Date">
+                </div>
+                <button type="submit" class="btn btn-primary">Filter</button>
+                <a href="{{ route('report.user', ['user' => $user]) }}" class="btn btn-secondary ml-2">Clear</a>
+            </form>
         </div>
     </div>
+
 
     <div class="card">
         <div class="card-head">
@@ -18,7 +25,7 @@
                     <div class="small-box bg-info">
                         <div class="inner">
                             @php
-                                $loggedAt = App\Models\UserLog::whereDate('created_at', \Carbon\Carbon::today())->where('user_id', $user->id)->first();
+                                $loggedAt = App\Models\UserLog::whereDate('created_at', $date ?? \Carbon\Carbon::today())->where('user_id', $user->id)->first();
                             @endphp
                             <h3>{{$loggedAt?->created_at->format('h:i') ?? '__:__'}}</h3>
 
@@ -37,7 +44,7 @@
                     <div class="small-box bg-info">
                         <div class="inner">
                             @php
-                                $callRecord = App\Models\CallRecord::whereDate('created_at', \Carbon\Carbon::today())->where('user_id', $user->id)->first();
+                                $callRecord = App\Models\CallRecord::whereDate('created_at', $date ?? \Carbon\Carbon::today())->where('user_id', $user->id)->first();
                             @endphp
                             <h3>{{$callRecord?->created_at->format('h:i') ?? '__:__'}}</h3>
 
@@ -55,7 +62,7 @@
                     <div class="small-box bg-info">
                         <div class="inner">
                             @php
-                                $callRecord = App\Models\CallRecord::whereDate('created_at', \Carbon\Carbon::today())->where('user_id', $user->id)->count();
+                                $callRecord = App\Models\CallRecord::whereDate('created_at', $date ?? \Carbon\Carbon::today())->where('user_id', $user->id)->count();
                             @endphp
                             <h3>{{$callRecord}}</h3>
 
@@ -70,7 +77,7 @@
             <!-- ./col -->
 
                 @php
-                    $assignedNumbersToUsersCount = App\Models\UserNumber::where('assigned_by' , $user->id )->whereDate('assigned_at' , Carbon\Carbon::today())->count();
+                    $assignedNumbersToUsersCount = App\Models\UserNumber::where('assigned_by' , $user->id )->whereDate('assigned_at' , $date ?? Carbon\Carbon::today())->count();
                 @endphp
 
                 @if($user->hasRole('admin'))
@@ -111,7 +118,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($user->userNumbers as $number)
+                @foreach($userNumbers as $number)
                     @php
                         $record = $number->number->callRecords()?->latest()->first();
                         $phoneNumber = $number->number->phone_number;

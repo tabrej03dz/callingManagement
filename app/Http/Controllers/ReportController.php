@@ -8,8 +8,16 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
-    public function userReport(User $user){
+    public function userReport(Request $request, User $user){
 //        dd($user->usernumbers);
-        return view('dashboard.report.userReport', compact('user'));
+        if ($request->date){
+            $date = $request->date;
+        }else{
+            $date = null;
+        }
+
+        $userNumbers = $user->userNumbers;
+
+        return view('dashboard.report.userReport', compact('user', 'userNumbers', 'date'));
     }
 }

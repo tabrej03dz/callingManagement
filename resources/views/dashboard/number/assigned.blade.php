@@ -4,8 +4,8 @@
     <!-- /.card -->
     <div class="card" style="overflow-x: auto;">
         <div class="card-header d-flex justify-content-between align-items-center">
-{{--            <h3 class="card-title">DataTable with default features</h3>--}}
-            <a href="{{route('number.add')}}" class="btn btn-primary ml-auto">Add Number</a>
+
+            <a href="{{ route('number.add') }}" class="btn btn-primary ml-auto">Add Number</a>
         </div>
             <!-- /.card-header -->
 
@@ -86,6 +86,7 @@
                             </div>
                         </td>
                         @endrole
+<<<<<<< HEAD
                         <td>
                             <label class="form-check-label" for="{{$number->id}}">{{$number->business_name}}</label>
                         </td>
@@ -93,6 +94,70 @@
                             <a href="tel:{{$number->phone_number}}">{{$number->phone_number}}</a>
                         </td>
                         <td>{{$number->city}}</td>
+=======
+                        <th>Business Name</th>
+                        <th>Phone Number</th>
+                        <th>City</th>
+{{--                        <th>Status</th>--}}
+                        <th>Response</th>
+                        <th>Description</th>
+                        <th>Last Call</th>
+                        <th>Have to call</th>
+                        <th>Count</th>
+{{--                        <th>QR</th>--}}
+                            <th>Assigned User</th>
+                        <th>Action</th>
+                        {{--                    <th>CSS grade</th>--}}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($numbers as $number)
+                        @php
+                            $record = $number->callRecords()->latest()->first();
+                            //dd($record->status);
+                        @endphp
+                        <tr>
+                            @role('super_admin|admin')
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" name="numbers[]" value="{{$number->id}}" type="checkbox" id="{{$number->id}}" >
+                                    <label class="form-check-label"></label>
+                                </div>
+                            </td>
+                            @endrole
+                            <td>
+                                <label class="form-check-label" for="{{$number->id}}">{{$number->business_name}}</label>
+                            </td>
+                            <td>
+                                <a href="tel:{{$number->phone_number}}">{{$number->phone_number}}</a>
+                            </td>
+                            <td>{{$number->city}}</td>
+{{--                            <td>--}}
+{{--                                <select name="status" id="statusDropdown" onchange="updateStatus(this)">--}}
+{{--                                    <option value="">Select Status</option>--}}
+{{--                                    <option value="wrong number">Wrong Number</option>--}}
+{{--                                    <option value="not interested">Not Interested</option>--}}
+{{--                                    <option value="interested">Interested</option>--}}
+{{--                                </select>--}}
+{{--                            </td>--}}
+                            <td>{{$record?->status}}</td>
+                            <td>{{$record?->description}}</td>
+                            <td>{{$record?->created_at}}</td>
+                            <td>{{$record?->have_to_call}}</td>
+                            <td>{{$number->callRecords->count()}}</td>
+{{--                            <td>--}}
+{{--                                <div class="qr-code" data-phone="{{$number->phone_number}}"></div>--}}
+{{--                            </td>--}}
+                            @role('super_admin|admin')
+                            <td>
+                                <ul style="list-style: none; padding: 0px;">
+                                    @foreach($number->userNumbers as $user)
+                                        <li>{{$user->user->name}}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                            @endrole
+>>>>>>> 4a06943d035c1968b99aa643e96ca65f683d2d75
 
                         <td class="{{ getStatusClass($number?->status) }}">
                             {{$number->status}}

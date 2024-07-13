@@ -79,12 +79,17 @@ class NumberController extends Controller
         }
     }
 
-    public function assignedNumbers(){
-        if (auth()->user()->hasRole('calling team')){
-            $userNumebrs = auth()->user()->userNumbers->pluck('number_id');
-            $numbers = Number::whereIn('id', $userNumebrs)->get();
+    public function assignedNumbers(Request $request){
+        if ($request->number){
+            $numbers = Number::where('phone_number', $request->number)->get();
         }else{
-            $numbers = Number::where('assigned', '1')->get();
+
+            if (auth()->user()->hasRole('calling team')){
+                $userNumebrs = auth()->user()->userNumbers->pluck('number_id');
+                $numbers = Number::whereIn('id', $userNumebrs)->get();
+            }else{
+                $numbers = Number::where('assigned', '1')->get();
+            }
         }
         return view('dashboard.number.assigned', compact('numbers'));
     }
