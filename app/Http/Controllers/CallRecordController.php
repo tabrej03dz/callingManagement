@@ -37,6 +37,7 @@ class CallRecordController extends Controller
         return redirect('number/assigned')->with('success', 'record created successfully');
     }
 
+
     public function markAsRecalled($record){
         $callRecord = CallRecord::find($record);
         $callRecord->update(['recalled' => 'true']);
