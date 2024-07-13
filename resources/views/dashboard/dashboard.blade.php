@@ -568,46 +568,49 @@
     <!-- /.content -->
 
 
-    <div class="haveToCall" data-time="2024-07-10T12:00:00Z" data-audio="{{ asset('asset/musical_alarm.mp3') }}">Placeholder Text</div>
+{{--    <div class="haveToCall" data-time="2024-07-10T12:00:00Z" data-audio="{{ asset('asset/musical_alarm.mp3') }}">Placeholder Text</div>--}}
 
-    <script>
-        window.onload = function() {
-            const rows = document.querySelectorAll('.haveToCall');
+{{--    <script>--}}
+{{--        window.onload = function() {--}}
+{{--            const rows = document.querySelectorAll('.haveToCall');--}}
 
-            rows.forEach(row => {
-                const haveToCallTime = new Date(row.dataset.time);
-                const alarmUrl = row.dataset.audio;
+{{--            rows.forEach(row => {--}}
+{{--                const haveToCallTime = new Date(row.dataset.time);--}}
+{{--                const alarmUrl = row.dataset.audio;--}}
 
-                // Create an audio element for the alarm
-                const alarm = new Audio(alarmUrl);
-                let alarmPlayed = false;
+{{--                // Create an audio element for the alarm--}}
+{{--                const alarm = new Audio(alarmUrl);--}}
+{{--                let alarmPlayed = false;--}}
 
-                setInterval(() => {
-                    const now = new Date();
-                    const timeDifference = Math.max(0, haveToCallTime - now); // Ensure non-negative value
+{{--                setInterval(() => {--}}
+{{--                    const now = new Date();--}}
+{{--                    const timeDifference = Math.max(0, haveToCallTime - now); // Ensure non-negative value--}}
 
-                    // Calculate hours, minutes, and seconds from timeDifference
-                    const hours = Math.floor(timeDifference / (1000 * 60 * 60));
-                    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+{{--                    // Calculate hours, minutes, and seconds from timeDifference--}}
+{{--                    const hours = Math.floor(timeDifference / (1000 * 60 * 60));--}}
+{{--                    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));--}}
+{{--                    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);--}}
 
-                    // Format the time difference as a string
-                    const formattedTime = `${hours}h ${minutes}m ${seconds}s`;
+{{--                    // Format the time difference as a string--}}
+{{--                    const formattedTime = `${hours}h ${minutes}m ${seconds}s`;--}}
 
-                    // Update the row's text content
-                    row.textContent = formattedTime;
+{{--                    // Update the row's text content--}}
+{{--                    row.textContent = formattedTime;--}}
 
-                    // // Play alarm and show alert if time difference is less than or equal to 1 minute and alarm has not played yet
-                    // if (timeDifference <= 60000 && !alarmPlayed) {
-                    //     alarm.play();
-                    //     alert("One minute remaining!");
-                    //     alarmPlayed = true;
-                    // }
 
-                    // Optional: console log the time difference for debugging
-                    console.log(`Time difference for this row: ${formattedTime}`);
-                }, 1000); // 1000 milliseconds = 1 second
-            });
-        };
-    </script>
+{{--                    // Play alarm and show alert if time difference is less than or equal to 1 minute and alarm has not played yet--}}
+{{--                    if (timeDifference <= 60000 && !alarmPlayed) {--}}
+{{--                        alarm.play();--}}
+{{--                        alert("One minute remaining!");--}}
+{{--                        alarmPlayed = true;--}}
+{{--                    }--}}
+
+
+
+{{--                    // Optional: console log the time difference for debugging--}}
+{{--                    console.log(`Time difference for this row: ${formattedTime}`);--}}
+{{--                }, 1000); // 1000 milliseconds = 1 second--}}
+{{--            });--}}
+{{--        };--}}
+{{--    </script>--}}
 @endsection
