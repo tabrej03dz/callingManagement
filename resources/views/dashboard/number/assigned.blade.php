@@ -4,8 +4,8 @@
     <!-- /.card -->
     <div class="card" style="overflow-x: auto;">
         <div class="card-header d-flex justify-content-between align-items-center">
-{{--            <h3 class="card-title">DataTable with default features</h3>--}}
-            <a href="{{route('number.add')}}" class="btn btn-primary ml-auto">Add Number</a>
+
+            <a href="{{ route('number.add') }}" class="btn btn-primary ml-auto">Add Number</a>
         </div>
             <!-- /.card-header -->
 
@@ -45,9 +45,7 @@
                         <th>Have to call</th>
                         <th>Count</th>
 {{--                        <th>QR</th>--}}
-                        @role('super_admin')
                             <th>Assigned User</th>
-                        @endrole
                         <th>Action</th>
                         {{--                    <th>CSS grade</th>--}}
                     </tr>
