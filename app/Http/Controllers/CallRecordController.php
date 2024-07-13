@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Number;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Validation\Rule;
 
 
 class CallRecordController extends Controller
@@ -26,13 +27,13 @@ class CallRecordController extends Controller
             'number_status' => '',
             'status' => '',
             'description' => '',
-            'have_to_call' => '',
+            'date_and_time' => Rule::requiredIf($request->status === 'call back'),
         ]);
         if ($request->number_status){
             $number->status = $request->number_status;
             $number->save();
         }
-        CallRecord::create($request->all() + ['number_id' => $number->id, 'user_id' => auth()->user()->id]);
+        CallRecord::create($request->all() + ['number_id' => $number->id, 'user_id' => auth()->user()->id, 'number_status' => $request->number_status, 'have_to_call' => $request->date_and_time]);
         return redirect('number/assigned')->with('success', 'record created successfully');
     }
 

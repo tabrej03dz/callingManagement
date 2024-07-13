@@ -14,6 +14,16 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
+
+            <div class="card">
+                <div class="card-body">
+                    <form action="{{route('dashboard')}}" method="GET">
+                        <input type="date" name="date" placeholder="date">
+                        <input type="submit" value="Filter" class="btn btn-primary">
+                    </form>
+                </div>
+            </div>
+
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 @can('show all numbers')
@@ -23,7 +33,7 @@
 
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>{{$numbers->count()}}</h3>
+                            <h3>{{$allNumbers->count()}}</h3>
 
                             <p>Total Numbers</p>
                         </div>
@@ -187,9 +197,9 @@
 
 
 
-                 @php
-                     $callRecords = \App\Models\CallRecord::whereDate('created_at', \Carbon\Carbon::today())->get();
-                 @endphp
+{{--                 @php--}}
+{{--                     $callRecords = \App\Models\CallRecord::whereDate('created_at', \Carbon\Carbon::today())->get();--}}
+{{--                 @endphp--}}
 
 {{--                    <div class="col-lg-3 col-6">--}}
 {{--                        <!-- small box -->--}}

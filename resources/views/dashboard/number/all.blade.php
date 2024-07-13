@@ -47,7 +47,7 @@
             </div>
         </div>
     @endif
-    
+
     <div class="card">
         <div class="card-body">
             <form action="{{route('number.index')}}" method="get" class="form-inline">
@@ -89,13 +89,18 @@
                             @endforeach
                         </select>
                     </div>
+{{--                    <div class="col-auto">--}}
+{{--                        <label for="roleSelect" class="col-form-label">Select From</label>--}}
+{{--                        <input type="number" class="form-control" name="from" placeholder="From">--}}
+{{--                    </div>--}}
+{{--                    <div class="col-auto">--}}
+{{--                        <label for="roleSelect" class="col-form-label">Select To</label>--}}
+{{--                        <input type="number" class="form-control" name="to" placeholder="To">--}}
+{{--                    </div>--}}
+
                     <div class="col-auto">
-                        <label for="roleSelect" class="col-form-label">Select From</label>
-                        <input type="number" class="form-control" name="from" placeholder="From">
-                    </div>
-                    <div class="col-auto">
-                        <label for="roleSelect" class="col-form-label">Select To</label>
-                        <input type="number" class="form-control" name="to" placeholder="To">
+                        <label for="roleSelect" class="col-form-label">Items</label>
+                        <input type="number" class="form-control" name="items" placeholder="Items">
                     </div>
                     <div class="col-auto mt-4">
                         <input type="submit" value="Assign" class="btn btn-success">

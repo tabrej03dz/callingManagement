@@ -39,7 +39,7 @@
                     @foreach($records as $record)
                         <tr>
                             <td>
-                               {{$record->response}}
+                               {{$record->status}}
                             </td>
                             <td>{{$record->description}}</td>
                             <td>{{$record->created_at}}</td>

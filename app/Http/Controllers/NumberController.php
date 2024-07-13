@@ -95,7 +95,7 @@ class NumberController extends Controller
         return back()->with('success', 'status changed successfully');
     }
 
-    public function statusWise($status = null){
+    public function statusWise(Request $request, $status = null){
         if ($status == null){
             if (auth()->user()->hasRole('calling team')){
                 $numberIds = auth()->user()->userNumbers()->pluck('number_id');

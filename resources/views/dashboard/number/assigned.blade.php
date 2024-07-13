@@ -1,14 +1,12 @@
 @extends('dash_layouts.aap', ['title' => 'Assigned Numbers'])
 @section('content')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
-
     <!-- /.card -->
     <div class="card" style="overflow-x: auto;">
-            <div class="card-header">
-                <h3 class="card-title">DataTable with default features</h3>
-                <a href="{{route('number.add')}}" class="btn btn-primary">Add</a>
-            </div>
+        <div class="card-header d-flex justify-content-between align-items-center">
+{{--            <h3 class="card-title">DataTable with default features</h3>--}}
+            <a href="{{route('number.add')}}" class="btn btn-primary ml-auto">Add Number</a>
+        </div>
             <!-- /.card-header -->
 
 
