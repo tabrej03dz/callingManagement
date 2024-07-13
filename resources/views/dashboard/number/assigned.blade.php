@@ -86,7 +86,7 @@
                             </div>
                         </td>
                         @endrole
-<<<<<<< HEAD
+
                         <td>
                             <label class="form-check-label" for="{{$number->id}}">{{$number->business_name}}</label>
                         </td>
@@ -94,7 +94,7 @@
                             <a href="tel:{{$number->phone_number}}">{{$number->phone_number}}</a>
                         </td>
                         <td>{{$number->city}}</td>
-=======
+
                         <th>Business Name</th>
                         <th>Phone Number</th>
                         <th>City</th>
@@ -157,7 +157,7 @@
                                 </ul>
                             </td>
                             @endrole
->>>>>>> 4a06943d035c1968b99aa643e96ca65f683d2d75
+
 
                         <td class="{{ getStatusClass($number?->status) }}">
                             {{$number->status}}
