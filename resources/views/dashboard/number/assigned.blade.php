@@ -147,6 +147,14 @@
                     console.log('Row Offset Top:', row.offsetTop); // Debugging log
                     row.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     row.classList.add('highlight'); // Add a highlight class for visual feedback (optional)
+
+                    // Fallback for Chrome
+                    setTimeout(() => {
+                        row.style.backgroundColor = 'yellow';
+                        setTimeout(() => {
+                            row.style.backgroundColor = '';
+                        }, 2000);
+                    }, 500);
                 } else {
                     console.log('Row not found'); // Debugging log
                 }
