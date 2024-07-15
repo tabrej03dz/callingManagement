@@ -113,13 +113,15 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const selectAllCheckbox = document.getElementById('selectAll');
-            const checkboxes = document.querySelectorAll('input[name="numbers[]"]');
+            if (selectAllCheckbox) {
+                const checkboxes = document.querySelectorAll('input[name="numbers[]"]');
 
-            selectAllCheckbox.addEventListener('change', function () {
-                checkboxes.forEach(checkbox => {
-                    checkbox.checked = selectAllCheckbox.checked;
+                selectAllCheckbox.addEventListener('change', function () {
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = selectAllCheckbox.checked;
+                    });
                 });
-            });
+            }
 
             document.querySelectorAll('.qr-code').forEach(function(element) {
                 var phoneNumber = element.getAttribute('data-phone');
