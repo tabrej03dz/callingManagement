@@ -135,11 +135,16 @@
             const params = new URLSearchParams(window.location.search);
             const savedNumberId = params.get('saved_number_id');
 
+            console.log('URL Parameters:', params.toString()); // Debugging log
+            console.log('Saved Number ID:', savedNumberId); // Debugging log
+
             if (savedNumberId) {
                 const row = document.getElementById(`row-${savedNumberId}`);
-                console.log('Saved Number ID:', savedNumberId); // Debugging log
                 console.log('Row Element:', row); // Debugging log
+
                 if (row) {
+                    console.log('Viewport Height:', window.innerHeight); // Debugging log
+                    console.log('Row Offset Top:', row.offsetTop); // Debugging log
                     row.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     row.classList.add('highlight'); // Add a highlight class for visual feedback (optional)
                 } else {
