@@ -129,13 +129,15 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const selectAllCheckbox = document.getElementById('selectAll');
-            const checkboxes = document.querySelectorAll('input[name="numbers[]"]');
+            if (selectAllCheckbox) {
+                const checkboxes = document.querySelectorAll('input[name="numbers[]"]');
 
-            selectAllCheckbox.addEventListener('change', function () {
-                checkboxes.forEach(checkbox => {
-                    checkbox.checked = selectAllCheckbox.checked;
+                selectAllCheckbox.addEventListener('change', function () {
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = selectAllCheckbox.checked;
+                    });
                 });
-            });
+            }
 
             document.querySelectorAll('.qr-code').forEach(function(element) {
                 var phoneNumber = element.getAttribute('data-phone');
@@ -149,12 +151,17 @@
             const params = new URLSearchParams(window.location.search);
             const savedNumberId = params.get('saved_number_id');
 
+            console.log('URL Parameters:', params.toString()); // Debugging log
+            console.log('Saved Number ID:', savedNumberId); // Debugging log
+
             if (savedNumberId) {
                 const row = document.getElementById(`row-${savedNumberId}`);
-                console.log('Saved Number ID:', savedNumberId); // Debugging log
                 console.log('Row Element:', row); // Debugging log
+
                 if (row) {
-                    row.scrollIntoView({ behavior: 'smooth' });
+                    console.log('Viewport Height:', window.innerHeight); // Debugging log
+                    console.log('Row Offset Top:', row.offsetTop); // Debugging log
+                    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     row.classList.add('highlight'); // Add a highlight class for visual feedback (optional)
                 } else {
                     console.log('Row not found'); // Debugging log
@@ -165,6 +172,7 @@
 
     <style>
         .highlight {
+            background-color: yellow;
             animation: highlightAnimation 2s ease-in-out;
         }
 
