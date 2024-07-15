@@ -87,4 +87,7 @@ class DemoController extends Controller
         return redirect('demo/images/'.$demo->id)->with('success', 'Image Added successfully');
     }
 
+    public function demoSend(Number $number){
+
+    }
 }

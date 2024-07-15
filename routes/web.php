@@ -107,6 +107,8 @@ Route::middleware('auth')->group(function () {
        Route::get('images/{demo}', [DemoController::class, 'demoImages'])->name('images');
        Route::get('addImage/{demo}', [DemoController::class, 'addImage'])->name('addImage');
        Route::post('storeImage/{demo}', [DemoController::class, 'storeImage'])->name('storeImage');
+
+       Route::post('send/{number}', [DemoController::class, 'demoSend'])->name('send');
     });
 });
 

@@ -31,14 +31,14 @@
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                    @role('super_admin|admin')
-                    <th>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="selectAll">
-                            <label class="form-check-label" for="selectAll">All</label>
-                        </div>
-                    </th>
-                    @endrole
+{{--                    @role('super_admin|admin')--}}
+{{--                    <th>--}}
+{{--                        <div class="form-check">--}}
+{{--                            <input class="form-check-input" type="checkbox" id="selectAll">--}}
+{{--                            <label class="form-check-label" for="selectAll">All</label>--}}
+{{--                        </div>--}}
+{{--                    </th>--}}
+{{--                    @endrole--}}
                     <th>Business Name</th>
                     <th>Phone Number</th>
                     <th>City</th>
@@ -52,6 +52,7 @@
                     <th>Assigned User</th>
                     @endrole
                     <th>Action</th>
+                    <th>Demo</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -60,14 +61,14 @@
                         $record = $number->callRecords()->latest()->first();
                     @endphp
                     <tr id="row-{{$number->id}}" class="{{ getStatusClass($record?->status) }}">
-                        @role('super_admin|admin')
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" name="numbers[]" value="{{$number->id}}" type="checkbox" id="{{$number->id}}">
-                                <label class="form-check-label"></label>
-                            </div>
-                        </td>
-                        @endrole
+{{--                        @role('super_admin|admin')--}}
+{{--                        <td>--}}
+{{--                            <div class="form-check">--}}
+{{--                                <input class="form-check-input" name="numbers[]" value="{{$number->id}}" type="checkbox" id="{{$number->id}}">--}}
+{{--                                <label class="form-check-label"></label>--}}
+{{--                            </div>--}}
+{{--                        </td>--}}
+{{--                        @endrole--}}
 
                         <td>
                             <label class="form-check-label" for="{{$number->id}}">{{$number->business_name}}</label>
@@ -100,6 +101,21 @@
                                 <a href="{{route('callRecord.create', ['number' => $number->id])}}" class="btn btn-warning">Create Response</a>
                                 <a href="{{route('callRecord.show', ['number' => $number->id])}}" class="btn btn-primary">Call Records</a>
                             </div>
+                        </td>
+                        <td>
+                            <form action="{{route('demo.send', ['number' => $number->id])}}" class="form-inline" method="post">
+                                @csrf
+                                <div class="btn-group">
+                                    <select name="demo_id" class="form-control" id="">
+                                        <option value="">Select Demo</option>
+                                        @foreach($demos as $demo)
+                                            <option value="{{$demo->id}}">{{$demo->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <button type="submit" class="btn btn-primary">Send</button>
+                                </div>
+                            </form>
+
                         </td>
                     </tr>
                 @endforeach

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Demo;
 use App\Models\Number;
 use App\Models\User;
 use App\Models\UserNumber;
@@ -91,7 +92,8 @@ class NumberController extends Controller
                 $numbers = Number::where('assigned', '1')->get();
             }
         }
-        return view('dashboard.number.assigned', compact('numbers'));
+        $demos = Demo::all();
+        return view('dashboard.number.assigned', compact('numbers', 'demos'));
     }
 
     public function status(Number $number, $status){
