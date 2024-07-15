@@ -47,7 +47,7 @@ class UserNumberController extends Controller
                         $userNumber->assigned_by = auth()->user()->id;
                         $userNumber->save();
                     }
-                    dd($numbers);
+//                    dd($numbers);
                 }
             }
         }else{
