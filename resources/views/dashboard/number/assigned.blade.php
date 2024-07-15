@@ -138,7 +138,7 @@
                 console.log('Saved Number ID:', savedNumberId); // Debugging log
                 console.log('Row Element:', row); // Debugging log
                 if (row) {
-                    row.scrollIntoView({ behavior: 'smooth' });
+                    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     row.classList.add('highlight'); // Add a highlight class for visual feedback (optional)
                 } else {
                     console.log('Row not found'); // Debugging log
@@ -149,6 +149,7 @@
 
     <style>
         .highlight {
+            background-color: yellow;
             animation: highlightAnimation 2s ease-in-out;
         }
 
