@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Demo;
 use App\Models\Image;
+use App\Models\Number;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class DemoController extends Controller
@@ -87,4 +89,43 @@ class DemoController extends Controller
         return redirect('demo/images/'.$demo->id)->with('success', 'Image Added successfully');
     }
 
+    public function demoSend(Request $request, Number $number){
+        $request->validate([
+            'demo_id' => 'required',
+        ]);
+
+        if (session()->has('instance_id') && session()->has('access_token')) {
+            $phoneNumber = $number->phone_number;
+            $message = 'RVG Demo';
+            $images = Image::where('demo_id', $request->demo_id)->get();
+            foreach ($images as $image){
+                $imageUrl = asset('storage/'. $image->path);
+//                $imageUrl = 'https://realvictorygroups.xyz/assets/logo.png';
+                $fileName = $image->title;
+                $client = new Client(['verify' => false]);
+//            $response = $client->request('GET', 'https://rvgwp.in/api/send?number=91'.$phoneNumber.'&type=media&message='.$message.'&media_url='.$imageUrl.'&filename='.$fileName.'&instance_id=664ECBDACA54B&access_token=662cfa69080e1');
+                $response = $client->request('GET', 'https://rvgwp.in/api/send?number=91'.$phoneNumber.'&type=media&message='.$message.'&media_url='.$imageUrl.'&filename='.$fileName.'&instance_id='.session('instance_id').'&access_token='.session('access_token'));
+            }
+            return back()->with('success', 'Demo sent successfully');
+        }else{
+            return back()->with('error', 'Instance id and Access token is not set');
+        }
+
+    }
+
+    public function setInstanceAndAccess(Request $request){
+        $request->validate([
+            'instance_id' => 'required',
+            'access_token' => 'required',
+        ]);
+        session(['instance_id' => $request->instance_id, 'access_token' => $request->access_token]);
+        return back()->with('success', 'Instance id and Access token set successfully');
+    }
+
+    public function clearInstanceAndAccess(){
+        session()->forget(['instance_id', 'access_token']);
+        return back()->with('success', 'Instance id and Access token cleared successfully');
+    }
+
 }
+

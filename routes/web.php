@@ -107,7 +107,12 @@ Route::middleware('auth')->group(function () {
        Route::get('images/{demo}', [DemoController::class, 'demoImages'])->name('images');
        Route::get('addImage/{demo}', [DemoController::class, 'addImage'])->name('addImage');
        Route::post('storeImage/{demo}', [DemoController::class, 'storeImage'])->name('storeImage');
+
+       Route::post('send/{number}', [DemoController::class, 'demoSend'])->name('send');
     });
+
+    Route::post('setInstanceAndAccess', [DemoController::class, 'setInstanceAndAccess'])->name('setInstanceAndAccess');
+    Route::get('clearInstanceAndAccess', [DemoController::class, 'clearInstanceAndAccess'])->name('clearInstanceAndAccess');
 });
 
 require __DIR__.'/auth.php';
