@@ -9,8 +9,7 @@
         @php
             function getStatusClass($status) {
                 switch ($status) {
-                    case 'call pick':
-                        return '';
+
                     case 'call not pick':
                         return 'bg-warning';
                     case 'call back':
@@ -77,7 +76,8 @@
                             <a href="tel:{{$number->phone_number}}">{{$number->phone_number}}</a>
                         </td>
                         <td>{{$number->city}}</td>
-                        <td class="{{ getStatusClass($number?->status) }}">
+{{--                        <td class="{{ getStatusClass($number?->status) }}">--}}
+                          <td>
                             {{$number->status}}
                         </td>
                         <td>
