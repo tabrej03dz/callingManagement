@@ -22,20 +22,46 @@ class CallRecordController extends Controller
         return view('dashboard.callRecord.form', compact('number'));
     }
 
-    public function store(Request $request, Number $number){
+    public function store(Request $request, Number $number)
+    {
         $request->validate([
             'number_status' => '',
             'status' => '',
             'description' => '',
             'date_and_time' => Rule::requiredIf($request->status === 'call back'),
         ]);
-        if ($request->number_status){
+
+        if ($request->number_status) {
             $number->status = $request->number_status;
             $number->save();
         }
-        CallRecord::create($request->all() + ['number_id' => $number->id, 'user_id' => auth()->user()->id, 'number_status' => $request->number_status, 'have_to_call' => $request->date_and_time]);
-        return redirect('number/assigned')->with('success', 'record created successfully');
+
+        CallRecord::create($request->all() + [
+                'number_id' => $number->id,
+                'user_id' => auth()->user()->id,
+                'number_status' => $request->number_status,
+                'have_to_call' => $request->date_and_time
+            ]);
+
+        return redirect()->route('number.assigned', ['saved_number_id' => $number->id])->with('success', 'Record created successfully');
     }
+
+
+
+//    public function store(Request $request, Number $number){
+//        $request->validate([
+//            'number_status' => '',
+//            'status' => '',
+//            'description' => '',
+//            'date_and_time' => Rule::requiredIf($request->status === 'call back'),
+//        ]);
+//        if ($request->number_status){
+//            $number->status = $request->number_status;
+//            $number->save();
+//        }
+//        CallRecord::create($request->all() + ['number_id' => $number->id, 'user_id' => auth()->user()->id, 'number_status' => $request->number_status, 'have_to_call' => $request->date_and_time]);
+//        return redirect('number/assigned')->with('success', 'record created successfully');
+//    }
 
 
     public function markAsRecalled($record){

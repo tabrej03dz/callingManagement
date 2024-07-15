@@ -1,12 +1,10 @@
 @extends('dash_layouts.aap', ['title' => 'Assigned Numbers'])
 @section('content')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <!-- /.card -->
     <div class="card" style="overflow-x: auto;">
         <div class="card-header d-flex justify-content-between align-items-center">
             <a href="{{ route('number.add') }}" class="btn btn-primary ml-auto">Add Number</a>
         </div>
-        <!-- /.card-header -->
 
         @php
             function getStatusClass($status) {
@@ -60,9 +58,8 @@
                 @foreach($numbers as $number)
                     @php
                         $record = $number->callRecords()->latest()->first();
-                        echo "<script>console.log('Status: " . $record?->status . "');</script>";
                     @endphp
-                    <tr class="{{ getStatusClass($record?->status) }}">
+                    <tr id="row-{{$number->id}}" class="{{ getStatusClass($record?->status) }}">
                         @role('super_admin|admin')
                         <td>
                             <div class="form-check">
@@ -132,6 +129,28 @@
                     height: 100
                 });
             });
+
+            const params = new URLSearchParams(window.location.search);
+            const savedNumberId = params.get('saved_number_id');
+
+            if (savedNumberId) {
+                const row = document.getElementById(`row-${savedNumberId}`);
+                if (row) {
+                    row.scrollIntoView({ behavior: 'smooth' });
+                    row.classList.add('highlight'); // Add a highlight class for visual feedback (optional)
+                }
+            }
         });
     </script>
+
+    <style>
+        .highlight {
+            animation: highlightAnimation 2s ease-in-out;
+        }
+
+        @keyframes highlightAnimation {
+            from { background-color: yellow; }
+            to { background-color: transparent; }
+        }
+    </style>
 @endsection
