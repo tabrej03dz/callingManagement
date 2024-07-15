@@ -12,7 +12,7 @@
             function getStatusClass($status) {
                 switch ($status) {
                     case 'call pick':
-                        return 'bg-success';
+                        return '';
                     case 'call not pick':
                         return 'bg-danger';
                     case 'call back':
