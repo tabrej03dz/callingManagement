@@ -9,7 +9,8 @@
         @php
             function getStatusClass($status) {
                 switch ($status) {
-
+                    case 'call pick':
+                        return '';
                     case 'call not pick':
                         return 'bg-warning';
                     case 'call back':
