@@ -135,9 +135,13 @@
 
             if (savedNumberId) {
                 const row = document.getElementById(`row-${savedNumberId}`);
+                console.log('Saved Number ID:', savedNumberId); // Debugging log
+                console.log('Row Element:', row); // Debugging log
                 if (row) {
                     row.scrollIntoView({ behavior: 'smooth' });
                     row.classList.add('highlight'); // Add a highlight class for visual feedback (optional)
+                } else {
+                    console.log('Row not found'); // Debugging log
                 }
             }
         });
