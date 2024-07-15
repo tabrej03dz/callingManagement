@@ -110,6 +110,9 @@ Route::middleware('auth')->group(function () {
 
        Route::post('send/{number}', [DemoController::class, 'demoSend'])->name('send');
     });
+
+    Route::post('setInstanceAndAccess', [DemoController::class, 'setInstanceAndAccess'])->name('setInstanceAndAccess');
+    Route::get('clearInstanceAndAccess', [DemoController::class, 'clearInstanceAndAccess'])->name('clearInstanceAndAccess');
 });
 
 require __DIR__.'/auth.php';
