@@ -36,21 +36,24 @@ class UserNumberController extends Controller
         if ($request->user_id == null){
             $users = UserLog::whereDate('created_at', Carbon::today())->get();
             foreach ($users as $user) {
-                $numbers = Number::where('assigned', '0')->take($request->items)->get();
-                foreach ($numbers as $number){
-                    $number->update(['status' => '1']);
-                    $userNumber = new UserNumber();
-                    $userNumber->user_id = $user->user_id;
-                    $userNumber->number_id = $number->id;
-                    $userNumber->assigned_at = Carbon::now();
-                    $userNumber->assigned_by = auth()->user()->id;
-                    $userNumber->save();
+                if ($user->user->hasRole('calling team')){
+                    $numbers = Number::where('assigned', '0')->take($request->items)->get();
+                    foreach ($numbers as $number){
+                        $number->update(['assigned' => '1']);
+                        $userNumber = new UserNumber();
+                        $userNumber->user_id = $user->user_id;
+                        $userNumber->number_id = $number->id;
+                        $userNumber->assigned_at = Carbon::now();
+                        $userNumber->assigned_by = auth()->user()->id;
+                        $userNumber->save();
+                    }
+                    dd($numbers);
                 }
             }
         }else{
                 $numbers = Number::where('assigned', '0')->take($request->items)->get();
                 foreach ($numbers as $number){
-                    $number->update(['status' => '1']);
+                    $number->update(['assigned' => '1']);
                     $userNumber = new UserNumber();
                     $userNumber->user_id = $request->user_id;
                     $userNumber->number_id = $number->id;
