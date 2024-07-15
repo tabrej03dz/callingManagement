@@ -53,37 +53,37 @@
     <!-- /.card -->
     <div class="card">
 
-        <form action="{{route('number.assignToUser')}}" method="post">
-            @csrf
-            <div class="card-header">
-                <h3 class="card-title">DataTable with default features</h3>
-            </div>
-            <!-- /.card-header -->
+{{--        <form action="{{route('number.assignToUser')}}" method="post">--}}
+{{--            @csrf--}}
+{{--            <div class="card-header">--}}
+{{--                <h3 class="card-title">DataTable with default features</h3>--}}
+{{--            </div>--}}
+{{--            <!-- /.card-header -->--}}
 
-            <div class="card-body">
-                <div class="form-row align-items-center">
-                    <div class="col-auto">
-                        <label for="userSelect" class="col-form-label">Select User</label>
-                        <select class="form-control" id="userSelect" name="user_id">
-                            <option value="">Select User</option>
-                            @foreach($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-auto">
-                        <label for="roleSelect" class="col-form-label">Select From</label>
-                        <input type="number" class="form-control" name="from" placeholder="From">
-                    </div>
-                    <div class="col-auto">
-                        <label for="roleSelect" class="col-form-label">Select To</label>
-                        <input type="number" class="form-control" name="to" placeholder="To">
-                    </div>
-                    <div class="col-auto mt-4">
-                        <input type="submit" value="Assign" class="btn btn-success">
-                    </div>
-                </div>
-            </div>
+{{--            <div class="card-body">--}}
+{{--                <div class="form-row align-items-center">--}}
+{{--                    <div class="col-auto">--}}
+{{--                        <label for="userSelect" class="col-form-label">Select User</label>--}}
+{{--                        <select class="form-control" id="userSelect" name="user_id">--}}
+{{--                            <option value="">Select User</option>--}}
+{{--                            @foreach($users as $user)--}}
+{{--                                <option value="{{ $user->id }}">{{ $user->name }}</option>--}}
+{{--                            @endforeach--}}
+{{--                        </select>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-auto">--}}
+{{--                        <label for="roleSelect" class="col-form-label">Select From</label>--}}
+{{--                        <input type="number" class="form-control" name="from" placeholder="From">--}}
+{{--                    </div>--}}
+{{--                    <div class="col-auto">--}}
+{{--                        <label for="roleSelect" class="col-form-label">Select To</label>--}}
+{{--                        <input type="number" class="form-control" name="to" placeholder="To">--}}
+{{--                    </div>--}}
+{{--                    <div class="col-auto mt-4">--}}
+{{--                        <input type="submit" value="Assign" class="btn btn-success">--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
 
             <div class="card-body">
@@ -121,7 +121,7 @@
                 </table>
             </div>
             <!-- /.card-body -->
-        </form>
+{{--        </form>--}}
     </div>
     <!-- /.card -->
 
