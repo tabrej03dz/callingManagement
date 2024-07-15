@@ -12,7 +12,7 @@
                     case 'call pick':
                         return '';
                     case 'call not pick':
-                        return 'bg-danger';
+                        return 'bg-warning';
                     case 'call back':
                         return 'bg-primary';
                     case 'interested':
@@ -20,7 +20,7 @@
                     case 'not interested':
                         return 'bg-danger';
                     case 'wrong number':
-                        return 'bg-warning';
+                        return '';
                     default:
                         return '';
                 }
