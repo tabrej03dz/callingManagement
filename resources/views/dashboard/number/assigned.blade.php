@@ -110,7 +110,7 @@
                                     <select name="demo_id" class="form-control" id="">
                                         <option value="">Select Demo</option>
                                         @foreach($demos as $demo)
-                                            <option value="{{$demo->id}}">{{$demo->name - $demo->city}}</option>
+                                            <option value="{{$demo->id}}">{{$demo->name.' - '.$demo->city}}</option>
                                         @endforeach
                                     </select>
                                     <button type="submit" class="btn btn-primary">Send</button>
