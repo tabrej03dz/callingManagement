@@ -439,7 +439,11 @@
 
                       @php
                           $userCount = \App\Models\User::role('calling team')->count();
-                           $loggedInUsersToday = \App\Models\User::role('calling team')->whereDate('created_at', \Illuminate\Support\Carbon::today())->get();
+                           $subquery = App\Models\UserLog::select(DB::raw('MIN(id) as id'))
+                                ->whereDate('created_at', Carbon\Carbon::today())
+                                ->groupBy('user_id');
+                           $userCount = App\Models\UserLog::whereIn('id', $subquery)->distinct('user_id')->count('user_id');
+
                         @endphp
 
                         <div class="card-footer bg-transparent">
@@ -454,9 +458,7 @@
                                 <div class="col-4 text-center">
                                     <div id="sparkline-2"></div>
                                     <div class="text-white">Logged In Today</div>
-                                    @foreach($loggedInUsersToday as $user)
-                                        <div>{{ $user->name }}</div>
-                                    @endforeach
+                                    {{$userCount}}
                                 </div>
                                 <!-- ./col -->
                                 <div class="col-4 text-center">

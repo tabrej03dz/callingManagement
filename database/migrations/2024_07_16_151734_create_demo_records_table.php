@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('number_id')->constrained('numbers')->cascadeOnDelete();
-            $table->foreignId('demo_id')->constrained('demos')->cascadeOnDelete();
+            $table->unsignedBigInteger('demo_id')->nullable();
+            $table->foreign('demo_id')->references('id')->on('demos')->onDelete('cascade');
+            $table->text('custom_message')->nullable();
             $table->timestamps();
         });
     }
