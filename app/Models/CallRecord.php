@@ -10,6 +10,9 @@ class CallRecord extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+    protected $casts = [
+        'have_to_call' => 'datetime',
+    ];
 
     public function status(){
         return $this->belongsTo(Status::class, 'status_id');

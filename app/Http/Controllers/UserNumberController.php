@@ -18,7 +18,10 @@ class UserNumberController extends Controller
 //            'from' => 'required_without:numbers',
 //            'to' => 'required_without:numbers',
             'items' => '',
+            'city' => '',
         ]);
+
+
         $alreadyAssigned = [];
 //        if($request->from && $request->to){
 //            $numbers = Number::skip($request->from - 1)->take($request->to - ($request->from - 1))->get();
@@ -37,7 +40,14 @@ class UserNumberController extends Controller
             $users = UserLog::whereDate('created_at', Carbon::today())->get();
             foreach ($users as $user) {
                 if ($user->user->hasRole('calling team')){
-                    $numbers = Number::where('assigned', '0')->take($request->items)->get();
+                    $numbers = Number::where('assigned', '0');
+                    if ($request->city){
+                        $numbers = $numbers->where('city', $request->city);
+                    }
+                    if ($request->items){
+                        $numbers = $numbers->take($request->items);
+                    }
+                    $numbers = $numbers->get();
                     foreach ($numbers as $number){
                         $number->update(['assigned' => '1']);
                         $userNumber = new UserNumber();
@@ -51,7 +61,14 @@ class UserNumberController extends Controller
                 }
             }
         }else{
-                $numbers = Number::where('assigned', '0')->take($request->items)->get();
+                $numbers = Number::where('assigned', '0');
+                if ($request->city){
+                    $numbers = $numbers->where('city', $request->city);
+                }
+                if ($request->items){
+                    $numbers = $numbers->take($request->items);
+                }
+                $numbers = $numbers->get();
                 foreach ($numbers as $number){
                     $number->update(['assigned' => '1']);
                     $userNumber = new UserNumber();

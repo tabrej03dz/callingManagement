@@ -1,8 +1,28 @@
 @extends('dash_layouts.aap', ['title' => 'Assigned Numbers'])
 @section('content')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+{{--    <style>--}}
+{{--        td{--}}
+{{--            padding: 5px!important;--}}
+{{--        }--}}
+{{--    </style>--}}
+{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>--}}
     <div class="card" style="overflow-x: auto;">
         <div class="card-header d-flex justify-content-between align-items-center">
+            <form action="{{ route('number.assigned') }}" method="get" class="form-inline">
+                <div class="form-group mb-2">
+                    <label for="status" class="sr-only">Status</label>
+                    <select name="status" id="status" class="form-control">
+                        <option value="">Select Status</option>
+                        <option value="interested">Interested</option>
+                        <option value="not interested">Not Interested</option>
+                        <option value="wrong number">Wrong Number</option>
+                        <option value="converted">Converted</option>
+                    </select>
+                    <input type="text" name="keyword" class="form-control" placeholder="Keywords">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2 ml-2">Apply</button>
+            </form>
+            <a href="{{route('number.assigned')}}" class="btn btn-secondary mb-2 ml-2">Clear</a>
             <a href="{{ route('number.add') }}" class="btn btn-primary ml-auto">Add Number</a>
         </div>
 
@@ -28,7 +48,7 @@
         @endphp
 
         <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
+            <table id="example1" class="table table-bordered table-striped text-xs">
                 <thead>
                 <tr>
 {{--                    @role('super_admin|admin')--}}
@@ -39,14 +59,14 @@
 {{--                        </div>--}}
 {{--                    </th>--}}
 {{--                    @endrole--}}
-                    <th>Business Name</th>
-                    <th>Phone Number</th>
+                    <th>Name</th>
+                    <th>Number</th>
                     <th>City</th>
                     <th>N/S</th>
                     <th>Response</th>
                     <th>Description</th>
                     <th>Last Call</th>
-                    <th>Have to call</th>
+                    <th>callback</th>
                     <th>Count</th>
                     @role('super_admin')
                     <th>Assigned User</th>
@@ -85,8 +105,8 @@
                             {{$record?->status}}
                         </td>
                         <td>{{$record?->description}}</td>
-                        <td>{{$record?->created_at}}</td>
-                        <td>{{$record?->have_to_call}}</td>
+                        <td>{{$record?->created_at->format('d-M h:i')}}</td>
+                        <td>{{ $record?->have_to_call?->format('d-M h:i')}}</td>
                         <td>{{$number->callRecords->count()}}</td>
                         @role('super_admin|admin')
                         <td>
@@ -97,23 +117,25 @@
                             </ul>
                         </td>
                         @endrole
+
                         <td>
                             <div class="btn-group">
-                                <a href="{{route('callRecord.create', ['number' => $number->id])}}" class="btn btn-warning">Create Response</a>
-                                <a href="{{route('callRecord.show', ['number' => $number->id])}}" class="btn btn-primary">Call Records</a>
+                                <a href="{{route('callRecord.create', ['number' => $number->id])}}" class="btn btn-warning btn-xs">Response</a>
+                                <a href="{{route('callRecord.show', ['number' => $number->id])}}" class="btn btn-primary btn-xs">Records</a>
                             </div>
                         </td>
                         <td>
                             <form action="{{route('demo.send', ['number' => $number->id])}}" class="form-inline" method="post">
                                 @csrf
                                 <div class="btn-group">
-                                    <select name="demo_id" class="form-control" id="">
+                                    <select name="demo_id" class="form-control form-control-sm" id="">
                                         <option value="">Select Demo</option>
                                         @foreach($demos as $demo)
                                             <option value="{{$demo->id}}">{{$demo->name.' - '.$demo->city}}</option>
                                         @endforeach
                                     </select>
-                                    <button type="submit" class="btn btn-primary">Send</button>
+                                    <input type="text" name="custom_message" class="form-control form-control-sm" placeholder="Custom Message">
+                                    <button type="submit" class="btn btn-primary btn-xs">Send</button>
                                 </div>
                             </form>
 

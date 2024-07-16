@@ -11,6 +11,7 @@ class Number extends Model
 
     protected $guarded = ['id'];
 
+
     public function userNumbers(){
         return $this->hasMany(UserNumber::class, 'number_id');
     }
