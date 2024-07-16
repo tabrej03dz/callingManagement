@@ -9,22 +9,27 @@
     <div class="card" style="overflow-x: auto;">
         <div class="card-header d-flex justify-content-between align-items-center">
             <form action="{{ route('number.assigned') }}" method="get" class="form-inline">
-                <div class="form-group mb-2">
+                <div class="form-group flex-grow-1 mr-2 mb-2 mb-md-0">
                     <label for="status" class="sr-only">Status</label>
-                    <select name="status" id="status" class="form-control">
+                    <select name="status" id="status" class="form-control mr-2 mb-2">
                         <option value="">Select Status</option>
                         <option value="interested">Interested</option>
                         <option value="not interested">Not Interested</option>
                         <option value="wrong number">Wrong Number</option>
                         <option value="converted">Converted</option>
                     </select>
-                    <input type="text" name="keyword" class="form-control" placeholder="Keywords">
+                    <input type="text" name="keyword" class="form-control mb-2" placeholder="Keywords">
                 </div>
-                <button type="submit" class="btn btn-primary mb-2 ml-2">Apply</button>
+                <div class="d-flex flex-column flex-md-row mb-2">
+                    <button type="submit" class="btn btn-primary mb-2 mb-md-0 mr-md-2">Apply</button>
+                    <a href="{{ route('number.assigned') }}" class="btn btn-secondary mb-2 mb-md-0">Clear</a>
+                </div>
             </form>
-            <a href="{{route('number.assigned')}}" class="btn btn-secondary mb-2 ml-2">Clear</a>
-            <a href="{{ route('number.add') }}" class="btn btn-primary ml-auto">Add Number</a>
+            <div>
+                <a href="{{ route('number.add') }}" class="btn btn-primary ml-2 mb-2">Add Number</a>
+            </div>
         </div>
+        
 
         @php
             function getStatusClass($status) {
@@ -121,24 +126,24 @@
                         @endrole
                         <td class="d-block d-md-table-cell">
                             <span class="font-weight-bold d-md-none">Action: </span>
-                            <div class="btn-group">
-                                <a href="{{route('callRecord.create', ['number' => $number->id])}}" class="btn btn-warning btn-xs">Response</a>
-                                <a href="{{route('callRecord.show', ['number' => $number->id])}}" class="btn btn-primary btn-xs">Records</a>
+                            <div class="btn-group d-flex flex-column flex-md-row ml-10">
+                                <a href="{{ route('callRecord.create', ['number' => $number->id]) }}" class="btn btn-warning btn-lg mb-2 mb-md-0 mr-md-2">Response</a>
+                                <a href="{{ route('callRecord.show', ['number' => $number->id]) }}" class="btn btn-primary btn-lg">Records</a>
                             </div>
-                        </td>
+                        </td>                        
                         <td class="d-block d-md-table-cell">
                             <span class="font-weight-bold d-md-none">Demo: </span>
                             <form action="{{route('demo.send', ['number' => $number->id])}}" class="form-inline" method="post">
                                 @csrf
                                 <div class="btn-group">
-                                    <select name="demo_id" class="form-control form-control-sm">
+                                    <select name="demo_id" class="form-control form-control-lg">
                                         <option value="">Select Demo</option>
                                         @foreach($demos as $demo)
                                             <option value="{{$demo->id}}">{{$demo->name.' - '.$demo->city}}</option>
                                         @endforeach
                                     </select>
-                                    <input type="text" name="custom_message" class="form-control form-control-sm" placeholder="Custom Message">
-                                    <button type="submit" class="btn btn-primary btn-xs">Send</button>
+                                    <input type="text" name="custom_message" class="form-control form-control-lg" placeholder="Custom Message">
+                                    <button type="submit" class="btn btn-primary btn-lg">Send</button>
                                 </div>
                             </form>
                         </td>
