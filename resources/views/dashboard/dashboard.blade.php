@@ -266,7 +266,7 @@
                     @else
                         <div class="col-lg-3 col-6">
                             <!-- small box -->
-                            <div class="small-box bg-primary">
+                            <div class="small-box text-white" style="background-color:rebeccapurple">
                                 <div class="inner">
                                     <h3>{{$callRecords->count()}}</h3>
                                     <p>Today's Call</p>
@@ -279,7 +279,7 @@
                         </div>
                         <div class="col-lg-3 col-6">
                             <!-- small box -->
-                            <div class="small-box bg-secondary">
+                            <div class="small-box bg-dark">
                                 <div class="inner">
                                     <h3>{{$callRecords->where('status', 'call back')->count()}}</h3>
                                     <p>Today's Call back</p>

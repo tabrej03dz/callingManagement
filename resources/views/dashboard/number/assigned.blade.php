@@ -14,9 +14,9 @@
                     case 'call not pick':
                         return 'bg-warning';
                     case 'call back':
-                        return 'bg-primary';
+                        return 'bg-dark';
                     case 'interested':
-                        return 'bg-success';
+                        return 'bg-primary';
                     case 'not interested':
                         return 'bg-danger';
                     case 'wrong number':
@@ -77,9 +77,9 @@
                             <a href="tel:{{$number->phone_number}}">{{$number->phone_number}}</a>
                         </td>
                         <td>{{$number->city}}</td>
-{{--                        <td class="{{ getStatusClass($number?->status) }}">--}}
-                          <td>
-                            {{$number->status}}
+                        <td class="{{ getStatusClass($number?->status) }}">
+
+                            {{$number?->status}}
                         </td>
                         <td>
                             {{$record?->status}}
