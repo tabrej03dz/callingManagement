@@ -134,7 +134,8 @@
                                             <option value="{{$demo->id}}">{{$demo->name.' - '.$demo->city}}</option>
                                         @endforeach
                                     </select>
-                                    <input type="text" name="custom_message" class="form-control form-control-sm" placeholder="Custom Message">
+                                    <textarea name="custom_message" id="" class="form-control form-control-sm" cols="30" ></textarea>
+{{--                                    <input type="text" name="custom_message" class="form-control form-control-sm" placeholder="Custom Message">--}}
                                     <button type="submit" class="btn btn-primary btn-xs">Send</button>
                                 </div>
                             </form>
@@ -206,7 +207,6 @@
             background-color: yellow;
             animation: highlightAnimation 2s ease-in-out;
         }
-
         @keyframes highlightAnimation {
             from { background-color: yellow; }
             to { background-color: transparent; }
