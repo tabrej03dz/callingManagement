@@ -22,6 +22,7 @@
                                 <option value="interested" {{ old('number_status') == 'interested' ? 'selected' : '' }}>Interested</option>
                                 <option value="not interested" {{ old('number_status') == 'not interested' ? 'selected' : '' }}>Not Interested</option>
                                 <option value="wrong number" {{ old('number_status') == 'wrong number' ? 'selected' : '' }}>Wrong Number</option>
+                                <option value="wrong number" {{ old('number_status') == 'converted' ? 'selected' : '' }}>Converted</option>
                             </select>
                         </div>
 

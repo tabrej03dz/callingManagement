@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CallRecord;
 use App\Models\Demo;
 use App\Models\Number;
 use App\Models\User;
@@ -82,16 +83,30 @@ class NumberController extends Controller
 
     public function assignedNumbers(Request $request){
         if ($request->number){
-            $numbers = Number::where('phone_number', $request->number)->get();
+            $numbers = Number::where('phone_number', $request->number);
         }else{
 
             if (auth()->user()->hasRole('calling team')){
                 $userNumebrs = auth()->user()->userNumbers->pluck('number_id');
-                $numbers = Number::whereIn('id', $userNumebrs)->get();
+                if ($request->keyword){
+                    $numberIds = CallRecord::where('description', 'like', '%'.$request->keyword.'%')->where('user_id', auth()->user()->id)->pluck('number_id');
+                    $numbers = Number::whereIn('id', $numberIds);
+                }else{
+                    $numbers = Number::whereIn('id', $userNumebrs);
+                }
             }else{
-                $numbers = Number::where('assigned', '1')->get();
+                if ($request->keyword){
+                    $numberIds = CallRecord::where('description', 'like', '%'.$request->keyword.'%')->pluck('number_id');
+                    $numbers = Number::whereIn('id', $numberIds);
+                }else{
+                    $numbers = Number::where('assigned', '1');
+                }
             }
         }
+        if($request->status){
+            $numbers = $numbers->where('status', $request->status);
+        }
+        $numbers = $numbers->orderBy('updated_at', 'asc')->get();
         $demos = Demo::all();
         return view('dashboard.number.assigned', compact('numbers', 'demos'));
     }

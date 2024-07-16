@@ -102,6 +102,30 @@
                         <label for="roleSelect" class="col-form-label">Items</label>
                         <input type="number" class="form-control" name="items" placeholder="Items">
                     </div>
+
+                    @php
+                        //$subQuery = App\Models\Number::select('id')
+                        //    ->whereIn('id', function ($query) {
+                        //        $query->select(\DB::raw('MIN(id)'))
+                        //              ->from('numbers')
+                        //              ->groupBy('city');
+                        //    });
+
+                        //$records = App\Models\Number::whereIn('id', $subQuery)->get();
+                        $records = App\Models\Number::select('city', DB::raw('count(*) as total'))
+                            ->groupBy('city')
+                            ->get();
+                    @endphp
+
+                    <div class="col-auto">
+                        <label for="roleSelect" class="col-form-label">City</label>
+                        <select name="city" class="form-control" id="">
+                            <option value="">Choose City</option>
+                            @foreach($records as $record)
+                                <option value="{{$record->city}}">{{$record->city}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="col-auto mt-4">
                         <input type="submit" value="Assign" class="btn btn-success">
                     </div>
