@@ -11,6 +11,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\DemoRecordController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -109,6 +110,7 @@ Route::middleware('auth')->group(function () {
        Route::post('storeImage/{demo}', [DemoController::class, 'storeImage'])->name('storeImage');
 
        Route::post('send/{number}', [DemoController::class, 'demoSend'])->name('send');
+       Route::get('records', [DemoRecordController::class, 'index'])->name('records');
     });
 
     Route::post('setInstanceAndAccess', [DemoController::class, 'setInstanceAndAccess'])->name('setInstanceAndAccess');

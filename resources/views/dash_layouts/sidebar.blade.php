@@ -220,6 +220,13 @@
                                 <p>Create</p>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('demo.records')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Records</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 

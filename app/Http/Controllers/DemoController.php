@@ -116,7 +116,7 @@ class DemoController extends Controller
                 }
             }
 
-            DemoRecord::create(['number_id' =>$number->id, 'user_id' => auth()->user()->id, 'demo_id' => $request->demo_id ?? '', 'custom_message' => $request->custom_message ?? '']);
+            DemoRecord::create(['number_id' =>$number->id, 'user_id' => auth()->user()->id, 'demo_id' => $request->demo_id ?? null, 'custom_message' => $request->custom_message ?? '']);
 
             return back()->with('success', 'Demo sent successfully');
         }else{

@@ -37,7 +37,9 @@ class UserNumberController extends Controller
 //        }
 
         if ($request->user_id == null){
-            $users = UserLog::whereDate('created_at', Carbon::today())->get();
+            $users = UserLog::select(DB::raw('MIN(id) as id'))
+                ->whereDate('created_at', Carbon::today())
+                ->groupBy('user_id');
             foreach ($users as $user) {
                 if ($user->user->hasRole('calling team')){
                     $numbers = Number::where('assigned', '0');
