@@ -5,7 +5,7 @@
 {{--            padding: 5px!important;--}}
 {{--        }--}}
 {{--    </style>--}}
-{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>--}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <div class="card" style="overflow-x: auto;">
         <div class="card-header d-flex justify-content-between align-items-center">
             <form action="{{ route('number.assigned') }}" method="get" class="form-inline">
@@ -48,17 +48,9 @@
         @endphp
 
         <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped text-xs">
-                <thead>
+            <table id="example1" class="table table-bordered table-striped text-xs w-100">
+                <thead class="d-none d-md-table-header-group">
                 <tr>
-{{--                    @role('super_admin|admin')--}}
-{{--                    <th>--}}
-{{--                        <div class="form-check">--}}
-{{--                            <input class="form-check-input" type="checkbox" id="selectAll">--}}
-{{--                            <label class="form-check-label" for="selectAll">All</label>--}}
-{{--                        </div>--}}
-{{--                    </th>--}}
-{{--                    @endrole--}}
                     <th>Name</th>
                     <th>Number</th>
                     <th>City</th>
@@ -66,7 +58,7 @@
                     <th>Response</th>
                     <th>Description</th>
                     <th>Last Call</th>
-                    <th>callback</th>
+                    <th>Callback</th>
                     <th>Count</th>
                     @role('super_admin')
                     <th>Assigned User</th>
@@ -80,55 +72,66 @@
                     @php
                         $record = $number->callRecords()->latest()->first();
                     @endphp
-                    <tr id="row-{{$number->id}}" class="{{ getStatusClass($record?->status) }}">
-{{--                        @role('super_admin|admin')--}}
-{{--                        <td>--}}
-{{--                            <div class="form-check">--}}
-{{--                                <input class="form-check-input" name="numbers[]" value="{{$number->id}}" type="checkbox" id="{{$number->id}}">--}}
-{{--                                <label class="form-check-label"></label>--}}
-{{--                            </div>--}}
-{{--                        </td>--}}
-{{--                        @endrole--}}
-
-                        <td>
+                    <tr id="row-{{$number->id}}" class="{{ getStatusClass($record?->status) }} d-md-table-row d-flex flex-column mb-4 p-3 bg-white rounded shadow-sm">
+                        <td class="d-block d-md-table-cell">
+                            <span class="font-weight-bold d-md-none">Name: </span>
                             <label class="form-check-label" for="{{$number->id}}">{{$number->business_name}}</label>
                         </td>
-                        <td>
+                        <td class="d-block d-md-table-cell">
+                            <span class="font-weight-bold d-md-none">Number: </span>
                             <a href="tel:{{$number->phone_number}}">{{$number->phone_number}}</a>
                         </td>
-                        <td>{{$number->city}}</td>
-                        <td class="{{ getStatusClass($number?->status) }}">
-
+                        <td class="d-block d-md-table-cell">
+                            <span class="font-weight-bold d-md-none">City: </span>
+                            {{$number->city}}
+                        </td>
+                        <td class="d-block d-md-table-cell {{ getStatusClass($number?->status) }}">
+                            <span class="font-weight-bold d-md-none">N/S: </span>
                             {{$number?->status}}
                         </td>
-                        <td>
+                        <td class="d-block d-md-table-cell">
+                            <span class="font-weight-bold d-md-none">Response: </span>
                             {{$record?->status}}
                         </td>
-                        <td>{{$record?->description}}</td>
-                        <td>{{$record?->created_at->format('d-M h:i')}}</td>
-                        <td>{{ $record?->have_to_call?->format('d-M h:i')}}</td>
-                        <td>{{$number->callRecords->count()}}</td>
+                        <td class="d-block d-md-table-cell">
+                            <span class="font-weight-bold d-md-none">Description: </span>
+                            {{$record?->description}}
+                        </td>
+                        <td class="d-block d-md-table-cell">
+                            <span class="font-weight-bold d-md-none">Last Call: </span>
+                            {{$record?->created_at->format('d-M h:i')}}
+                        </td>
+                        <td class="d-block d-md-table-cell">
+                            <span class="font-weight-bold d-md-none">Callback: </span>
+                            {{ $record?->have_to_call?->format('d-M h:i')}}
+                        </td>
+                        <td class="d-block d-md-table-cell">
+                            <span class="font-weight-bold d-md-none">Count: </span>
+                            {{$number->callRecords->count()}}
+                        </td>
                         @role('super_admin|admin')
-                        <td>
-                            <ul style="list-style: none; padding: 0px;">
+                        <td class="d-block d-md-table-cell">
+                            <span class="font-weight-bold d-md-none">Assigned User: </span>
+                            <ul style="list-style: none; padding: 0;">
                                 @foreach($number->userNumbers as $user)
                                     <li>{{$user->user->name}}</li>
                                 @endforeach
                             </ul>
                         </td>
                         @endrole
-
-                        <td>
+                        <td class="d-block d-md-table-cell">
+                            <span class="font-weight-bold d-md-none">Action: </span>
                             <div class="btn-group">
                                 <a href="{{route('callRecord.create', ['number' => $number->id])}}" class="btn btn-warning btn-xs">Response</a>
                                 <a href="{{route('callRecord.show', ['number' => $number->id])}}" class="btn btn-primary btn-xs">Records</a>
                             </div>
                         </td>
-                        <td>
+                        <td class="d-block d-md-table-cell">
+                            <span class="font-weight-bold d-md-none">Demo: </span>
                             <form action="{{route('demo.send', ['number' => $number->id])}}" class="form-inline" method="post">
                                 @csrf
                                 <div class="btn-group">
-                                    <select name="demo_id" class="form-control form-control-sm" id="">
+                                    <select name="demo_id" class="form-control form-control-sm">
                                         <option value="">Select Demo</option>
                                         @foreach($demos as $demo)
                                             <option value="{{$demo->id}}">{{$demo->name.' - '.$demo->city}}</option>
@@ -139,12 +142,12 @@
                                     <button type="submit" class="btn btn-primary btn-xs">Send</button>
                                 </div>
                             </form>
-
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
+
         </div>
     </div>
 
