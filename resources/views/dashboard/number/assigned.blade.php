@@ -1,6 +1,6 @@
 @extends('dash_layouts.aap', ['title' => 'Assigned Numbers'])
 @section('content')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>--}}
     <div class="card" style="overflow-x: auto;">
         <div class="card-header d-flex justify-content-between align-items-center flex-column flex-md-row">
             <form action="{{ route('number.assigned') }}" method="get" class="form-inline w-100 mb-2">
@@ -49,7 +49,7 @@
 
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped text-xs w-100">
-                <thead class="d-none d-md-table-header-group">
+                <thead class="d-md-table-header-group">
                     <tr>
                         <th>Name</th>
                         <th>Number</th>

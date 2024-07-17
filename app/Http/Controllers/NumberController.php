@@ -157,8 +157,12 @@ class NumberController extends Controller
 
         if(auth()->user()->hasRole('calling team')){
             UserNumber::create(['user_id' => auth()->user()->id, 'number_id' => $number->id, 'assigned_at' => Carbon::now(), 'assigned_by' => auth()->user()->id]);
+            $number->update(['assigned' => '1']);
         }
-
+        if ($request->user_id){
+            UserNumber::create(['user_id' => $request->user_id, 'number_id' => $number->id, 'assigned_at' => Carbon::now(), 'assigned_by' => auth()->user()->id]);
+            $number->update(['assigned' => '1']);
+        }
         return back()->with('success', 'Number Added Successfully');
     }
 
