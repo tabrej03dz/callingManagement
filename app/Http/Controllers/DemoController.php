@@ -125,19 +125,7 @@ class DemoController extends Controller
 
     }
 
-    public function setInstanceAndAccess(Request $request){
-        $request->validate([
-            'instance_id' => 'required',
-            'access_token' => 'required',
-        ]);
-        session(['instance_id' => $request->instance_id, 'access_token' => $request->access_token]);
-        return back()->with('success', 'Instance id and Access token set successfully');
-    }
 
-    public function clearInstanceAndAccess(){
-        session()->forget(['instance_id', 'access_token']);
-        return back()->with('success', 'Instance id and Access token cleared successfully');
-    }
 
 }
 

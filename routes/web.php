@@ -12,6 +12,7 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\DemoRecordController;
+use App\Http\Controllers\UserInstanceAccessController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -113,8 +114,8 @@ Route::middleware('auth')->group(function () {
        Route::get('records', [DemoRecordController::class, 'index'])->name('records');
     });
 
-    Route::post('setInstanceAndAccess', [DemoController::class, 'setInstanceAndAccess'])->name('setInstanceAndAccess');
-    Route::get('clearInstanceAndAccess', [DemoController::class, 'clearInstanceAndAccess'])->name('clearInstanceAndAccess');
+    Route::post('setInstanceAndAccess', [UserInstanceAccessController::class, 'setInstanceAndAccess'])->name('setInstanceAndAccess');
+    Route::get('clearInstanceAndAccess', [UserInstanceAccessController::class, 'clearInstanceAndAccess'])->name('clearInstanceAndAccess');
 });
 
 require __DIR__.'/auth.php';

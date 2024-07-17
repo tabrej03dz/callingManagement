@@ -5,11 +5,14 @@
         <div class="card-body">
             <form action="{{route('setInstanceAndAccess')}}" method="POST" class="form-inline">
                 @csrf
+                @php
+                    $record = App\Models\UserInstanceAccess::where('user_id', auth()->user()->id)->first();
+                @endphp
                 <div class="form-group mb-2 mr-2">
-                    <input type="text" class="form-control" name="instance_id" value="{{ session('instance_id') ?? '' }}" placeholder="Instance Id">
+                    <input type="text" class="form-control" name="instance_id" value="{{ $record?->instance_id ?? '' }}" placeholder="Instance Id">
                 </div>
                 <div class="form-group mb-2 mr-2">
-                    <input type="text" class="form-control" name="access_token" value="{{ session('access_token') ?? '' }}" placeholder="Access Token">
+                    <input type="text" class="form-control" name="access_token" value="{{ $record?->access_token ?? '' }}" placeholder="Access Token">
                 </div>
                 <button type="submit" class="btn btn-primary mb-2 mr-2">Save</button>
                 <a href="{{route('clearInstanceAndAccess')}}" class="btn btn-danger mb-2">Clear</a>
