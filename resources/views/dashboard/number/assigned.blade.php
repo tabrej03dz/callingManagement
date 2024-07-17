@@ -53,21 +53,20 @@
                     <table id="example1" class="table table-bordered table-striped text-xs w-100">
                         <thead class="title-name-header w-full">
                             <tr>
-                                <th style="min-width: 150px;">Name</th>
-                                <th style="min-width: 150px;">Number</th>
-                                <th style="min-width: 150px;">City</th>
-                                <th style="min-width: 100px;">N/S</th>
-                                <th style="min-width: 150px;">Response</th>
-                                <th style="min-width: 200px;">Description</th>
-                                <th style="min-width: 150px;">Last Call</th>
-                                <th style="min-width: 150px;">Callback</th>
-                                <th style="min-width: 100px;">Count</th>
+                                <th style="min-width: auto;">Name</th>
+                                <th style="min-width: auto;">Number</th>
+                                <th style="min-width: auto;">City</th>
+                                <th style="min-width: auto;">N/S</th>
+                                <th style="min-width: auto;">Response</th>
+                                <th style="min-width: auto;">Description</th>
+                                <th style="min-width: auto;">Last Call</th>
+                                <th style="min-width: auto;">Callback</th>
+                                <th style="min-width: auto;">Count</th>
                                 @role('super_admin')
-                                    <th style="min-width: 200px;">Assigned User</th>
+                                    <th style="min-width: auto;">Assigned User</th>
                                 @endrole
                                 <th style="min-width: 150px;">Action</th>
-                                <th style="min-width: 300px;">Demo</th> <!-- Adjusted min-width for Demo -->
-                            </tr>
+                                <th style="min-width: 300px;">Demo</th> 
                         </thead>
                         <tbody>
                             @foreach ($numbers as $number)
