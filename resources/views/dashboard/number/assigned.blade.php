@@ -1,6 +1,6 @@
 @extends('dash_layouts.aap', ['title' => 'Assigned Numbers'])
 @section('content')
-{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>--}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <div class="card" style="overflow-x: auto;">
         <div class="card-header d-flex justify-content-between align-items-center flex-column flex-md-row">
             <form action="{{ route('number.assigned') }}" method="get" class="form-inline w-100 mb-2">
@@ -48,112 +48,118 @@
         @endphp
 
         <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped text-xs w-100">
-                <thead class="d-md-table-header-group">
-                    <tr>
-                        <th>Name</th>
-                        <th>Number</th>
-                        <th>City</th>
-                        <th>N/S</th>
-                        <th>Response</th>
-                        <th>Description</th>
-                        <th>Last Call</th>
-                        <th>Callback</th>
-                        <th>Count</th>
-                        @role('super_admin')
-                            <th>Assigned User</th>
-                        @endrole
-                        <th>Action</th>
-                        <th>Demo</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($numbers as $number)
-                        @php
-                            $record = $number->callRecords()->latest()->first();
-                        @endphp
-                        <tr id="row-{{ $number->id }}"
-                            class="{{ getStatusClass($record?->status) }} d-md-table-row d-flex flex-column mb-4 p-3 bg-white rounded shadow-sm">
-                            <td class="d-block d-md-table-cell">
-                                <span class="font-weight-bold d-md-none">Name: </span>
-                                <label class="form-check-label"
-                                    for="{{ $number->id }}">{{ $number->business_name }}</label>
-                            </td>
-                            <td class="d-block d-md-table-cell">
-                                <span class="font-weight-bold d-md-none">Number: </span>
-                                <a href="tel:{{ $number->phone_number }}">{{ $number->phone_number }}</a>
-                            </td>
-                            <td class="d-block d-md-table-cell">
-                                <span class="font-weight-bold d-md-none">City: </span>
-                                {{ $number->city }}
-                            </td>
-                            <td class="d-block d-md-table-cell {{ getStatusClass($number?->status) }}">
-                                <span class="font-weight-bold d-md-none">N/S: </span>
-                                {{ $number?->status }}
-                            </td>
-                            <td class="d-block d-md-table-cell">
-                                <span class="font-weight-bold d-md-none">Response: </span>
-                                {{ $record?->status }}
-                            </td>
-                            <td class="d-block d-md-table-cell">
-                                <span class="font-weight-bold d-md-none">Description: </span>
-                                {{ $record?->description }}
-                            </td>
-                            <td class="d-block d-md-table-cell">
-                                <span class="font-weight-bold d-md-none">Last Call: </span>
-                                {{ $record?->created_at->format('d-M h:i') }}
-                            </td>
-                            <td class="d-block d-md-table-cell">
-                                <span class="font-weight-bold d-md-none">Callback: </span>
-                                {{ $record?->have_to_call?->format('d-M h:i') }}
-                            </td>
-                            <td class="d-block d-md-table-cell">
-                                <span class="font-weight-bold d-md-none">Count: </span>
-                                {{ $number->callRecords->count() }}
-                            </td>
-                            @role('super_admin|admin')
-                                <td class="d-block d-md-table-cell">
-                                    <span class="font-weight-bold d-md-none">Assigned User: </span>
-                                    <ul style="list-style: none; padding: 0;">
-                                        @foreach ($number->userNumbers as $user)
-                                            <li>{{ $user->user->name }}</li>
-                                        @endforeach
-                                    </ul>
-                                </td>
-                            @endrole
-                            <td class="d-block d-md-table-cell">
-                                <span class="font-weight-bold d-md-none">Action: </span>
-                                <div class="btn-group d-flex flex-column flex-md-row ml-10">
-                                    <a href="{{ route('callRecord.create', ['number' => $number->id]) }}"
-                                        class="btn btn-warning btn-sm mb-2 mb-md-0 mr-md-2">Response</a>
-                                    <a href="{{ route('callRecord.show', ['number' => $number->id]) }}"
-                                        class="btn btn-primary btn-sm">Records</a>
-                                </div>
-                            </td>
-                            <td class="d-block d-md-table-cell">
-                                <span class="font-weight-bold d-md-none">Demo: </span>
-                                <form action="{{ route('demo.send', ['number' => $number->id]) }}" class="form-inline"
-                                    method="post">
-                                    @csrf
-                                    <div class="btn-group">
-                                        <select name="demo_id" class="form-control form-control-sm mb-2 mb-md-0 w-100">
-                                            <option value="">Select Demo</option>
-                                            @foreach ($demos as $demo)
-                                                <option value="{{ $demo->id }}">{{ $demo->name . ' - ' . $demo->city }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        <input type="text" name="custom_message"
-                                            class="form-control form-control-sm mb-2 mb-md-0 w-100"
-                                            placeholder="Custom Message">
-                                        <button type="submit" class="btn btn-primary btn-sm">Send</button>
-                                    </div>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <div class="table-wrapper" style="overflow-x: auto;">
+                    <table id="example1" class="table table-bordered table-striped text-xs w-100">
+                        <thead class="title-name-header w-full">
+                            <tr>
+                                <th style="min-width: 150px;">Name</th>
+                                <th style="min-width: 150px;">Number</th>
+                                <th style="min-width: 150px;">City</th>
+                                <th style="min-width: 100px;">N/S</th>
+                                <th style="min-width: 150px;">Response</th>
+                                <th style="min-width: 200px;">Description</th>
+                                <th style="min-width: 150px;">Last Call</th>
+                                <th style="min-width: 150px;">Callback</th>
+                                <th style="min-width: 100px;">Count</th>
+                                @role('super_admin')
+                                    <th style="min-width: 200px;">Assigned User</th>
+                                @endrole
+                                <th style="min-width: 150px;">Action</th>
+                                <th style="min-width: 300px;">Demo</th> <!-- Adjusted min-width for Demo -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($numbers as $number)
+                                @php
+                                    $record = $number->callRecords()->latest()->first();
+                                @endphp
+                                <tr id="row-{{ $number->id }}"
+                                    class="{{ getStatusClass($record?->status) }} d-md-table-row d-flex flex-column mb-4 p-3 bg-white rounded shadow-sm">
+                                    <td class="d-block d-md-table-cell">
+                                        <span class="font-weight-bold d-md-none">Name: </span>
+                                        <label class="form-check-label"
+                                            for="{{ $number->id }}">{{ $number->business_name }}</label>
+                                    </td>
+                                    <td class="d-block d-md-table-cell">
+                                        <span class="font-weight-bold d-md-none">Number: </span>
+                                        <a href="tel:{{ $number->phone_number }}">{{ $number->phone_number }}</a>
+                                    </td>
+                                    <td class="d-block d-md-table-cell">
+                                        <span class="font-weight-bold d-md-none">City: </span>
+                                        {{ $number->city }}
+                                    </td>
+                                    <td class="d-block d-md-table-cell {{ getStatusClass($number?->status) }}">
+                                        <span class="font-weight-bold d-md-none">N/S: </span>
+                                        {{ $number?->status }}
+                                    </td>
+                                    <td class="d-block d-md-table-cell">
+                                        <span class="font-weight-bold d-md-none">Response: </span>
+                                        {{ $record?->status }}
+                                    </td>
+                                    <td class="d-block d-md-table-cell">
+                                        <span class="font-weight-bold d-md-none">Description: </span>
+                                        {{ $record?->description }}
+                                    </td>
+                                    <td class="d-block d-md-table-cell">
+                                        <span class="font-weight-bold d-md-none">Last Call: </span>
+                                        {{ $record?->created_at->format('d-M h:i') }}
+                                    </td>
+                                    <td class="d-block d-md-table-cell">
+                                        <span class="font-weight-bold d-md-none">Callback: </span>
+                                        {{ $record?->have_to_call?->format('d-M h:i') }}
+                                    </td>
+                                    <td class="d-block d-md-table-cell">
+                                        <span class="font-weight-bold d-md-none">Count: </span>
+                                        {{ $number->callRecords->count() }}
+                                    </td>
+                                    @role('super_admin|admin')
+                                        <td class="d-block d-md-table-cell">
+                                            <span class="font-weight-bold d-md-none">Assigned User: </span>
+                                            <ul style="list-style: none; padding: 0;">
+                                                @foreach ($number->userNumbers as $user)
+                                                    <li>{{ $user->user->name }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
+                                    @endrole
+                                    <td class="d-block d-md-table-cell">
+                                        <span class="font-weight-bold d-md-none">Action: </span>
+                                        <div class="btn-group d-flex flex-column flex-md-row ml-10">
+                                            <a href="{{ route('callRecord.create', ['number' => $number->id]) }}"
+                                                class="btn btn-warning btn-sm mb-2 mb-md-0 mr-md-2">Response</a>
+                                            <a href="{{ route('callRecord.show', ['number' => $number->id]) }}"
+                                                class="btn btn-primary btn-sm">Records</a>
+                                        </div>
+                                    </td>
+                                    <td class="d-block d-md-table-cell" style="min-width: 300px;">
+                                        <!-- Adjusted min-width for Demo -->
+                                        <span class="font-weight-bold d-md-none">Demo: </span>
+                                        <form action="{{ route('demo.send', ['number' => $number->id]) }}"
+                                            class="form-inline" method="post">
+                                            @csrf
+                                            <div class="btn-group">
+                                                <select name="demo_id"
+                                                    class="form-control form-control-sm mb-2 mb-md-0 w-100">
+                                                    <option value="">Select Demo</option>
+                                                    @foreach ($demos as $demo)
+                                                        <option value="{{ $demo->id }}">
+                                                            {{ $demo->name . ' - ' . $demo->city }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <input type="text" name="custom_message"
+                                                    class="form-control form-control-sm mb-2 mb-md-0 w-100"
+                                                    placeholder="Custom Message">
+                                                <button type="submit" class="btn btn-primary btn-sm">Send</button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -226,6 +232,12 @@
 
             to {
                 background-color: transparent;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .title-name-header {
+                display: none;
             }
         }
     </style>
