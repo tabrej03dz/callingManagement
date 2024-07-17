@@ -4,20 +4,24 @@
     <div class="card" style="overflow-x: auto;">
         <div class="card-header d-flex justify-content-between align-items-center flex-column flex-md-row">
             <form action="{{ route('number.assigned') }}" method="get" class="form-inline w-100 mb-2">
-                <div class="form-group flex-grow-1 mr-2 mb-2 mb-md-0 w-100">
-                    <label for="status" class="sr-only">Status</label>
-                    <select name="status" id="status" class="form-control mr-2 mb-2 w-100">
-                        <option value="">Select Status</option>
-                        <option value="interested">Interested</option>
-                        <option value="not interested">Not Interested</option>
-                        <option value="wrong number">Wrong Number</option>
-                        <option value="converted">Converted</option>
-                    </select>
-                    <input type="text" name="keyword" class="form-control mb-2 w-100" placeholder="Keywords">
-                </div>
-                <div class="d-flex flex-column flex-md-row w-100">
-                    <button type="submit" class="btn btn-primary mb-2 mb-md-0 mr-md-2 w-100">Apply</button>
-                    <a href="{{ route('number.assigned') }}" class="btn btn-secondary mb-2 mb-md-0 w-100">Clear</a>
+                <div class="form-row w-100">
+                    <div class="form-group col-md-5 mb-2">
+                        <label for="status" class="sr-only">Status</label>
+                        <select name="status" id="status" class="form-control w-100">
+                            <option value="">Select Status</option>
+                            <option value="interested">Interested</option>
+                            <option value="not interested">Not Interested</option>
+                            <option value="wrong number">Wrong Number</option>
+                            <option value="converted">Converted</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-5 mb-2">
+                        <input type="text" name="keyword" class="form-control w-100" placeholder="Keywords">
+                    </div>
+                    <div class="col-md-2 d-flex mb-2">
+                        <button type="submit" class="btn btn-primary w-100 mr-2">Apply</button>
+                        <a href="{{ route('number.assigned') }}" class="btn btn-secondary w-100">Clear</a>
+                    </div>
                 </div>
             </form>
             <div class="w-100 text-right text-center text-md-right">
@@ -59,14 +63,14 @@
                                 <th style="min-width: auto;">N/S</th>
                                 <th style="min-width: auto;">Response</th>
                                 <th style="min-width: auto;">Description</th>
-                                <th style="min-width: auto;">Last Call</th>
+                                <th style="min-width: 100px;">Last Call</th>
                                 <th style="min-width: auto;">Callback</th>
                                 <th style="min-width: auto;">Count</th>
                                 @role('super_admin')
                                     <th style="min-width: auto;">Assigned User</th>
                                 @endrole
                                 <th style="min-width: 150px;">Action</th>
-                                <th style="min-width: 300px;">Demo</th> 
+                                <th style="min-width: 300px;">Demo</th>
                         </thead>
                         <tbody>
                             @foreach ($numbers as $number)
