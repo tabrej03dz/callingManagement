@@ -16,9 +16,9 @@
         <div class="container-fluid">
 
             <div class="card">
-                <div class="card-body">
-                    <form action="{{route('dashboard')}}" method="GET">
-                        <input type="date" name="date" placeholder="date">
+                <div class="card-body p-1">
+                    <form action="{{route('dashboard')}}" method="GET" class="form-inline">
+                        <input type="date" name="date" placeholder="date" class="form-control mr-2">
                         <input type="submit" value="Filter" class="btn btn-primary">
                     </form>
                 </div>
@@ -442,7 +442,7 @@
                            $subquery = App\Models\UserLog::select(DB::raw('MIN(id) as id'))
                                 ->whereDate('created_at', Carbon\Carbon::today())
                                 ->groupBy('user_id');
-                           $userCount = App\Models\UserLog::whereIn('id', $subquery)->distinct('user_id')->count('user_id');
+                           $loggedUser = App\Models\UserLog::whereIn('id', $subquery)->distinct('user_id')->count('user_id');
 
                         @endphp
 
@@ -458,7 +458,7 @@
                                 <div class="col-4 text-center">
                                     <div id="sparkline-2"></div>
                                     <div class="text-white">Logged In Today</div>
-                                    {{$userCount}}
+                                    {{$loggedUser}}
                                 </div>
                                 <!-- ./col -->
                                 <div class="col-4 text-center">
