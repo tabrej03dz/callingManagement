@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('status_wise_messages', function (Blueprint $table) {
             $table->id();
+            $table->string('status');
+            $table->text('message');
             $table->timestamps();
         });
     }

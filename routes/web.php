@@ -13,6 +13,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\DemoRecordController;
 use App\Http\Controllers\UserInstanceAccessController;
+use App\Http\Controllers\StatusWiseMessageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -112,6 +113,13 @@ Route::middleware('auth')->group(function () {
 
        Route::post('send/{number}', [DemoController::class, 'demoSend'])->name('send');
        Route::get('records', [DemoRecordController::class, 'index'])->name('records');
+    });
+
+    Route::prefix('message')->name('message.')->group(function(){
+        Route::get('/', [StatusWiseMessageController::class, 'index'])->name('index');
+        Route::get('create', [StatusWiseMessageController::class, 'create'])->name('create');
+        Route::post('store', [StatusWiseMessageController::class, 'store'])->name('store');
+        Route::post('edit/{message}', [StatusWiseMessageController::class, 'edit'])->name('edit');
     });
 
     Route::post('setInstanceAndAccess', [UserInstanceAccessController::class, 'setInstanceAndAccess'])->name('setInstanceAndAccess');
