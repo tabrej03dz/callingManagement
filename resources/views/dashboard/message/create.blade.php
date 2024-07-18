@@ -1,4 +1,4 @@
-@extends('dash_layouts.aap', ['title' => 'Create Demo'])
+@extends('dash_layouts.aap', ['title' => 'Create Message'])
 @section('content')
     <!-- general form elements -->
     <div class="card card-primary">

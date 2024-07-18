@@ -60,6 +60,8 @@ class CallRecordController extends Controller
             }else{
                 $flash = 'Message is not available for this status';
             }
+        }else{
+            $flash = '';
         }
 
         return redirect()->route('number.assigned', ['saved_number_id' => $number->id])->with('success', 'Record created successfully'.$flash??'');
