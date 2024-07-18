@@ -16,6 +16,9 @@
                         </select>
                     </div>
                     <div class="form-group col-md-5 mb-2">
+                        <input type="text" name="city" class="form-control w-100" placeholder="City">
+                    </div>
+                    <div class="form-group col-md-5 mb-2">
                         <input type="text" name="keyword" class="form-control w-100" placeholder="Keywords">
                     </div>
                     <div class="col-md-2 d-flex mb-2">

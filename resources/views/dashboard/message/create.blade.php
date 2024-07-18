@@ -12,16 +12,15 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="exampleInputFile">Status</label>
-                    <div class="input-group">
-                        <select name="status" id="" class="form-control">
-                            <option value="">Select Status</option>
-                            <option value="interested">Interested<option>
-                            <option value="not interested">Not Interested<option>
-                            <option value="wrong number">Wrong Number<option>
-                            <option value="converted">Converted<option>
-                        </select>
-                    </div>
+                    <select name="status" id="exampleInputFile" class="form-control">
+                        <option value="">Select Status</option>
+                        <option value="interested">Interested</option>
+                        <option value="not interested">Not Interested</option>
+                        <option value="wrong number">Wrong Number</option>
+                        <option value="converted">Converted</option>
+                    </select>
                 </div>
+
                 <div class="form-group">
                     <label for="">Message</label>
                     <div class="input-group">

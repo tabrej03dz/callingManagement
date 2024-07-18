@@ -119,7 +119,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [StatusWiseMessageController::class, 'index'])->name('index');
         Route::get('create', [StatusWiseMessageController::class, 'create'])->name('create');
         Route::post('store', [StatusWiseMessageController::class, 'store'])->name('store');
-        Route::post('edit/{message}', [StatusWiseMessageController::class, 'edit'])->name('edit');
+        Route::get('edit/{message}', [StatusWiseMessageController::class, 'edit'])->name('edit');
+        Route::get('delete/{message}', [StatusWiseMessageController::class, 'delete'])->name('delete');
     });
 
     Route::post('setInstanceAndAccess', [UserInstanceAccessController::class, 'setInstanceAndAccess'])->name('setInstanceAndAccess');

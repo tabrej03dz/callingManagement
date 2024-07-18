@@ -23,7 +23,7 @@ class StatusWiseMessageController extends Controller
         ]);
         $record = StatusWiseMessage::where('status', $request->status)->first();
         if ($record){
-            $request->update($request->all());
+            $record->update($request->all());
             $message = 'Updated successfully';
         }else{
             StatusWiseMessage::create($request->all());
@@ -34,5 +34,10 @@ class StatusWiseMessageController extends Controller
 
     public function edit(StatusWiseMessage $message){
         return view('dashboard.message.edit', compact('message'));
+    }
+
+    public function delete(StatusWiseMessage $message){
+        $message->delete();
+        return back()->with('success','deleted successfully');
     }
 }

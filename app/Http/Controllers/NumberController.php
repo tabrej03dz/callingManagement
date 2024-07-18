@@ -106,6 +106,9 @@ class NumberController extends Controller
         if($request->status){
             $numbers = $numbers->where('status', $request->status);
         }
+        if ($request->city){
+            $numbers = $numbers->where('city', $request->city);
+        }
         $numbers = $numbers->orderBy('updated_at', 'asc')->get();
         $demos = Demo::all();
         return view('dashboard.number.assigned', compact('numbers', 'demos'));

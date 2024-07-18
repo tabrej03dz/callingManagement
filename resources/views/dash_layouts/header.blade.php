@@ -23,7 +23,7 @@
             <a href="{{ route('dashboard') }}" class="btn btn-navbar" type="submit">Clear</a>
         </div>
     </form>
-    
+
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -68,10 +68,18 @@
             </div>
         </li>
         <!-- Notifications Dropdown Menu -->
+        @php
+        if (auth()->user()->hasRole('calling team')){
+            $todayAssignedNumbers = \App\Models\UserNumber::whereDate('created_at', Carbon::today())->where('user_id', auth()->user()->id)->get();
+        }else{
+
+            $todayAssignedNumbers = \App\Models\UserNumber::whereDate('created_at', Carbon::today())->get();
+        }
+        @endphp
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge">15</span>
+                <span class="badge badge-warning navbar-badge">{{$todayAssignedNumbers->count()}}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <span class="dropdown-item dropdown-header">15 Notifications</span>

@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\CallRecord;
+use App\Models\Demo;
+use App\Models\DemoRecord;
 use App\Models\Status;
+use App\Models\StatusWiseMessage;
+use App\Models\UserInstanceAccess;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Number;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\Rule;
+use GuzzleHttp\Client;
 
 
 class CallRecordController extends Controller
@@ -29,6 +34,7 @@ class CallRecordController extends Controller
             'status' => '',
             'description' => '',
             'date_and_time' => Rule::requiredIf($request->status === 'call back'),
+            'send_message' => '',
         ]);
 
         if ($request->number_status) {
@@ -37,13 +43,26 @@ class CallRecordController extends Controller
         }
 
         CallRecord::create($request->all() + [
-                'number_id' => $number->id,
-                'user_id' => auth()->user()->id,
-                'number_status' => $request->number_status,
-                'have_to_call' => $request->date_and_time
-            ]);
+            'number_id' => $number->id,
+            'user_id' => auth()->user()->id,
+            'number_status' => $request->number_status,
+            'have_to_call' => $request->date_and_time
+        ]);
 
-        return redirect()->route('number.assigned', ['saved_number_id' => $number->id])->with('success', 'Record created successfully');
+        if ($request->send_message == 'true'){
+            $message = StatusWiseMessage::where('status', $request->number_status)->first()?->message;
+            if ($message){
+                $userInstanceAccess = UserInstanceAccess::where('user_id', auth()->user()->id)->first();
+                $client = new Client(['verify' => false]);
+                $response = $client->request('GET', 'https://rvgwp.in/api/send?number=91'.$number->phone_number.'&type=text&message='.$message.'&instance_id='.$userInstanceAccess->instance_id.'&access_token='.$userInstanceAccess->access_token);
+                DemoRecord::create(['user_id' => auth()->user()->id, 'number_id' => $number->id, 'custom_message' => $message]);
+                $flash = 'Message sent successfully';
+            }else{
+                $flash = 'Message is not available for this status';
+            }
+        }
+
+        return redirect()->route('number.assigned', ['saved_number_id' => $number->id])->with('success', 'Record created successfully'.$flash??'');
     }
 
 

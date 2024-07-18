@@ -16,8 +16,8 @@
                 @foreach($messages as $message)
                     <tr>
                         <td>{{$loop->iteration}}</td>
-                        <td>{{$demo->status}}</td>
-                        <td>{{$demo->message}}</td>
+                        <td>{{$message->status}}</td>
+                        <td>{{$message->message}}</td>
                         <td>
                             <div class="btn-group">
                                 <a href="{{route('message.edit', ['message' => $message])}}" class="btn btn-primary">Edit</a>

@@ -6,6 +6,7 @@ use App\Models\Demo;
 use App\Models\DemoRecord;
 use App\Models\Image;
 use App\Models\Number;
+use App\Models\UserInstanceAccess;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
@@ -97,25 +98,26 @@ class DemoController extends Controller
         ]);
 
         $phoneNumber = $number->phone_number;
-        if (session()->has('instance_id') && session()->has('access_token')) {
+        $userInstanceAccess = UserInstanceAccess::where('user_id', auth()->user()->id)->first();
+
+        if ($userInstanceAccess) {
             if ($request->custom_message){
                 $client = new Client(['verify' => false]);
-                $response = $client->request('GET', 'https://rvgwp.in/api/send?number=91'.$phoneNumber.'&type=text&message='.$request->custom_message.'&instance_id='.session('instance_id').'&access_token='.session('access_token'));
+                $response = $client->request('GET', 'https://rvgwp.in/api/send?number=91'.$phoneNumber.'&type=text&message='.$request->custom_message.'&instance_id='.$userInstanceAccess->instance_id.'&access_token='.$userInstanceAccess->access_token);
             }
 
             if ($request->demo_id){
                 $images = Image::where('demo_id', $request->demo_id)->get();
                 foreach ($images as $image){
-                    $imageUrl = asset('storage/'. $image->path);
-//                $imageUrl = 'https://realvictorygroups.xyz/assets/logo.png';
+//                    $imageUrl = asset('storage/'. $image->path);
+                $imageUrl = 'https://realvictorygroups.xyz/assets/logo.png';
                     $message = $image->title;
                     $fileName = $image->title;
                     $client = new Client(['verify' => false]);
 //            $response = $client->request('GET', 'https://rvgwp.in/api/send?number=91'.$phoneNumber.'&type=media&message='.$message.'&media_url='.$imageUrl.'&filename='.$fileName.'&instance_id=664ECBDACA54B&access_token=662cfa69080e1');
-                    $response = $client->request('GET', 'https://rvgwp.in/api/send?number=91'.$phoneNumber.'&type=media&message='.$message.'&media_url='.$imageUrl.'&filename='.$fileName.'&instance_id='.session('instance_id').'&access_token='.session('access_token'));
+                    $response = $client->request('GET', 'https://rvgwp.in/api/send?number=91'.$phoneNumber.'&type=media&message='.$message.'&media_url='.$imageUrl.'&filename='.$fileName.'&instance_id='.$userInstanceAccess->instance_id.'&access_token='.$userInstanceAccess->access_token);
                 }
             }
-
             DemoRecord::create(['number_id' =>$number->id, 'user_id' => auth()->user()->id, 'demo_id' => $request->demo_id ?? null, 'custom_message' => $request->custom_message ?? '']);
 
             return back()->with('success', 'Demo sent successfully');

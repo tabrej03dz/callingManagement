@@ -33,6 +33,12 @@
                             <label for="">Call back time</label>
                             <input name="date_and_time" type="datetime-local" class="form-control" placeholder="Have to call" value="{{old('date_and_time')}}"/>
                         </div>
+
+                        <div class="form-group mb-3">
+                            <input name="send_message" id="send_message" type="checkbox" value="true"/>
+                            <label for="send_message">Do you want to send message to this number</label>
+                        </div>
+
                         <div class="form-group mb-3">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
