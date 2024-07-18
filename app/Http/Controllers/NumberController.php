@@ -169,4 +169,25 @@ class NumberController extends Controller
         return back()->with('success', 'Number Added Successfully');
     }
 
+    public function callBack(){
+        return view('dashboard.number.callBack');
+    }
+
+    public function allNumberDelete(){
+        $numbers = Number::all();
+        foreach ($numbers as $number){
+            $number->delete();
+        }
+        return back()->with('success', 'All Numbers deleted successfully');
+    }
+
+    public function unassignedNumberDelete(){
+        $numbers = Number::where('assigned', '0')->get();
+        foreach ($numbers as $number){
+            $number->delete();
+        }
+        return back()->with('success', 'All Numbers deleted successfully');
+    }
+
+
 }

@@ -62,6 +62,11 @@
                 <button type="submit" class="btn btn-primary mb-2">Apply</button>
                 <a href="{{route('number.index')}}" class="btn btn-secondary mb-2 ml-3">Clear</a>
             </form>
+
+            @role('super_admin')
+            <a href="{{route('number.allDelete')}}" onclick="return confirm('Are you sure you want to delete all numbers?')" class="btn btn-danger">Delete All Numbers</a>
+            <a href="{{route('number.unassignedDelete')}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete all unassigned numbers?')">Delete Unassigned Numbers</a>
+            @endrole
         </div>
     </div>
 

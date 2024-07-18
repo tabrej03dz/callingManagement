@@ -85,6 +85,12 @@
                             </a>
                         </li>
                         @endcan
+                            <li class="nav-item">
+                                <a href="{{route('number.callBack')}}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Call Back</p>
+                                </a>
+                            </li>
                     </ul>
                 </li>
                     @can('show all users')
