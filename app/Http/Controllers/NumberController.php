@@ -109,7 +109,7 @@ class NumberController extends Controller
         if ($request->city){
             $numbers = $numbers->where('city', $request->city);
         }
-        $numbers = $numbers->orderBy('updated_at', 'asc')->get();
+        $numbers = $numbers->get();
         $demos = Demo::all();
         return view('dashboard.number.assigned', compact('numbers', 'demos'));
     }
