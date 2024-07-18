@@ -17,6 +17,8 @@
                 <button type="submit" class="btn btn-primary mb-2 mr-2">Save</button>
                 <a href="{{route('clearInstanceAndAccess')}}" class="btn btn-danger mb-2">Clear</a>
             </form>
+
+            <a href="{{route('demo.create')}}" class="btn btn-danger mb-2">Create Demo</a>
         </div>
     </div>
         <div class="card-body">
