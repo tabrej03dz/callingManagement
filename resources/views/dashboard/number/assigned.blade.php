@@ -153,9 +153,9 @@
                                                             {{ $demo->name . ' - ' . $demo->city }}</option>
                                                     @endforeach
                                                 </select>
-                                                <input type="text" name="custom_message"
+                                                <textarea type="text" name="custom_message"
                                                     class="form-control form-control-sm mb-2 mb-md-0 w-100"
-                                                    placeholder="Custom Message">
+                                                          placeholder="Custom Message"></textarea>
                                                 <button type="submit" class="btn btn-primary btn-sm">Send</button>
                                             </div>
                                         </form>
