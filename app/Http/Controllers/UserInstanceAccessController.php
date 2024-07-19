@@ -20,12 +20,14 @@ class UserInstanceAccessController extends Controller
             UserInstanceAccess::create($request->all() + ['user_id' => auth()->user()->id]);
         }
 
-        session(['instance_id' => $request->instance_id, 'access_token' => $request->access_token]);
+//        session(['instance_id' => $request->instance_id, 'access_token' => $request->access_token]);
         return back()->with('success', 'Instance id and Access token set successfully');
     }
 
     public function clearInstanceAndAccess(){
-        session()->forget(['instance_id', 'access_token']);
+//        session()->forget(['instance_id', 'access_token']);
+        $record = UserInstanceAccess::where('user_id', auth()->user()->id)->first();
+        $record->delete();
         return back()->with('success', 'Instance id and Access token cleared successfully');
     }
 }

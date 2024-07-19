@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CallRecord;
+use App\Models\DemoRecord;
 use App\Models\Number;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -34,7 +35,13 @@ class DashboardController extends Controller
             $recentCalls = CallRecord::whereDate('have_to_call', Carbon::today())->where('recalled', null)->get();
         }
         $allNumbers = Number::all();
+
+        if (auth()->user()->hasRole('super_admin|admin')){
+            $demoRecords = DemoRecord::whereDate('created_at', $request->date ?? Carbon::today())->count();
+        }else{
+            $demoRecords = DemoRecord::whereDate('created_at', $request->date ?? Carbon::today())->where('user_id', auth()->user()->id)->count();
+        }
 //        dd(Carbon::now()->addMinutes(50));
-        return view('dashboard.dashboard', compact('recentCalls', 'allNumbers', 'date', 'numbers', 'callRecords'));
+        return view('dashboard.dashboard', compact('recentCalls', 'allNumbers', 'date', 'numbers', 'callRecords', 'demoRecords'));
     }
 }

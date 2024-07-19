@@ -105,6 +105,7 @@
                             <a href="{{route('number.statusWise', ['status' => 'converted'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
+
                 @else
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
@@ -309,6 +310,20 @@
                     <!-- ./col -->
 
                     @endif
+
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box text-light" style="background-color: #b73867">
+                            <div class="inner">
+                                <h3>{{$demoRecords}}</h3>
+                                <p >Demo Sent</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-pie-graph"></i>
+                            </div>
+                            <a href="{{route('demo.records')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
 
             </div>
             <!-- /.row -->
