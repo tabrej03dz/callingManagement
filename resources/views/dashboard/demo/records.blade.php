@@ -12,6 +12,7 @@
                 <th>Demo Name</th>
                 <th>Custom Message</th>
                 <th>Sent By</th>
+                <th>Sent At</th>
             </tr>
             </thead>
             <tbody>
@@ -23,6 +24,7 @@
                         <td>{{$record->demo?->name}}</td>
                         <td>{!! $record->custom_message !!}</td>
                         <td>{{$record->user->name}}</td>
+                        <td>{{$record->created_at->format('D-m h:i')}}</td>
                     </tr>
                 @endforeach
             </tbody>
