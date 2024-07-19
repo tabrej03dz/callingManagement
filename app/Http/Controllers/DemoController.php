@@ -111,7 +111,8 @@ class DemoController extends Controller
                 foreach ($images as $image){
                     $imageUrl = asset('storage/'. $image->path);
 //                $imageUrl = 'https://realvictorygroups.xyz/assets/logo.png';
-                    $message = $image->title;
+                    $message = '';
+//                    $message = $image->title;
                     $fileName = $image->title;
                     $client = new Client(['verify' => false]);
                     $response = $client->request('GET', 'https://rvgwp.in/api/send?number=91'.$phoneNumber.'&type=media&message='.$message.'&media_url='.$imageUrl.'&filename='.$fileName.'&instance_id='.$userInstanceAccess->instance_id.'&access_token='.$userInstanceAccess->access_token);
