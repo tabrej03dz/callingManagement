@@ -195,5 +195,12 @@ class NumberController extends Controller
         return back()->with('success', 'All Numbers deleted successfully');
     }
 
+    public function deleteSelectedNumber(Request $request){
+        $numbers = Number::whereIn('id', $request->numbers)->get();
+        foreach ($numbers as $number){
+            $number->delete();
+        }
+        return back()->with('success', 'Numbers Deleted successfully');
+    }
 
 }

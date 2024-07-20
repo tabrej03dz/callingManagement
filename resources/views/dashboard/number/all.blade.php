@@ -137,8 +137,12 @@
                 </div>
             </div>
 
+        </form>
 
+        <form action="{{route('number.checkedDelete')}}" method="POST">
+            @csrf
             <div class="card-body">
+                <input type="submit" value="Delete" class="btn btn-danger">
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>

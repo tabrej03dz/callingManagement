@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('allDelete', [NumberController::class, 'allNumberDelete'])->name('allDelete');
         Route::get('unassignedDelete', [NumberController::class, 'unassignedNumberDelete'])->name('unassignedDelete');
-//        Route::post('checkedD')
+        Route::post('checkedDelete', [NumberController::class, 'deleteSelectedNumber'])->name('checkedDelete');
     });
 
     Route::prefix('callRecord')->name('callRecord.')->group(function(){
