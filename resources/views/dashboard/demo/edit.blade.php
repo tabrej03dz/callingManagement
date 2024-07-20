@@ -14,7 +14,7 @@
                     <label for="exampleInputFile">Name</label>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="text" name="name" value="{{$demo->name}}" class="form-control">
+                            <input type="text" name="name" value="{{$demo->name ?? ''}}" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -22,12 +22,19 @@
                     <label for="exampleInputFile">City</label>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="text" name="city" value="{{$demo->city}}" class="form-control">
+                            <input type="text" name="city" value="{{$demo->city ?? ''}}" class="form-control">
                         </div>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label for="exampleInputFile">Description</label>
+                    <textarea name="description" id="" cols="30" rows="8" class="form-control" placeholder="Write Here">
+{{$demo->description ?? ''}}
+                    </textarea>
+                </div>
+
             </div>
-            <!-- /.card-body -->
 
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>

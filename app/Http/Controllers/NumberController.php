@@ -49,7 +49,7 @@ class NumberController extends Controller
         $role = Role::where('name', 'calling team')->first();
 
         $users = $role->users;
-        $numbers = Number::where('assigned', '0')->get();
+        $numbers = Number::where('assigned', '0')->paginate(100);
 
         return view('dashboard.number.index', compact('numbers', 'users'));
     }

@@ -132,7 +132,8 @@
                 </div>
             </div>
 
-
+        </form>
+        <form action="{{route('number.checkedDelete')}}" method="POST">
             <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
@@ -169,6 +170,7 @@
             </div>
             <!-- /.card-body -->
         </form>
+        {{$numbers->links()}}
     </div>
     <!-- /.card -->
 

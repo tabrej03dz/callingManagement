@@ -107,11 +107,12 @@ class DemoController extends Controller
             }
 
             if ($request->demo_id){
-                $images = Image::where('demo_id', $request->demo_id)->get();
+                $demo = Demo::find($request->demo_id);
+                $message = $demo->description ?? '';
+                $images = Image::where('demo_id', $demo->id)->get();
                 foreach ($images as $image){
                     $imageUrl = asset('storage/'. $image->path);
 //                $imageUrl = 'https://realvictorygroups.xyz/assets/logo.png';
-                    $message = '';
 //                    $message = $image->title;
                     $fileName = $image->title;
                     $client = new Client(['verify' => false]);

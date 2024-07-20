@@ -14,7 +14,7 @@
                     <label for="exampleInputFile">Name</label>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="text" name="name" class="form-control">
+                            <input type="text" name="name" placeholder="Name" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                     <label for="exampleInputFile">City</label>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="text" name="city" class="form-control">
+                            <input type="text" name="city" placeholder="City" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                     <label for="exampleInputFile">Image Title</label>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="text" name="image_title" class="form-control">
+                            <input type="text" name="image_title" placeholder="Image Title" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -43,8 +43,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="exampleInputFile">Description</label>
+                    <textarea name="description" id="" cols="30" rows="10" class="form-control" placeholder="Write Here">
+
+                    </textarea>
+                </div>
             </div>
-            <!-- /.card-body -->
+
 
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
