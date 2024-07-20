@@ -7,15 +7,26 @@ use App\Models\DemoRecord;
 use App\Models\Number;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 
 class DashboardController extends Controller
 {
     public function dashboard(Request $request){
+        Permission::create(['name' => 'add number']);
+        Permission::create(['name' => 'show demo']);
+        Permission::create(['name' => 'create demo']);
+        Permission::create(['name' => 'show demo records']);
+        Permission::create(['name' => 'edit demo']);
+        Permission::create(['name' => 'delete demo']);
+        Permission::create(['name' => 'show message']);
+        Permission::create(['name' => 'create message']);
+        Permission::create(['name' => 'edit message']);
+        Permission::create(['name' => 'delete message']);
 //        $notAssignedNumbers = Number::where('assigned', '0')->get();
 //        foreach ($notAssignedNumbers as $number){
 //            $number->delete();
 //        }
-//        dd('not assigned numbers deleted successfully');
+        dd('Permissions created successfully');
 
         if ($request->date){
             $date = $request->date;

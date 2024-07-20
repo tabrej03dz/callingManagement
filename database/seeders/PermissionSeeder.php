@@ -29,8 +29,18 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'show permission']);
         Permission::create(['name' => 'assign permission']);
         Permission::create(['name' => 'show role & permission']);
-        Permission::create(['name' => 'create status']);
+//        Permission::create(['name' => 'create status']);
         Permission::create(['name' => 'show report']);
+        Permission::create(['name' => 'add number']);
+        Permission::create(['name' => 'show demo']);
+        Permission::create(['name' => 'create demo']);
+        Permission::create(['name' => 'show demo records']);
+        Permission::create(['name' => 'edit demo']);
+        Permission::create(['name' => 'delete demo']);
+        Permission::create(['name' => 'show message']);
+        Permission::create(['name' => 'create message']);
+        Permission::create(['name' => 'edit message']);
+        Permission::create(['name' => 'delete message']);
 
         $superAdmin = Role::findByName('super_admin');
         $permissions = Permission::all();

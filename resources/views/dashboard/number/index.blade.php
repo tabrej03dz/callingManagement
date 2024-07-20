@@ -1,7 +1,6 @@
 @extends('dash_layouts.aap', ['title' => 'Numbers'])
 @section('content')
-
-    <!-- /.card -->
+    <script src="https://cdn.tailwindcss.com"></script>
     @if (session()->has('alreadyAssigned') && session('alreadyAssigned'))
         <div class="card">
             <div class="card-head">
@@ -49,6 +48,25 @@
         </div>
     @endif
 
+    <div class="card">
+        <div class="card-body">
+            <form action="{{route('number.index')}}" method="get" class="form-inline">
+                <div class="form-group mb-2">
+                    <label for="city" class="sr-only">City</label>
+                    <input type="text" class="form-control" id="city" name="city" placeholder="City">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="date" class="sr-only">Date</label>
+                    <input type="date" class="form-control" id="date" name="date" placeholder="Date">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Apply</button>
+                <a href="{{route('number.index')}}" class="btn btn-secondary mb-2 ml-3">Clear</a>
+            </form>
+        </div>
+    </div>
+
+
+
 
     <!-- /.card -->
     <div class="card">
@@ -83,6 +101,30 @@
                     <div class="col-auto">
                         <label for="roleSelect" class="col-form-label">Items</label>
                         <input type="number" class="form-control" name="items" placeholder="Items">
+                    </div>
+
+                    @php
+                        //$subQuery = App\Models\Number::select('id')
+                        //    ->whereIn('id', function ($query) {
+                        //        $query->select(\DB::raw('MIN(id)'))
+                        //              ->from('numbers')
+                        //              ->groupBy('city');
+                        //    });
+
+                        //$records = App\Models\Number::whereIn('id', $subQuery)->get();
+                        $records = App\Models\Number::select('city', DB::raw('count(*) as total'))
+                            ->groupBy('city')
+                            ->get();
+                    @endphp
+
+                    <div class="col-auto">
+                        <label for="roleSelect" class="col-form-label">City</label>
+                        <select name="city" class="form-control" id="">
+                            <option value="">Choose City</option>
+                            @foreach($records as $record)
+                                <option value="{{$record->city}}">{{$record->city}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-auto mt-4">
                         <input type="submit" value="Assign" class="btn btn-success">
