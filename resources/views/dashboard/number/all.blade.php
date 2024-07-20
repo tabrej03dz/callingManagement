@@ -142,7 +142,9 @@
         <form action="{{route('number.checkedDelete')}}" method="POST">
             @csrf
             <div class="card-body">
+                @role('super_admin|admin')
                 <input type="submit" value="Delete" class="btn btn-danger">
+                @endrole
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>

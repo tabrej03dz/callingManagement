@@ -203,6 +203,7 @@
                     </li>
                 @endcan
 
+                @can('show demo')
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
@@ -220,21 +221,29 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
+                        @can('create demo')
+                            <li class="nav-item">
                             <a href="{{route('demo.create')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Create</p>
                             </a>
                         </li>
+                        @endcan
 
+                        @can('show demo records')
                         <li class="nav-item">
                             <a href="{{route('demo.records')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Records</p>
                             </a>
                         </li>
+                        @endcan
                     </ul>
                 </li>
+                @endcan
+
+
+                @can('show message')
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
@@ -252,15 +261,21 @@
                             </a>
                         </li>
 
+                        @can('create message')
+
                         <li class="nav-item">
                             <a href="{{route('message.create')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Create</p>
                             </a>
                         </li>
+                        @endcan
 
                     </ul>
                 </li>
+
+                @endcan
+
 
 
 
