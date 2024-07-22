@@ -50,22 +50,26 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{route('number.index')}}" method="get" class="form-inline">
-                <div class="form-group mb-2">
-                    <label for="city" class="sr-only">City</label>
-                    <input type="text" class="form-control" id="city" name="city" placeholder="City">
+            <form action="{{route('number.index')}}" method="get" class="row g-3 align-items-end">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" class="form-control" id="city" name="city" placeholder="Enter city">
                 </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <label for="date" class="sr-only">Date</label>
-                    <input type="date" class="form-control" id="date" name="date" placeholder="Date">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <label for="date" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="date" name="date">
                 </div>
-                <button type="submit" class="btn btn-primary mb-2">Apply</button>
-                <a href="{{route('number.index')}}" class="btn btn-secondary mb-2 ml-3">Clear</a>
+                <div class="col-12 col-md-4 col-lg-6 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary flex-grow-1">Apply</button>
+                    <a href="{{route('number.index')}}" class="btn btn-secondary flex-grow-1">Clear</a>
+                </div>
             </form>
-
+    
             @role('super_admin')
-            <a href="{{route('number.allDelete')}}" onclick="return confirm('Are you sure you want to delete all numbers?')" class="btn btn-danger">Delete All Numbers</a>
-            <a href="{{route('number.unassignedDelete')}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete all unassigned numbers?')">Delete Unassigned Numbers</a>
+            <div class="mt-4 d-flex flex-wrap gap-2">
+                <a href="{{route('number.allDelete')}}" onclick="return confirm('Are you sure you want to delete all numbers?')" class="btn btn-danger">Delete All Numbers</a>
+                <a href="{{route('number.unassignedDelete')}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete all unassigned numbers?')">Delete Unassigned Numbers</a>
+            </div>
             @endrole
         </div>
     </div>
