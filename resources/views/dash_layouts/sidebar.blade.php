@@ -113,7 +113,7 @@
                                 <a href="{{ route('user.create') }}" class="nav-link">
                                     <i class="material-icons me-2">person_add</i>
                                     <p class="mb-0">Create User</p>
-                                </a>       
+                                </a>
                             </li>
                         </ul>
                     </li>
@@ -136,7 +136,7 @@
                                 <a href="{{ route('role.index') }}" class="nav-link">
                                     <i class="material-icons nav-icon">assignment</i>
                                     <p>Roles</p>
-                                </a>                                
+                                </a>
                             </li>
                         @endcan
                         @can('create role')
@@ -144,7 +144,7 @@
                                 <a href="{{ route('role.create') }}" class="nav-link">
                                     <i class="material-icons nav-icon">add_circle_outline</i>
                                     <p>Create Role</p>
-                                </a>                                
+                                </a>
                             </li>
                         @endcan
                         @can('show permission')
@@ -152,7 +152,7 @@
                                 <a href="{{ route('permission.index') }}" class="nav-link">
                                     <i class="material-icons nav-icon">lock_open</i>
                                     <p>Permission</p>
-                                </a>                                
+                                </a>
                             </li>
                         @endcan
 
@@ -168,7 +168,7 @@
                                 Reports
                                 <i class="material-icons right">chevron_left</i>
                             </p>
-                        </a>                        
+                        </a>
                         @php
 
                             $callingTeam = App\Models\User::whereDoesntHave('roles', function ($query) {
@@ -185,7 +185,7 @@
                                         <a href="{{ route('report.user', ['user' => $member->id]) }}" class="nav-link">
                                             <i class="material-icons nav-icon">person</i>
                                             <p>{{ $member->name }}</p>
-                                        </a>                                        
+                                        </a>
                                     </li>
                                 @endforeach
                             @else
@@ -203,81 +203,80 @@
 
                 @can('show demo')
 
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon material-icons">slideshow</i>
-                        <p>
-                            Demoes
-                            <i class="material-icons right">chevron_left</i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('demo.index') }}" class="nav-link">
-                                <i class="material-icons nav-icon">home</i>
-                                <p>Index</p>
-                            </a>
-                            
-                        </li>
-
-<<<<<<< HEAD
-                        <li class="nav-item">
-                            <a href="{{ route('demo.create') }}" class="nav-link">
-                                <i class="material-icons nav-icon">add</i>
-=======
-                        @can('create demo')
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon material-icons">slideshow</i>
+                            <p>
+                                Demoes
+                                <i class="material-icons right">chevron_left</i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
                             <li class="nav-item">
-                            <a href="{{route('demo.create')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
->>>>>>> 8f147705ec3e037036396e39b49c44688ca6e30d
-                                <p>Create</p>
-                            </a>                            
-                        </li>
-                        @endcan
+                                <a href="{{ route('demo.index') }}" class="nav-link">
+                                    <i class="material-icons nav-icon">home</i>
+                                    <p>Index</p>
+                                </a>
 
-                        @can('show demo records')
-                        <li class="nav-item">
-                            <a href="{{ route('demo.records') }}" class="nav-link">
-                                <i class="material-icons nav-icon">list</i>
-                                <p>Records</p>
-                            </a>                            
-                        </li>
-                        @endcan
-                    </ul>
-                </li>
+                            </li>
+
+
+                            <li class="nav-item">
+                                <a href="{{ route('demo.create') }}" class="nav-link">
+                                    <i class="material-icons nav-icon">add</i>
+                                    
+
+                                    @can('create demo')
+                                <li class="nav-item">
+                                    <a href="{{ route('demo.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Create</p>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('show demo records')
+                                <li class="nav-item">
+                                    <a href="{{ route('demo.records') }}" class="nav-link">
+                                        <i class="material-icons nav-icon">list</i>
+                                        <p>Records</p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
                 @endcan
 
 
                 @can('show message')
 
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon material-icons">message</i>
-                        <p>
-                            Messages
-                            <i class="material-icons right">chevron_left</i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('message.index') }}" class="nav-link">
-                                <i class="material-icons nav-icon">home</i>
-                                <p>Index</p>
-                            </a>                            
-                        </li>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon material-icons">message</i>
+                            <p>
+                                Messages
+                                <i class="material-icons right">chevron_left</i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('message.index') }}" class="nav-link">
+                                    <i class="material-icons nav-icon">home</i>
+                                    <p>Index</p>
+                                </a>
+                            </li>
 
-                        @can('create message')
+                            @can('create message')
+                                <li class="nav-item">
+                                    <a href="{{ route('message.create') }}" class="nav-link">
+                                        <i class="material-icons nav-icon">add</i>
+                                        <p>Create</p>
+                                    </a>
+                                </li>
+                            @endcan
 
-                        <li class="nav-item">
-                            <a href="{{ route('message.create') }}" class="nav-link">
-                                <i class="material-icons nav-icon">add</i>
-                                <p>Create</p>
-                            </a>
-                        </li>
-                        @endcan
-
-                    </ul>
-                </li>
+                        </ul>
+                    </li>
 
                 @endcan
 
