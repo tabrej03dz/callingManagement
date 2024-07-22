@@ -4,8 +4,8 @@
     <div class="card" style="overflow-x: auto;">
         <div class="card-header d-flex justify-content-between align-items-center flex-column flex-md-row">
             <form action="{{ route('number.assigned') }}" method="get" class="form-inline w-100 mb-2">
-                <div class="form-row w-100">
-                    <div class="form-group col-md-5 mb-2">
+                <div class="row w-100">
+                    <div class="form-group col-md-6 col-lg-4 mb-2">
                         <label for="status" class="sr-only">Status</label>
                         <select name="status" id="status" class="form-control w-100">
                             <option value="">Select Status</option>
@@ -15,18 +15,19 @@
                             <option value="converted">Converted</option>
                         </select>
                     </div>
-                    <div class="form-group col-md-5 mb-2">
+                    <div class="form-group col-md-6 col-lg-3 mb-2">
                         <input type="text" name="city" class="form-control w-100" placeholder="City">
                     </div>
-                    <div class="form-group col-md-5 mb-2">
+                    <div class="form-group col-md-6 col-lg-3 mb-2">
                         <input type="text" name="keyword" class="form-control w-100" placeholder="Keywords">
                     </div>
-                    <div class="col-md-2 d-flex mb-2">
+                    <div class="col-md-6 col-lg-2 d-flex mb-2">
                         <button type="submit" class="btn btn-primary w-100 mr-2">Apply</button>
                         <a href="{{ route('number.assigned') }}" class="btn btn-secondary w-100">Clear</a>
                     </div>
                 </div>
             </form>
+
             <div class="w-100 text-right text-center text-md-right">
                 <a href="{{ route('number.add') }}" class="btn btn-primary ml-2 mb-2">Add Number</a>
             </div>
@@ -144,19 +145,19 @@
                                         <form action="{{ route('demo.send', ['number' => $number->id]) }}"
                                             class="form-inline" method="post">
                                             @csrf
-                                            <div class="btn-group">
-                                                <select name="demo_id"
-                                                    class="form-control form-control-sm mb-2 mb-md-0 w-100">
-                                                    <option value="">Select Demo</option>
-                                                    @foreach ($demos as $demo)
-                                                        <option value="{{ $demo->id }}">
-                                                            {{ $demo->name . ' - ' . $demo->city }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <textarea type="text" name="custom_message"
-                                                    class="form-control form-control-sm mb-2 mb-md-0 w-100"
-                                                          placeholder="Custom Message"></textarea>
-                                                <button type="submit" class="btn btn-primary btn-sm">Send</button>
+                                            <div class="btn-group w-100">
+                                                <div class="d-flex flex-column flex-md-row w-100 align-items-center">
+                                                    <select name="demo_id" class="form-control form-control-sm mb-2 mb-md-0 mr-md-2 w-32 h-12">
+                                                        <option value="">Select Demo</option>
+                                                        @foreach ($demos as $demo)
+                                                            <option value="{{ $demo->id }}">
+                                                                {{ $demo->name . ' - ' . $demo->city }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    <textarea name="custom_message" class="form-control form-control-sm mb-2 mb-md-0 mr-md-2 flex-grow-1 w-32 h-12" placeholder="Custom Message"></textarea>
+                                                    <button type="submit" class="btn btn-primary btn-sm lg:w-32 md:w-32 h-12 mt-2 mt-md-0 px-3">Send</button>
+                                                </div>
                                             </div>
                                         </form>
                                     </td>
