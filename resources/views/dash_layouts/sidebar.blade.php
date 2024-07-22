@@ -1,17 +1,17 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-{{--    <a href="" class="brand-link">--}}
-{{--        <img src="{{ asset('logo.jpg') }}" alt="AdminLTE Logo"--}}
-{{--             class="brand-image img-circle elevation-3" style="opacity: .8">--}}
-{{--        <span class="brand-text font-weight-light">Real Victory  </span>--}}
-{{--    </a>--}}
+    {{--    <a href="" class="brand-link"> --}}
+    {{--        <img src="{{ asset('logo.jpg') }}" alt="AdminLTE Logo" --}}
+    {{--             class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
+    {{--        <span class="brand-text font-weight-light">Real Victory  </span> --}}
+    {{--    </a> --}}
 
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-{{--                <img src="{{asset('asset/images/jevarMahalLogo.png')}}" class="img-circle elevation-2" alt="User Image">--}}
+                {{--                <img src="{{asset('asset/images/jevarMahalLogo.png')}}" class="img-circle elevation-2" alt="User Image"> --}}
             </div>
             <div class="info">
                 <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -28,8 +28,8 @@
 
 
                 <li class="nav-item">
-                    <a href="{{route('dashboard')}}" class="nav-link">
-                        <i class="nav-icon far fa-calendar-alt"></i>
+                    <a href="{{ route('dashboard') }}" class="nav-link">
+                        <i class="nav-icon material-icons">dashboard</i>
                         <p>
                             Dashboard
                         </p>
@@ -37,164 +37,162 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-edit"></i>
+                        <i class="nav-icon material-icons">dialpad</i>
                         <p>
                             Numbers
-                            <i class="fas fa-angle-left right"></i>
+                            <i class="material-icons right">chevron_left</i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         @can('show all numbers')
                             <li class="nav-item">
-                                <a href="{{route('number.index')}}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                <a href="{{ route('number.index') }}" class="nav-link">
+                                    <i class="nav-icon material-icons">format_list_numbered</i>
                                     <p>All Numbers</p>
                                 </a>
                             </li>
                         @endcan
                         @can('show not assigned number')
-
                             <li class="nav-item">
-                                <a href="{{route('number.notAssigned')}}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                <a href="{{ route('number.notAssigned') }}" class="nav-link">
+                                    <i class="nav-icon material-icons">assignment_late</i>
                                     <p>Not Assigned</p>
                                 </a>
                             </li>
                         @endcan
                         @can('upload numbers')
-                        <li class="nav-item">
-                            <a href="{{route('number.upload')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Upload Numbers</p>
-                            </a>
-                        </li>
-                        @endcan
-{{--                        @can('add number')--}}
                             <li class="nav-item">
-                                <a href="{{route('number.add')}}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Add Number</p>
+                                <a href="{{ route('number.upload') }}" class="nav-link">
+                                    <i class="nav-icon material-icons">upload_file</i>
+                                    <p>Upload Numbers</p>
                                 </a>
                             </li>
-{{--                        @endcan--}}
+                        @endcan
+                        {{--                        @can('add number') --}}
+                        <li class="nav-item">
+                            <a href="{{ route('number.add') }}" class="nav-link">
+                                <i class="nav-icon material-icons">add_circle</i>
+                                <p>Add Number</p>
+                            </a>
+                        </li>
+                        {{--                        @endcan --}}
                         @can('show assign numbers')
-                        <li class="nav-item">
-                            <a href="{{route('number.assigned')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Assigned Numbers</p>
-                            </a>
-                        </li>
-                        @endcan
                             <li class="nav-item">
-                                <a href="{{route('number.callBack')}}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Call Back</p>
+                                <a href="{{ route('number.assigned') }}" class="nav-link">
+                                    <i class="nav-icon material-icons">assignment_turned_in</i>
+                                    <p>Assigned Numbers</p>
                                 </a>
                             </li>
+                        @endcan
+                        <li class="nav-item">
+                            <a href="{{ route('number.callBack') }}" class="nav-link">
+                                <i class="nav-icon material-icons">call_return</i>
+                                <p>Call Back</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
-                    @can('show all users')
+                @can('show all users')
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-edit"></i>
+                            <i class="nav-icon material-icons">person</i>
                             <p>
                                 Users
-                                <i class="fas fa-angle-left right"></i>
+                                <i class="material-icons right">chevron_left</i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
 
                             <li class="nav-item">
-                                <a href="{{route('user.index')}}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                <a href="{{ route('user.index') }}" class="nav-link">
+                                    <i class="nav-icon material-icons">group</i>
                                     <p>All Users</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('user.create')}}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Create User</p>
-                                </a>
+                                <a href="{{ route('user.create') }}" class="nav-link">
+                                    <i class="material-icons me-2">person_add</i>
+                                    <p class="mb-0">Create User</p>
+                                </a>       
                             </li>
                         </ul>
                     </li>
-                    @endcan
+                @endcan
 
 
 
                 <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-edit"></i>
-                            <p>
-                                Role & Permission
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            {{--                        @role('admin|super_admin')--}}
-                            @can('show role')
-
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon material-icons">security</i>
+                        <p>
+                            Role & Permission
+                            <i class="material-icons right">chevron_left</i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        {{--                        @role('admin|super_admin') --}}
+                        @can('show role')
                             <li class="nav-item">
-                                <a href="{{route('role.index')}}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                <a href="{{ route('role.index') }}" class="nav-link">
+                                    <i class="material-icons nav-icon">assignment</i>
                                     <p>Roles</p>
-                                </a>
+                                </a>                                
                             </li>
-                            @endcan
-                            @can('create role')
-                                <li class="nav-item">
-                                <a href="{{route('role.create')}}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                        @endcan
+                        @can('create role')
+                            <li class="nav-item">
+                                <a href="{{ route('role.create') }}" class="nav-link">
+                                    <i class="material-icons nav-icon">add_circle_outline</i>
                                     <p>Create Role</p>
-                                </a>
+                                </a>                                
                             </li>
-                            @endcan
-                            @can('show permission')
-                                <li class="nav-item">
-                                <a href="{{route('permission.index')}}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Permission </p>
-                                </a>
+                        @endcan
+                        @can('show permission')
+                            <li class="nav-item">
+                                <a href="{{ route('permission.index') }}" class="nav-link">
+                                    <i class="material-icons nav-icon">lock_open</i>
+                                    <p>Permission</p>
+                                </a>                                
                             </li>
-                            @endcan
+                        @endcan
 
-                        </ul>
-                    </li>
+                    </ul>
+                </li>
 
                 @can('show report')
 
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-edit"></i>
+                            <i class="nav-icon material-icons">assessment</i>
                             <p>
                                 Reports
-                                <i class="fas fa-angle-left right"></i>
+                                <i class="material-icons right">chevron_left</i>
                             </p>
-                        </a>
+                        </a>                        
                         @php
 
-                            $callingTeam = App\Models\User::whereDoesntHave('roles', function($query) {
+                            $callingTeam = App\Models\User::whereDoesntHave('roles', function ($query) {
                                 $query->where('name', 'super_admin');
                             })->get();
 
                         @endphp
                         <ul class="nav nav-treeview">
-                            {{--                        @role('admin|super_admin')--}}
+                            {{--                        @role('admin|super_admin') --}}
 
                             @role('super_admin|admin')
-                            @foreach($callingTeam as $member)
-                                <li class="nav-item">
-                                    <a href="{{route('report.user', ['user' => $member->id])}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>{{$member->name}}</p>
-                                    </a>
-                                </li>
-                            @endforeach
+                                @foreach ($callingTeam as $member)
+                                    <li class="nav-item">
+                                        <a href="{{ route('report.user', ['user' => $member->id]) }}" class="nav-link">
+                                            <i class="material-icons nav-icon">person</i>
+                                            <p>{{ $member->name }}</p>
+                                        </a>                                        
+                                    </li>
+                                @endforeach
                             @else
                                 <li class="nav-item">
-                                    <a href="{{route('report.user', ['user' => auth()->user()->id])}}" class="nav-link">
+                                    <a href="{{ route('report.user', ['user' => auth()->user()->id]) }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>{{auth()->user()->name}}</p>
+                                        <p>{{ auth()->user()->name }}</p>
                                     </a>
                                 </li>
                             @endrole
@@ -207,35 +205,42 @@
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-edit"></i>
+                        <i class="nav-icon material-icons">slideshow</i>
                         <p>
                             Demoes
-                            <i class="fas fa-angle-left right"></i>
+                            <i class="material-icons right">chevron_left</i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{route('demo.index')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                            <a href="{{ route('demo.index') }}" class="nav-link">
+                                <i class="material-icons nav-icon">home</i>
                                 <p>Index</p>
                             </a>
+                            
                         </li>
 
+<<<<<<< HEAD
+                        <li class="nav-item">
+                            <a href="{{ route('demo.create') }}" class="nav-link">
+                                <i class="material-icons nav-icon">add</i>
+=======
                         @can('create demo')
                             <li class="nav-item">
                             <a href="{{route('demo.create')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
+>>>>>>> 8f147705ec3e037036396e39b49c44688ca6e30d
                                 <p>Create</p>
-                            </a>
+                            </a>                            
                         </li>
                         @endcan
 
                         @can('show demo records')
                         <li class="nav-item">
-                            <a href="{{route('demo.records')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                            <a href="{{ route('demo.records') }}" class="nav-link">
+                                <i class="material-icons nav-icon">list</i>
                                 <p>Records</p>
-                            </a>
+                            </a>                            
                         </li>
                         @endcan
                     </ul>
@@ -247,25 +252,25 @@
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-edit"></i>
+                        <i class="nav-icon material-icons">message</i>
                         <p>
                             Messages
-                            <i class="fas fa-angle-left right"></i>
+                            <i class="material-icons right">chevron_left</i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{route('message.index')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                            <a href="{{ route('message.index') }}" class="nav-link">
+                                <i class="material-icons nav-icon">home</i>
                                 <p>Index</p>
-                            </a>
+                            </a>                            
                         </li>
 
                         @can('create message')
 
                         <li class="nav-item">
-                            <a href="{{route('message.create')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                            <a href="{{ route('message.create') }}" class="nav-link">
+                                <i class="material-icons nav-icon">add</i>
                                 <p>Create</p>
                             </a>
                         </li>
@@ -280,151 +285,151 @@
 
 
                 <li class="nav-item">
-                    <a href="{{route('logout')}}" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
+                    <a href="{{ route('logout') }}" class="nav-link">
+                        <i class="nav-icon material-icons">exit_to_app</i>
                         <p>Logout</p>
                     </a>
                 </li>
 
-{{--                <li class="nav-item">--}}
-{{--                    <a href="{{route('update.index')}}" class="nav-link">--}}
-{{--                        <i class="nav-icon fas fa-sync"></i>--}}
-{{--                        <p>--}}
-{{--                            Updates--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li class="nav-item"> --}}
+                {{--                    <a href="{{route('update.index')}}" class="nav-link"> --}}
+                {{--                        <i class="nav-icon fas fa-sync"></i> --}}
+                {{--                        <p> --}}
+                {{--                            Updates --}}
+                {{--                        </p> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
 
-{{--                <li class="nav-item">--}}
-{{--                    <a href="{{route('bank.index')}}" class="nav-link">--}}
-{{--                        <i class="nav-icon fas fa-home"></i>--}}
-{{--                        <p>--}}
-{{--                            Banks--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li class="nav-item"> --}}
+                {{--                    <a href="{{route('bank.index')}}" class="nav-link"> --}}
+                {{--                        <i class="nav-icon fas fa-home"></i> --}}
+                {{--                        <p> --}}
+                {{--                            Banks --}}
+                {{--                        </p> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
 
-{{--                <li class="nav-item">--}}
-{{--                    <a href="{{route('contact.index')}}" class="nav-link">--}}
-{{--                        <i class="nav-icon fas fa-comment-dots"></i>--}}
-{{--                        <p>--}}
-{{--                            Contact--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li class="nav-item"> --}}
+                {{--                    <a href="{{route('contact.index')}}" class="nav-link"> --}}
+                {{--                        <i class="nav-icon fas fa-comment-dots"></i> --}}
+                {{--                        <p> --}}
+                {{--                            Contact --}}
+                {{--                        </p> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
 
-{{--                <li class="nav-item">--}}
-{{--                    <a href="{{route('discount.index')}}" class="nav-link">--}}
-{{--                        <i class="nav-icon fas fa-tags"></i>--}}
-{{--                        <p>--}}
-{{--                            Discount--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--                <li class="nav-item">--}}
-{{--                     <a href="{{route('about.index')}}" class="nav-link">--}}
-{{--                        <i class="nav-icon 	fa fa-address-book"></i>--}}
-{{--                        <p>--}}
-{{--                            About--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--                <li class="nav-item">--}}
-{{--                     <a href="{{route('inquiry.index')}}" class="nav-link">--}}
-{{--                        <i class="nav-icon fa fa-american-sign-language-interpreting"></i>--}}
-{{--                        <p>--}}
-{{--                            Inquiry--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li class="nav-item"> --}}
+                {{--                    <a href="{{route('discount.index')}}" class="nav-link"> --}}
+                {{--                        <i class="nav-icon fas fa-tags"></i> --}}
+                {{--                        <p> --}}
+                {{--                            Discount --}}
+                {{--                        </p> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
+                {{--                <li class="nav-item"> --}}
+                {{--                     <a href="{{route('about.index')}}" class="nav-link"> --}}
+                {{--                        <i class="nav-icon 	fa fa-address-book"></i> --}}
+                {{--                        <p> --}}
+                {{--                            About --}}
+                {{--                        </p> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
+                {{--                <li class="nav-item"> --}}
+                {{--                     <a href="{{route('inquiry.index')}}" class="nav-link"> --}}
+                {{--                        <i class="nav-icon fa fa-american-sign-language-interpreting"></i> --}}
+                {{--                        <p> --}}
+                {{--                            Inquiry --}}
+                {{--                        </p> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
 
-{{--                <li class="nav-item">--}}
-{{--                     <a href="{{route('price.index')}}" class="nav-link">--}}
-{{--                        <i class="nav-icon 	fa fa-bullseye"></i>--}}
-{{--                        <p>--}}
-{{--                            Price--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li class="nav-item"> --}}
+                {{--                     <a href="{{route('price.index')}}" class="nav-link"> --}}
+                {{--                        <i class="nav-icon 	fa fa-bullseye"></i> --}}
+                {{--                        <p> --}}
+                {{--                            Price --}}
+                {{--                        </p> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
 
-{{--                <li class="nav-item">--}}
-{{--                    <a href="{{route('plan.index')}}" class="nav-link">--}}
-{{--                        <i class="nav-icon 	fa fa-anchor"></i>--}}
-{{--                        <p>--}}
-{{--                            Services Plans--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--                <li class="nav-item">--}}
-{{--                    <a href="{{route('testimonial.index')}}" class="nav-link">--}}
-{{--                        <i class="nav-icon 	fa fa-fax"></i>--}}
-{{--                        <p>--}}
-{{--                            Testimonials--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--                <li class="nav-item">--}}
-{{--                     <a href="{{route('coin.index')}}" class="nav-link">--}}
-{{--                        <i class="nav-icon fa fa-group"></i>--}}
-{{--                        <p>--}}
-{{--                            Coin--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li class="nav-item"> --}}
+                {{--                    <a href="{{route('plan.index')}}" class="nav-link"> --}}
+                {{--                        <i class="nav-icon 	fa fa-anchor"></i> --}}
+                {{--                        <p> --}}
+                {{--                            Services Plans --}}
+                {{--                        </p> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
+                {{--                <li class="nav-item"> --}}
+                {{--                    <a href="{{route('testimonial.index')}}" class="nav-link"> --}}
+                {{--                        <i class="nav-icon 	fa fa-fax"></i> --}}
+                {{--                        <p> --}}
+                {{--                            Testimonials --}}
+                {{--                        </p> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
+                {{--                <li class="nav-item"> --}}
+                {{--                     <a href="{{route('coin.index')}}" class="nav-link"> --}}
+                {{--                        <i class="nav-icon fa fa-group"></i> --}}
+                {{--                        <p> --}}
+                {{--                            Coin --}}
+                {{--                        </p> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
 
-{{--                <li class="nav-item">--}}
-{{--                     <a href="{{route('blogs.index')}}" class="nav-link">--}}
-{{--                        <i class="nav-icon fa fa-asterisk"></i>--}}
-{{--                        <p>--}}
-{{--                            Blog--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--                <li class="nav-item">--}}
-{{--                     <a href="{{route('blog.create')}}" class="nav-link">--}}
-{{--                        <i class="nav-icon fa fa-cog"></i>--}}
-{{--                        <p>--}}
-{{--                            Blog Article--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li class="nav-item"> --}}
+                {{--                     <a href="{{route('blogs.index')}}" class="nav-link"> --}}
+                {{--                        <i class="nav-icon fa fa-asterisk"></i> --}}
+                {{--                        <p> --}}
+                {{--                            Blog --}}
+                {{--                        </p> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
+                {{--                <li class="nav-item"> --}}
+                {{--                     <a href="{{route('blog.create')}}" class="nav-link"> --}}
+                {{--                        <i class="nav-icon fa fa-cog"></i> --}}
+                {{--                        <p> --}}
+                {{--                            Blog Article --}}
+                {{--                        </p> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
 
-{{--                <li class="nav-item">--}}
-{{--                    --}}{{-- <a href="{{route('faq.index')}}" class="nav-link">--}}
-{{--                        <i class="nav-icon 	fa fa-fan"></i>--}}
-{{--                        <p>--}}
-{{--                            FAQs--}}
-{{--                        </p>--}}
-{{--                    </a> --}}
-{{--                </li>--}}
+                {{--                <li class="nav-item"> --}}
+                {{--                    --}}{{-- <a href="{{route('faq.index')}}" class="nav-link"> --}}
+                {{--                        <i class="nav-icon 	fa fa-fan"></i> --}}
+                {{--                        <p> --}}
+                {{--                            FAQs --}}
+                {{--                        </p> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
 
 
 
-{{--                <li class="nav-item">--}}
-{{--                    --}}{{-- <a href="{{route('client.index')}}" class="nav-link">--}}
-{{--                        <i class="nav-icon fa fa-podcast"></i>--}}
-{{--                        <p>--}}
-{{--                            Client Logo--}}
-{{--                        </p>--}}
-{{--                    </a> --}}
-{{--                </li>--}}
-{{--                <li class="nav-item">--}}
-{{--                     <a href="{{route('product.index')}}" class="nav-link">--}}
-{{--                        <i class="nav-icon fa fa-bug"></i>--}}
-{{--                        <p>--}}
-{{--                          Product--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li class="nav-item"> --}}
+                {{--                    --}}{{-- <a href="{{route('client.index')}}" class="nav-link"> --}}
+                {{--                        <i class="nav-icon fa fa-podcast"></i> --}}
+                {{--                        <p> --}}
+                {{--                            Client Logo --}}
+                {{--                        </p> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
+                {{--                <li class="nav-item"> --}}
+                {{--                     <a href="{{route('product.index')}}" class="nav-link"> --}}
+                {{--                        <i class="nav-icon fa fa-bug"></i> --}}
+                {{--                        <p> --}}
+                {{--                          Product --}}
+                {{--                        </p> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
 
-{{--                <li class="nav-item">--}}
-{{--                    <a href="{{route('logout')}}" class="nav-link">--}}
-{{--                        <i class="nav-icon fa fa-support"></i>--}}
-{{--                        <p>--}}
-{{--                           Logout--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li class="nav-item"> --}}
+                {{--                    <a href="{{route('logout')}}" class="nav-link"> --}}
+                {{--                        <i class="nav-icon fa fa-support"></i> --}}
+                {{--                        <p> --}}
+                {{--                           Logout --}}
+                {{--                        </p> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
 
 
 

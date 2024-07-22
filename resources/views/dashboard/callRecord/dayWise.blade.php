@@ -6,17 +6,24 @@
     <div class="card">
 
         <div class="card-header">
-            <h3 class="card-title">Call Records</h3>
+            <h3 class="card-title"></h3>
         </div>
 
         <div class="card-body">
             <form action="{{route('callRecord.dayWise')}}" method="GET" class="form-inline mb-3">
-                <div class="form-group mr-2">
-                    <input type="date" name="date" placeholder="Date" class="form-control">
+                <div class="row w-100">
+                    <div class="col-12 col-sm-4 col-md-3 mb-2 mb-sm-0">
+                        <input type="date" name="date" placeholder="Date" class="form-control w-100">
+                    </div>
+                    <div class="col-12 col-sm-4 col-md-2 mb-2 mb-sm-0">
+                        <button type="submit" class="btn btn-primary w-100 w-md-auto">Filter</button>
+                    </div>
+                    <div class="col-12 col-sm-4 col-md-2">
+                        <a href="{{route('callRecord.dayWise')}}" class="btn btn-secondary w-100 w-md-auto">Clear</a>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary mr-2">Filter</button>
-                <a href="{{route('callRecord.dayWise')}}" class="btn btn-secondary">Clear</a>
             </form>
+            
 
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
