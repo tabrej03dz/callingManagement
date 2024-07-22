@@ -113,7 +113,7 @@
                                 <a href="{{ route('user.create') }}" class="nav-link">
                                     <i class="material-icons me-2">person_add</i>
                                     <p class="mb-0">Create User</p>
-                                </a>       
+                                </a>
                             </li>
                         </ul>
                     </li>
@@ -136,7 +136,7 @@
                                 <a href="{{ route('role.index') }}" class="nav-link">
                                     <i class="material-icons nav-icon">assignment</i>
                                     <p>Roles</p>
-                                </a>                                
+                                </a>
                             </li>
                         @endcan
                         @can('create role')
@@ -144,7 +144,7 @@
                                 <a href="{{ route('role.create') }}" class="nav-link">
                                     <i class="material-icons nav-icon">add_circle_outline</i>
                                     <p>Create Role</p>
-                                </a>                                
+                                </a>
                             </li>
                         @endcan
                         @can('show permission')
@@ -152,7 +152,7 @@
                                 <a href="{{ route('permission.index') }}" class="nav-link">
                                     <i class="material-icons nav-icon">lock_open</i>
                                     <p>Permission</p>
-                                </a>                                
+                                </a>
                             </li>
                         @endcan
 
@@ -168,7 +168,7 @@
                                 Reports
                                 <i class="material-icons right">chevron_left</i>
                             </p>
-                        </a>                        
+                        </a>
                         @php
 
                             $callingTeam = App\Models\User::whereDoesntHave('roles', function ($query) {
@@ -185,7 +185,7 @@
                                         <a href="{{ route('report.user', ['user' => $member->id]) }}" class="nav-link">
                                             <i class="material-icons nav-icon">person</i>
                                             <p>{{ $member->name }}</p>
-                                        </a>                                        
+                                        </a>
                                     </li>
                                 @endforeach
                             @else
@@ -217,21 +217,21 @@
                                 <i class="material-icons nav-icon">home</i>
                                 <p>Index</p>
                             </a>
-                            
+
                         </li>
 
-<<<<<<< HEAD
+
                         <li class="nav-item">
                             <a href="{{ route('demo.create') }}" class="nav-link">
                                 <i class="material-icons nav-icon">add</i>
-=======
+
                         @can('create demo')
                             <li class="nav-item">
                             <a href="{{route('demo.create')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
->>>>>>> 8f147705ec3e037036396e39b49c44688ca6e30d
+
                                 <p>Create</p>
-                            </a>                            
+                            </a>
                         </li>
                         @endcan
 
@@ -240,7 +240,7 @@
                             <a href="{{ route('demo.records') }}" class="nav-link">
                                 <i class="material-icons nav-icon">list</i>
                                 <p>Records</p>
-                            </a>                            
+                            </a>
                         </li>
                         @endcan
                     </ul>
@@ -263,7 +263,7 @@
                             <a href="{{ route('message.index') }}" class="nav-link">
                                 <i class="material-icons nav-icon">home</i>
                                 <p>Index</p>
-                            </a>                            
+                            </a>
                         </li>
 
                         @can('create message')
@@ -290,146 +290,6 @@
                         <p>Logout</p>
                     </a>
                 </li>
-
-                {{--                <li class="nav-item"> --}}
-                {{--                    <a href="{{route('update.index')}}" class="nav-link"> --}}
-                {{--                        <i class="nav-icon fas fa-sync"></i> --}}
-                {{--                        <p> --}}
-                {{--                            Updates --}}
-                {{--                        </p> --}}
-                {{--                    </a> --}}
-                {{--                </li> --}}
-
-                {{--                <li class="nav-item"> --}}
-                {{--                    <a href="{{route('bank.index')}}" class="nav-link"> --}}
-                {{--                        <i class="nav-icon fas fa-home"></i> --}}
-                {{--                        <p> --}}
-                {{--                            Banks --}}
-                {{--                        </p> --}}
-                {{--                    </a> --}}
-                {{--                </li> --}}
-
-                {{--                <li class="nav-item"> --}}
-                {{--                    <a href="{{route('contact.index')}}" class="nav-link"> --}}
-                {{--                        <i class="nav-icon fas fa-comment-dots"></i> --}}
-                {{--                        <p> --}}
-                {{--                            Contact --}}
-                {{--                        </p> --}}
-                {{--                    </a> --}}
-                {{--                </li> --}}
-
-                {{--                <li class="nav-item"> --}}
-                {{--                    <a href="{{route('discount.index')}}" class="nav-link"> --}}
-                {{--                        <i class="nav-icon fas fa-tags"></i> --}}
-                {{--                        <p> --}}
-                {{--                            Discount --}}
-                {{--                        </p> --}}
-                {{--                    </a> --}}
-                {{--                </li> --}}
-                {{--                <li class="nav-item"> --}}
-                {{--                     <a href="{{route('about.index')}}" class="nav-link"> --}}
-                {{--                        <i class="nav-icon 	fa fa-address-book"></i> --}}
-                {{--                        <p> --}}
-                {{--                            About --}}
-                {{--                        </p> --}}
-                {{--                    </a> --}}
-                {{--                </li> --}}
-                {{--                <li class="nav-item"> --}}
-                {{--                     <a href="{{route('inquiry.index')}}" class="nav-link"> --}}
-                {{--                        <i class="nav-icon fa fa-american-sign-language-interpreting"></i> --}}
-                {{--                        <p> --}}
-                {{--                            Inquiry --}}
-                {{--                        </p> --}}
-                {{--                    </a> --}}
-                {{--                </li> --}}
-
-                {{--                <li class="nav-item"> --}}
-                {{--                     <a href="{{route('price.index')}}" class="nav-link"> --}}
-                {{--                        <i class="nav-icon 	fa fa-bullseye"></i> --}}
-                {{--                        <p> --}}
-                {{--                            Price --}}
-                {{--                        </p> --}}
-                {{--                    </a> --}}
-                {{--                </li> --}}
-
-                {{--                <li class="nav-item"> --}}
-                {{--                    <a href="{{route('plan.index')}}" class="nav-link"> --}}
-                {{--                        <i class="nav-icon 	fa fa-anchor"></i> --}}
-                {{--                        <p> --}}
-                {{--                            Services Plans --}}
-                {{--                        </p> --}}
-                {{--                    </a> --}}
-                {{--                </li> --}}
-                {{--                <li class="nav-item"> --}}
-                {{--                    <a href="{{route('testimonial.index')}}" class="nav-link"> --}}
-                {{--                        <i class="nav-icon 	fa fa-fax"></i> --}}
-                {{--                        <p> --}}
-                {{--                            Testimonials --}}
-                {{--                        </p> --}}
-                {{--                    </a> --}}
-                {{--                </li> --}}
-                {{--                <li class="nav-item"> --}}
-                {{--                     <a href="{{route('coin.index')}}" class="nav-link"> --}}
-                {{--                        <i class="nav-icon fa fa-group"></i> --}}
-                {{--                        <p> --}}
-                {{--                            Coin --}}
-                {{--                        </p> --}}
-                {{--                    </a> --}}
-                {{--                </li> --}}
-
-                {{--                <li class="nav-item"> --}}
-                {{--                     <a href="{{route('blogs.index')}}" class="nav-link"> --}}
-                {{--                        <i class="nav-icon fa fa-asterisk"></i> --}}
-                {{--                        <p> --}}
-                {{--                            Blog --}}
-                {{--                        </p> --}}
-                {{--                    </a> --}}
-                {{--                </li> --}}
-                {{--                <li class="nav-item"> --}}
-                {{--                     <a href="{{route('blog.create')}}" class="nav-link"> --}}
-                {{--                        <i class="nav-icon fa fa-cog"></i> --}}
-                {{--                        <p> --}}
-                {{--                            Blog Article --}}
-                {{--                        </p> --}}
-                {{--                    </a> --}}
-                {{--                </li> --}}
-
-                {{--                <li class="nav-item"> --}}
-                {{--                    --}}{{-- <a href="{{route('faq.index')}}" class="nav-link"> --}}
-                {{--                        <i class="nav-icon 	fa fa-fan"></i> --}}
-                {{--                        <p> --}}
-                {{--                            FAQs --}}
-                {{--                        </p> --}}
-                {{--                    </a> --}}
-                {{--                </li> --}}
-
-
-
-                {{--                <li class="nav-item"> --}}
-                {{--                    --}}{{-- <a href="{{route('client.index')}}" class="nav-link"> --}}
-                {{--                        <i class="nav-icon fa fa-podcast"></i> --}}
-                {{--                        <p> --}}
-                {{--                            Client Logo --}}
-                {{--                        </p> --}}
-                {{--                    </a> --}}
-                {{--                </li> --}}
-                {{--                <li class="nav-item"> --}}
-                {{--                     <a href="{{route('product.index')}}" class="nav-link"> --}}
-                {{--                        <i class="nav-icon fa fa-bug"></i> --}}
-                {{--                        <p> --}}
-                {{--                          Product --}}
-                {{--                        </p> --}}
-                {{--                    </a> --}}
-                {{--                </li> --}}
-
-                {{--                <li class="nav-item"> --}}
-                {{--                    <a href="{{route('logout')}}" class="nav-link"> --}}
-                {{--                        <i class="nav-icon fa fa-support"></i> --}}
-                {{--                        <p> --}}
-                {{--                           Logout --}}
-                {{--                        </p> --}}
-                {{--                    </a> --}}
-                {{--                </li> --}}
 
 
 
