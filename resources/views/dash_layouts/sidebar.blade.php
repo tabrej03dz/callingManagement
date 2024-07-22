@@ -202,8 +202,6 @@
                 @endcan
 
                 @can('show demo')
-
-
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon material-icons">slideshow</i>
@@ -218,19 +216,12 @@
                                     <i class="material-icons nav-icon">home</i>
                                     <p>Index</p>
                                 </a>
-
                             </li>
 
-
-                            <li class="nav-item">
-                                <a href="{{ route('demo.create') }}" class="nav-link">
-                                    <i class="material-icons nav-icon">add</i>
-                                    
-
-                                    @can('create demo')
+                            @can('create demo')
                                 <li class="nav-item">
                                     <a href="{{ route('demo.create') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="material-icons nav-icon">add</i>
                                         <p>Create</p>
                                     </a>
                                 </li>
@@ -246,56 +237,9 @@
                             @endcan
                         </ul>
                     </li>
-
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon material-icons">slideshow</i>
-                        <p>
-                            Demoes
-                            <i class="material-icons right">chevron_left</i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('demo.index') }}" class="nav-link">
-                                <i class="material-icons nav-icon">home</i>
-                                <p>Index</p>
-                            </a>
-
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a href="{{ route('demo.create') }}" class="nav-link">
-                                <i class="material-icons nav-icon">add</i>
-
-                        @can('create demo')
-                            <li class="nav-item">
-                            <a href="{{route('demo.create')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-
-                                <p>Create</p>
-                            </a>
-                        </li>
-                        @endcan
-
-                        @can('show demo records')
-                        <li class="nav-item">
-                            <a href="{{ route('demo.records') }}" class="nav-link">
-                                <i class="material-icons nav-icon">list</i>
-                                <p>Records</p>
-                            </a>
-                        </li>
-                        @endcan
-                    </ul>
-                </li>
-
                 @endcan
 
-
                 @can('show message')
-
-
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon material-icons">message</i>
@@ -312,23 +256,6 @@
                                 </a>
                             </li>
 
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon material-icons">message</i>
-                        <p>
-                            Messages
-                            <i class="material-icons right">chevron_left</i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('message.index') }}" class="nav-link">
-                                <i class="material-icons nav-icon">home</i>
-                                <p>Index</p>
-                            </a>
-                        </li>
-
-
                             @can('create message')
                                 <li class="nav-item">
                                     <a href="{{ route('message.create') }}" class="nav-link">
@@ -337,12 +264,9 @@
                                     </a>
                                 </li>
                             @endcan
-
                         </ul>
                     </li>
-
                 @endcan
-
 
 
 
