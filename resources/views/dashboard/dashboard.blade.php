@@ -218,8 +218,59 @@
 {{--                    <!-- ./col -->--}}
 
 
-                    @if(auth()->user()->hasRole('calling team'))
+                    @if(auth()->user()->hasRole('super_admin|admin'))
 
+
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box text-white" style="background-color:rebeccapurple">
+                                <div class="inner">
+                                    <h3>{{$callRecords->count()}}</h3>
+                                    <p>Today's Call</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-pie-graph"></i>
+                                </div>
+                                <a href="{{route('callRecord.statusWise')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-dark">
+                                <div class="inner">
+                                    <h3>{{$callRecords->where('status', 'call back')->count()}}</h3>
+                                    <p>Today's Call back</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-pie-graph"></i>
+                                </div>
+                                <a href="{{route('callRecord.statusWise', ['status' => 'call back'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3>{{$callRecords->where('status', 'call not pick')->count()}}</h3>
+                                    <p>
+                                        Call not pic
+                                    </p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-pie-graph"></i>
+                                </div>
+                                <a href="{{route('callRecord.statusWise', ['status' => 'call not pick'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+
+
+
+
+
+
+                    @else
                         <div class="col-lg-3 col-6">
                             <!-- small box -->
                             <div class="small-box bg-primary">
@@ -263,51 +314,6 @@
                                 <a href="{{route('callRecord.statusWise', ['status' => 'call not pick'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
-
-                    @else
-                        <div class="col-lg-3 col-6">
-                            <!-- small box -->
-                            <div class="small-box text-white" style="background-color:rebeccapurple">
-                                <div class="inner">
-                                    <h3>{{$callRecords->count()}}</h3>
-                                    <p>Today's Call</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-pie-graph"></i>
-                                </div>
-                                <a href="{{route('callRecord.statusWise')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-dark">
-                                <div class="inner">
-                                    <h3>{{$callRecords->where('status', 'call back')->count()}}</h3>
-                                    <p>Today's Call back</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-pie-graph"></i>
-                                </div>
-                                <a href="{{route('callRecord.statusWise', ['status' => 'call back'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-lg-3 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-warning">
-                                <div class="inner">
-                                    <h3>{{$callRecords->where('status', 'call not pick')->count()}}</h3>
-                                    <p>
-                                        Call not pic
-                                    </p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-pie-graph"></i>
-                                </div>
-                                <a href="{{route('callRecord.statusWise', ['status' => 'call not pick'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                    <!-- ./col -->
 
                     @endif
 

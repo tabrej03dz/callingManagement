@@ -20,8 +20,12 @@
                         <td>{{$message->message}}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{route('message.edit', ['message' => $message])}}" class="btn btn-primary">Edit</a>
+                                @can('show message')
+                                    <a href="{{route('message.edit', ['message' => $message])}}" class="btn btn-primary">Edit</a>
+                                @endcan
+                                @can('edit message')
                                 <a href="{{route('message.delete', ['message' => $message])}}" class="btn btn-warning">Delete</a>
+                                @endcan
                             </div>
                         </td>
 

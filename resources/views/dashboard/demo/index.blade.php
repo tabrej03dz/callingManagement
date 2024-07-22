@@ -39,8 +39,12 @@
                         <td>{{$demo->city}}</td>
                         <td>
                             <div class="btn-group">
+                                @can('edit demo')
                                 <a href="{{route('demo.edit', ['demo' => $demo->id])}}" class="btn btn-primary">Edit</a>
+                                @endcan
+                                @can('delete demo')
                                 <a href="{{route('demo.images', ['demo' => $demo])}}" class="btn btn-warning">Images</a>
+                                @endcan
                             </div>
                         </td>
 

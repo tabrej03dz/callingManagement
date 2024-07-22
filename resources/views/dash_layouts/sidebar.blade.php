@@ -201,6 +201,7 @@
                     </li>
                 @endcan
 
+                @can('show demo')
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
@@ -219,21 +220,35 @@
                             
                         </li>
 
+<<<<<<< HEAD
                         <li class="nav-item">
                             <a href="{{ route('demo.create') }}" class="nav-link">
                                 <i class="material-icons nav-icon">add</i>
+=======
+                        @can('create demo')
+                            <li class="nav-item">
+                            <a href="{{route('demo.create')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+>>>>>>> 8f147705ec3e037036396e39b49c44688ca6e30d
                                 <p>Create</p>
                             </a>                            
                         </li>
+                        @endcan
 
+                        @can('show demo records')
                         <li class="nav-item">
                             <a href="{{ route('demo.records') }}" class="nav-link">
                                 <i class="material-icons nav-icon">list</i>
                                 <p>Records</p>
                             </a>                            
                         </li>
+                        @endcan
                     </ul>
                 </li>
+                @endcan
+
+
+                @can('show message')
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
@@ -251,15 +266,21 @@
                             </a>                            
                         </li>
 
+                        @can('create message')
+
                         <li class="nav-item">
                             <a href="{{ route('message.create') }}" class="nav-link">
                                 <i class="material-icons nav-icon">add</i>
                                 <p>Create</p>
                             </a>
                         </li>
+                        @endcan
 
                     </ul>
                 </li>
+
+                @endcan
+
 
 
 
