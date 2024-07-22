@@ -246,14 +246,32 @@
             </div>
         </div>
     </div>
-
+    <style>
+        .highlighted-row {
+            background-color: #ffffcc !important; /* Adjust as needed */
+        }
+    </style>
     <script>
         function showResponseModal(numberId) {
+            console.log('Number ID:', numberId);
+            $('#example1 tbody tr').removeClass('highlighted-row'); // Remove highlight from other rows
+            $('#row-' + numberId).addClass('highlighted-row'); // Highlight the clicked row
+
             setTimeout(function() {
-                $('#responseModal').modal('show');
-            }, 5000); // 5000 milliseconds = 5 seconds
+                console.log('Showing modal now');
+                $('#responseModal').modal('show'); // Show the modal after 5 seconds
+            }, 5000);
         }
+
     </script>
+
+{{--    <script>--}}
+{{--        function showResponseModal(numberId) {--}}
+{{--            setTimeout(function() {--}}
+{{--                $('#responseModal').modal('show');--}}
+{{--            }, 5000); // 5000 milliseconds = 5 seconds--}}
+{{--        }--}}
+{{--    </script>--}}
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
