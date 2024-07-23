@@ -20,8 +20,8 @@
     <div class="card">
         <div class="card-body">
             <div class="container">
-                <div class="d-flex justify-content-between mb-3">
-                    <h5>Images</h5>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="mb-0">Images</h5>
                     <a href="{{ route('demo.addImage', ['demo' => $demo]) }}" class="btn btn-primary btn-sm">Add Image</a>
                 </div>
                 <div class="row">
@@ -30,7 +30,7 @@
                         <div class="col-6 col-md-4 col-lg-3 mb-4">
                             <div class="image-box">
                                 <img src="{{ asset('storage/' . $image->path) }}" class="img-fluid" alt="Image">
-                                <a href="{{route('demo.imageDelete', ['image' => $image])}}" class="btn btn-danger btn-sm btn-block bg-transparent text-danger">Delete</a>
+                                <a href="{{route('demo.imageDelete', ['image' => $image])}}" class="btn btn-danger btn-sm w-100 mt-2">Delete</a>
                             </div>
                         </div>
                     @endforeach

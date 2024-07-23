@@ -18,8 +18,8 @@
             <div class="card">
                 <div class="card-body p-1">
                     <form action="{{route('dashboard')}}" method="GET" class="form-inline">
-                        <input type="date" name="date" placeholder="date" class="form-control mr-2">
-                        <input type="submit" value="Filter" class="btn btn-primary">
+                        <input type="date" name="date" placeholder="date" class="form-control col-sm-12 col-md-auto mr-2">
+                        <input type="submit" value="Filter" class="btn btn-primary col-sm-12 col-md-auto">
                     </form>
                 </div>
             </div>

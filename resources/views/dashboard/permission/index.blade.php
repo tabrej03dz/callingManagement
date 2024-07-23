@@ -12,7 +12,7 @@
 
             <div class="card-body">
                 <div class="form-row align-items-center">
-                    <div class="col-auto">
+                    <div class="col-12 col-sm-auto mb-md-3">
                         <label for="userSelect" class="col-form-label">Select User</label>
                         <select class="form-control" id="userSelect" name="user_id">
                             <option value="">Select User</option>
@@ -21,7 +21,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-auto">
+                    <div class="col-12 col-sm-auto mb-md-3">
                         <label for="roleSelect" class="col-form-label">Select Role</label>
                         <select class="form-control" id="roleSelect" name="role_id">
                             <option value="">Select Role</option>
@@ -30,8 +30,8 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-auto mt-4">
-                        <input type="submit" value="Give Permission" class="btn btn-success">
+                    <div class="col-12 col-sm-auto mt-sm-3 mt-md-4 mt-4">
+                        <input type="submit" value="Give Permission" class="btn btn-success btn-block btn-sm-inline">
                     </div>
                 </div>
             </div>
