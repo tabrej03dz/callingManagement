@@ -90,8 +90,8 @@
                                     </td>
                                     <td class="d-block d-md-table-cell">
                                         <span class="font-weight-bold d-md-none">Number: </span>
-                                        <a href="tel:{{ $number->phone_number }}" onclick="showResponseModal('{{ $number->id }}')">{{ $number->phone_number }}</a>
-{{--                                        <a href="tel:{{ $number->phone_number }}">{{ $number->phone_number }}</a>--}}
+{{--                                        <a href="tel:{{ $number->phone_number }}" onclick="showResponseModal('{{ $number->id }}')">{{ $number->phone_number }}</a>--}}
+                                        <a href="tel:{{ $number->phone_number }}">{{ $number->phone_number }}</a>
                                     </td>
                                     <td class="d-block d-md-table-cell">
                                         <span class="font-weight-bold d-md-none">City: </span>
@@ -134,11 +134,11 @@
                                     <td class="d-block d-md-table-cell">
                                         <span class="font-weight-bold d-md-none">Action: </span>
                                         <div class="btn-group d-flex flex-column flex-md-row ml-10">
-                                            <a href="#" data-toggle="modal" data-target="#responseModal"
-                                                class="btn btn-warning btn-sm mb-2 mb-md-0 mr-md-2">Response</a>
+{{--                                            <a href="#" data-toggle="modal" data-target="#responseModal"--}}
+{{--                                                class="btn btn-warning btn-sm mb-2 mb-md-0 mr-md-2">Response</a>--}}
 
-                                            {{--                                            <a href="{{ route('callRecord.create', ['number' => $number->id]) }}" --}}
-                                            {{--                                                class="btn btn-warning btn-sm mb-2 mb-md-0 mr-md-2">Response</a> --}}
+                                            <a href="{{ route('callRecord.create', ['number' => $number->id]) }}"
+                                               class="btn btn-warning btn-sm mb-2 mb-md-0 mr-md-2">Response</a>
                                             <a href="{{ route('callRecord.show', ['number' => $number->id]) }}"
                                                 class="btn btn-primary btn-sm">Records</a>
                                         </div>
@@ -246,6 +246,8 @@
             </div>
         </div>
     </div>
+
+
     <style>
         .highlighted-row {
             background-color: #ffffcc !important; /* Adjust as needed */
