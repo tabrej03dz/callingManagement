@@ -160,8 +160,7 @@
                                                             </option>
                                                         @endforeach
                                                     </select>
-                                                    <textarea name="custom_message" class="form-control form-control-sm mb-2 mb-md-0 mr-md-2 flex-grow-1 w-32 h-12"
-                                                        placeholder="Custom Message"></textarea>
+                                                    <textarea id="autoResizeTextarea" name="custom_message" class="form-control form-control-sm mb-2 mb-md-0 mr-md-2 flex-grow-1 w-32" placeholder="Custom Message"></textarea>
                                                     <button type="submit"
                                                         class="btn btn-primary btn-sm lg:w-32 md:w-32 h-12 mt-2 mt-md-0 px-3">Send</button>
                                                 </div>
@@ -264,6 +263,14 @@
                 $('#responseModal').modal('show'); // Show the modal after 5 seconds
             }, 5000);
         }
+        document.addEventListener('DOMContentLoaded', function() {
+    const textarea = document.getElementById('autoResizeTextarea');
+    
+    textarea.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+});
 
     </script>
 
