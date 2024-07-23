@@ -90,7 +90,7 @@
                                     </td>
                                     <td class="d-block d-md-table-cell">
                                         <span class="font-weight-bold d-md-none">Number: </span>
-{{--                                        <a href="tel:{{ $number->phone_number }}" onclick="showResponseModal('{{ $number->id }}')">{{ $number->phone_number }}</a>--}}
+                                        <a href="tel:{{ $number->phone_number }}" onclick="showResponseModal('{{ $number->id }}')">{{ $number->phone_number }}</a>
                                         <a href="tel:{{ $number->phone_number }}">{{ $number->phone_number }}</a>
                                     </td>
                                     <td class="d-block d-md-table-cell">
