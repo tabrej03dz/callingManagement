@@ -90,6 +90,7 @@
                                     </td>
                                     <td class="d-block d-md-table-cell">
                                         <span class="font-weight-bold d-md-none">Number: </span>
+{{--                                        <a href="tel:{{ $number->phone_number }}" onclick="showResponseModal('{{ $number->id }}')">{{ $number->phone_number }}</a>--}}
                                         <a href="tel:{{ $number->phone_number }}">{{ $number->phone_number }}</a>
                                     </td>
                                     <td class="d-block d-md-table-cell">
@@ -136,8 +137,8 @@
                                             <a href="#" data-toggle="modal" data-target="#responseModal"
                                                 class="btn btn-warning btn-sm mb-2 mb-md-0 mr-md-2">Response</a>
 
-                                            {{--                                            <a href="{{ route('callRecord.create', ['number' => $number->id]) }}" --}}
-                                            {{--                                                class="btn btn-warning btn-sm mb-2 mb-md-0 mr-md-2">Response</a> --}}
+                                            <a href="{{ route('callRecord.create', ['number' => $number->id]) }}"
+                                               class="btn btn-warning btn-sm mb-2 mb-md-0 mr-md-2">Response</a>
                                             <a href="{{ route('callRecord.show', ['number' => $number->id]) }}"
                                                 class="btn btn-primary btn-sm">Records</a>
                                         </div>
@@ -247,6 +248,32 @@
     </div>
 
 
+    <style>
+        .highlighted-row {
+            background-color: #ffffcc !important; /* Adjust as needed */
+        }
+    </style>
+    <script>
+        function showResponseModal(numberId) {
+            console.log('Number ID:', numberId);
+            $('#example1 tbody tr').removeClass('highlighted-row'); // Remove highlight from other rows
+            $('#row-' + numberId).addClass('highlighted-row'); // Highlight the clicked row
+
+            setTimeout(function() {
+                console.log('Showing modal now');
+                $('#responseModal').modal('show'); // Show the modal after 5 seconds
+            }, 5000);
+        }
+
+    </script>
+
+{{--    <script>--}}
+{{--        function showResponseModal(numberId) {--}}
+{{--            setTimeout(function() {--}}
+{{--                $('#responseModal').modal('show');--}}
+{{--            }, 5000); // 5000 milliseconds = 5 seconds--}}
+{{--        }--}}
+{{--    </script>--}}
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

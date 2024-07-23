@@ -14,6 +14,7 @@
                                 </div>
                             </th>
                         @endrole
+
                         <th>Business Name</th>
                         <th>Phone Number</th>
                         <th>City</th>
