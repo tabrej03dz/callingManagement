@@ -13,7 +13,10 @@
             <form action="{{route('callRecord.dayWise')}}" method="GET" class="form-inline mb-3">
                 <div class="row w-100">
                     <div class="col-12 col-sm-4 col-md-3 mb-2 mb-sm-0">
-                        <input type="date" name="date" placeholder="Date" class="form-control w-100">
+                        <input type="date" name="from" placeholder="From" class="form-control w-100">
+                    </div>
+                    <div class="col-12 col-sm-4 col-md-3 mb-2 mb-sm-0">
+                        <input type="date" name="to" placeholder="To" class="form-control w-100">
                     </div>
                     <div class="col-12 col-sm-4 col-md-2 mb-2 mb-sm-0">
                         <button type="submit" class="btn btn-primary w-100 w-md-auto">Filter</button>
@@ -23,7 +26,7 @@
                     </div>
                 </div>
             </form>
-            
+
 
             <div class="table-responsive">
                 <table id="example1" class="table table-bordered table-striped">
@@ -52,8 +55,8 @@
                     </tbody>
                 </table>
             </div>
-            
-            
+
+
         </div>
         <!-- /.card-body -->
     </div>

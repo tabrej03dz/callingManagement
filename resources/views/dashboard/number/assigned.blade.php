@@ -322,18 +322,17 @@
             $('#row-' + numberId).addClass('highlighted-row'); // Highlight the clicked row
 
             setTimeout(function() {
-                console.log('Showing modal now');
                 $(`#responseModal${numberId}`).modal('show'); // Show the modal after 5 seconds
             }, 5000);
         }
         document.addEventListener('DOMContentLoaded', function() {
-    const textarea = document.getElementById('autoResizeTextarea');
+        const textarea = document.getElementById('autoResizeTextarea');
 
-    textarea.addEventListener('input', function() {
-        this.style.height = 'auto';
-        this.style.height = (this.scrollHeight) + 'px';
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
     });
-});
 
     </script>
 
