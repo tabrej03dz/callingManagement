@@ -14,7 +14,8 @@
             @endphp
 
             @foreach($users as $user)
-                <a href="{{route('callRecord.statusWise', ['status' => $status ?? 'all', 'user' => $user->id])}}" class="btn-success">{{$user->name}}</a>
+
+                <a href="{{route('callRecord.statusWise', ['status' => $status ?? 'all', 'user' => $user->id])}}" class="btn btn-success">{{$user->name}}</a>
             @endforeach
         </div>
     </div>
@@ -22,7 +23,7 @@
     <div class="card">
 
         <div class="card-header">
-            <h3 class="card-title"></h3>
+            <h3 class="card-title">Count: {{$callRecords->count()}}</h3>
         </div>
 
         <div class="card-body">
