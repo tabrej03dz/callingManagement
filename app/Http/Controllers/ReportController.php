@@ -10,14 +10,18 @@ class ReportController extends Controller
 {
     public function userReport(Request $request, User $user){
 //        dd($user->usernumbers);
-        if ($request->date){
-            $date = $request->date;
+        $userNumbers = UserNumber::query();
+        if ($request->from && $request->to){
+            $from = $request->from;
+            $to = $request->to;
+            $userNumbers = $userNumbers->whereBetween('created_at', [$from, $to]);
         }else{
-            $date = null;
+            $from = null;
+            $to = null;
         }
 
-        $userNumbers = $user->userNumbers;
+        $userNumbers = $userNumbers->get();
 
-        return view('dashboard.report.userReport', compact('user', 'userNumbers', 'date'));
+        return view('dashboard.report.userReport', compact('user', 'userNumbers', 'from', 'to'));
     }
 }
