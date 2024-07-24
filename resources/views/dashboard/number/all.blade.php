@@ -59,8 +59,12 @@
                     <input type="text" class="form-control" id="city" name="city" placeholder="Enter city">
                 </div>
                 <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-                    <label for="date" class="form-label">Date</label>
-                    <input type="date" class="form-control" id="date" name="date">
+                    <label for="from" class="form-label">From</label>
+                    <input type="date" class="form-control" id="from" name="from">
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                    <label for="to" class="form-label">To</label>
+                    <input type="date" class="form-control" id="to" name="to">
                 </div>
                 <div class="col-12 col-lg-4 col-xl-6 d-flex gap-3 mt-3 mt-lg-0">
                     <button type="submit" class="btn btn-primary flex-grow-1 w-100 w-sm-auto">Apply</button>

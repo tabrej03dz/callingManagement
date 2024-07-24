@@ -60,8 +60,12 @@
                         <input type="text" class="form-control" id="city" name="city" placeholder="City">
                     </div>
                     <div class="col-12 col-sm-6 col-md-3 mb-md-2">
-                        <label for="date" class="visually-hidden">Date</label>
-                        <input type="date" class="form-control" id="date" name="date" placeholder="Date">
+                        <label for="from" class="visually-hidden">From</label>
+                        <input type="date" class="form-control" id="from" name="from" placeholder="From">
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3 mb-md-2">
+                        <label for="to" class="visually-hidden">To</label>
+                        <input type="date" class="form-control" id="to" name="to" placeholder="Date">
                     </div>
                     <div class="col-6 col-md-3 mt-4">
                         <button type="submit" class="btn btn-primary w-100">Apply</button>

@@ -268,8 +268,6 @@
                     </li>
                 @endcan
 
-
-
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link">
                         <i class="nav-icon material-icons">exit_to_app</i>

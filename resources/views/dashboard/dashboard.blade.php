@@ -18,7 +18,8 @@
             <div class="card">
                 <div class="card-body p-1">
                     <form action="{{route('dashboard')}}" method="GET" class="form-inline">
-                        <input type="date" name="date" placeholder="date" class="form-control col-sm-12 col-md-auto gap mr-2">
+                        <input type="date" name="from" placeholder="date" class="form-control col-sm-12 col-md-auto gap mr-2">
+                        <input type="date" name="to" placeholder="date" class="form-control col-sm-12 col-md-auto gap mr-2">
                         <input type="submit" value="Filter" class="btn btn-primary col-sm-12 col-md-auto">
                     </form>
                 </div>
@@ -314,23 +315,21 @@
                                 <a href="{{route('callRecord.statusWise', ['status' => 'call not pick'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
-
                     @endif
 
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box text-light" style="background-color: #b73867">
-                            <div class="inner">
-                                <h3>{{$demoRecords}}</h3>
-                                <p >Demo Sent</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-pie-graph"></i>
-                            </div>
-                            <a href="{{route('demo.records')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box text-light" style="background-color: #b73867">
+                        <div class="inner">
+                            <h3>{{$demoRecords}}</h3>
+                            <p >Demo Sent</p>
                         </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="{{route('demo.records')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
-
+                </div>
             </div>
             <!-- /.row -->
             <!-- Main row -->

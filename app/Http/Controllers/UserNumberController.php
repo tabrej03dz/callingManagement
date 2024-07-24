@@ -7,6 +7,8 @@ use App\Models\UserLog;
 use App\Models\UserNumber;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class UserNumberController extends Controller
 {

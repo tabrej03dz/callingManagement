@@ -18,14 +18,16 @@ class DashboardController extends Controller
 //            $number->delete();
 //        }
 
-        if ($request->date){
-            $date = $request->date;
-            $numbers = Number::whereDate('updated_at', $date)->get();
-            $callRecords = CallRecord::whereDate('created_at', $date)->get();
+        if ($request->from && $request->to){
+            $from = $request->from;
+            $to = $request->to;
+            $numbers = Number::whereBetween('updated_at', [$from, $to])->get();
+            $callRecords = CallRecord::whereBetween('created_at', [$from, $to])->get();
         }else{
             $numbers = Number::whereDate('updated_at', Carbon::today())->get();
             $callRecords = CallRecord::whereDate('created_at', Carbon::today())->get();
-            $date = null;
+            $from = null;
+            $to = null;
         }
 
         if(auth()->user()->hasRole('calling team')){
@@ -43,6 +45,6 @@ class DashboardController extends Controller
             $demoRecords = DemoRecord::whereDate('created_at', $request->date ?? Carbon::today())->where('user_id', auth()->user()->id)->count();
         }
 //        dd(Carbon::now()->addMinutes(50));
-        return view('dashboard.dashboard', compact('recentCalls', 'allNumbers', 'date', 'numbers', 'callRecords', 'demoRecords'));
+        return view('dashboard.dashboard', compact('recentCalls', 'allNumbers', 'from', 'to', 'numbers', 'callRecords', 'demoRecords'));
     }
 }

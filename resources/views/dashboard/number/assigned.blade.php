@@ -90,8 +90,8 @@
                                     </td>
                                     <td class="d-block d-md-table-cell">
                                         <span class="font-weight-bold d-md-none">Number: </span>
-{{--                                        <a href="tel:{{ $number->phone_number }}" onclick="showResponseModal('{{ $number->id }}')">{{ $number->phone_number }}</a>--}}
-                                        <a href="tel:{{ $number->phone_number }}">{{ $number->phone_number }}</a>
+                                        <a href="tel:{{ $number->phone_number }}" onclick="showResponseModal('{{ $loop->iteration }}')">{{ $number->phone_number }}</a>
+{{--                                        <a href="tel:{{ $number->phone_number }}">{{ $number->phone_number }}</a>--}}
                                     </td>
                                     <td class="d-block d-md-table-cell">
                                         <span class="font-weight-bold d-md-none">City: </span>
@@ -134,11 +134,77 @@
                                     <td class="d-block d-md-table-cell">
                                         <span class="font-weight-bold d-md-none">Action: </span>
                                         <div class="btn-group d-flex flex-column flex-md-row ml-10">
-                                            {{-- <a href="#" data-toggle="modal" data-target="#responseModal"
-                                                class="btn btn-warning btn-sm mb-2 mb-md-0 mr-md-2">Response</a> --}}
+                                             <a href="#" data-toggle="modal" data-target="#responseModal{{$loop->iteration}}"
+                                                class="btn btn-warning btn-sm mb-2 mb-md-0 mr-md-2">Response</a>
 
-                                            <a href="{{ route('callRecord.create', ['number' => $number->id]) }}"
-                                               class="btn btn-warning btn-sm mb-2 mb-md-0 mr-md-2">Response</a>
+                                            <div class="modal fade" id="responseModal{{$loop->iteration}}" tabindex="-1" role="dialog" aria-labelledby="responseModalLabel"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="responseModalLabel">Response Form</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form role="form" action="{{ route('callRecord.store', ['number' => $number->id]) }}"
+                                                                  method="post">
+                                                                @csrf
+
+                                                                <div class="form-group mb-3">
+                                                                    <select name="status" class="form-control custom-select">
+                                                                        <option value="">Response</option>
+                                                                        <option value="call pick" {{ old('status') == 'call pick' ? 'selected' : '' }}>Call Pick
+                                                                        </option>
+                                                                        <option value="call not pick" {{ old('status') == 'call not pick' ? 'selected' : '' }}>
+                                                                            Call Not Pick</option>
+                                                                        <option value="call back" {{ old('status') == 'call back' ? 'selected' : '' }}>Call Back
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="form-group mb-3">
+                                                                    <select name="number_status" class="form-control custom-select">
+                                                                        <option value="">Number Status</option>
+                                                                        <option value="interested" {{ old('number_status') == 'interested' ? 'selected' : '' }}>
+                                                                            Interested</option>
+                                                                        <option value="not interested"
+                                                                            {{ old('number_status') == 'not interested' ? 'selected' : '' }}>Not Interested
+                                                                        </option>
+                                                                        <option value="wrong number"
+                                                                            {{ old('number_status') == 'wrong number' ? 'selected' : '' }}>Wrong Number</option>
+                                                                        <option value="converted" {{ old('number_status') == 'converted' ? 'selected' : '' }}>
+                                                                            Converted</option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="form-group mb-3">
+                            <textarea name="description" id="description" cols="30" rows="5" class="form-control"
+                                      placeholder="Description" style="resize: none;">{{ old('description') }}</textarea>
+                                                                </div>
+                                                                <div class="form-group mb-3">
+                                                                    <label for="">Call back time</label>
+                                                                    <input name="date_and_time" type="datetime-local" class="form-control"
+                                                                           placeholder="Have to call" value="{{ old('date_and_time') }}" />
+                                                                </div>
+
+                                                                <div class="form-group mb-3">
+                                                                    <input name="send_message" id="send_message" type="checkbox" value="true" />
+                                                                    <label for="send_message">Do you want to send message to this number</label>
+                                                                </div>
+
+                                                                <div class="form-group mb-3">
+                                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+{{--                                            <a href="{{ route('callRecord.create', ['number' => $number->id]) }}"--}}
+{{--                                               class="btn btn-warning btn-sm mb-2 mb-md-0 mr-md-2">Response</a>--}}
                                             <a href="{{ route('callRecord.show', ['number' => $number->id]) }}"
                                                 class="btn btn-primary btn-sm">Records</a>
                                         </div>
@@ -177,74 +243,72 @@
     </div>
 
 
-
-
     <!-- Modal -->
-    <div class="modal fade" id="responseModal" tabindex="-1" role="dialog" aria-labelledby="responseModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="responseModalLabel">Response Form</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form role="form" action="{{ route('callRecord.store', ['number' => $number->id]) }}"
-                        method="post" enctype="multipart/form-data">
-                        @csrf
+{{--    <div class="modal fade" id="responseModal" tabindex="-1" role="dialog" aria-labelledby="responseModalLabel"--}}
+{{--        aria-hidden="true">--}}
+{{--        <div class="modal-dialog" role="document">--}}
+{{--            <div class="modal-content">--}}
+{{--                <div class="modal-header">--}}
+{{--                    <h5 class="modal-title" id="responseModalLabel">Response Form</h5>--}}
+{{--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+{{--                        <span aria-hidden="true">&times;</span>--}}
+{{--                    </button>--}}
+{{--                </div>--}}
+{{--                <div class="modal-body">--}}
+{{--                    <form role="form" action="{{ route('callRecord.store', ['number' => $number->id]) }}"--}}
+{{--                        method="post">--}}
+{{--                        @csrf--}}
 
-                        <div class="form-group mb-3">
-                            <select name="status" class="form-control custom-select">
-                                <option value="">Response</option>
-                                <option value="call pick" {{ old('status') == 'call pick' ? 'selected' : '' }}>Call Pick
-                                </option>
-                                <option value="call not pick" {{ old('status') == 'call not pick' ? 'selected' : '' }}>
-                                    Call Not Pick</option>
-                                <option value="call back" {{ old('status') == 'call back' ? 'selected' : '' }}>Call Back
-                                </option>
-                            </select>
-                        </div>
+{{--                        <div class="form-group mb-3">--}}
+{{--                            <select name="status" class="form-control custom-select">--}}
+{{--                                <option value="">Response</option>--}}
+{{--                                <option value="call pick" {{ old('status') == 'call pick' ? 'selected' : '' }}>Call Pick--}}
+{{--                                </option>--}}
+{{--                                <option value="call not pick" {{ old('status') == 'call not pick' ? 'selected' : '' }}>--}}
+{{--                                    Call Not Pick</option>--}}
+{{--                                <option value="call back" {{ old('status') == 'call back' ? 'selected' : '' }}>Call Back--}}
+{{--                                </option>--}}
+{{--                            </select>--}}
+{{--                        </div>--}}
 
-                        <div class="form-group mb-3">
-                            <select name="number_status" class="form-control custom-select">
-                                <option value="">Number Status</option>
-                                <option value="interested" {{ old('number_status') == 'interested' ? 'selected' : '' }}>
-                                    Interested</option>
-                                <option value="not interested"
-                                    {{ old('number_status') == 'not interested' ? 'selected' : '' }}>Not Interested
-                                </option>
-                                <option value="wrong number"
-                                    {{ old('number_status') == 'wrong number' ? 'selected' : '' }}>Wrong Number</option>
-                                <option value="converted" {{ old('number_status') == 'converted' ? 'selected' : '' }}>
-                                    Converted</option>
-                            </select>
-                        </div>
+{{--                        <div class="form-group mb-3">--}}
+{{--                            <select name="number_status" class="form-control custom-select">--}}
+{{--                                <option value="">Number Status</option>--}}
+{{--                                <option value="interested" {{ old('number_status') == 'interested' ? 'selected' : '' }}>--}}
+{{--                                    Interested</option>--}}
+{{--                                <option value="not interested"--}}
+{{--                                    {{ old('number_status') == 'not interested' ? 'selected' : '' }}>Not Interested--}}
+{{--                                </option>--}}
+{{--                                <option value="wrong number"--}}
+{{--                                    {{ old('number_status') == 'wrong number' ? 'selected' : '' }}>Wrong Number</option>--}}
+{{--                                <option value="converted" {{ old('number_status') == 'converted' ? 'selected' : '' }}>--}}
+{{--                                    Converted</option>--}}
+{{--                            </select>--}}
+{{--                        </div>--}}
 
-                        <div class="form-group mb-3">
-                            <textarea name="description" id="description" cols="30" rows="5" class="form-control"
-                                placeholder="Description" style="resize: none;">{{ old('description') }}</textarea>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="">Call back time</label>
-                            <input name="date_and_time" type="datetime-local" class="form-control"
-                                placeholder="Have to call" value="{{ old('date_and_time') }}" />
-                        </div>
+{{--                        <div class="form-group mb-3">--}}
+{{--                            <textarea name="description" id="description" cols="30" rows="5" class="form-control"--}}
+{{--                                placeholder="Description" style="resize: none;">{{ old('description') }}</textarea>--}}
+{{--                        </div>--}}
+{{--                        <div class="form-group mb-3">--}}
+{{--                            <label for="">Call back time</label>--}}
+{{--                            <input name="date_and_time" type="datetime-local" class="form-control"--}}
+{{--                                placeholder="Have to call" value="{{ old('date_and_time') }}" />--}}
+{{--                        </div>--}}
 
-                        <div class="form-group mb-3">
-                            <input name="send_message" id="send_message" type="checkbox" value="true" />
-                            <label for="send_message">Do you want to send message to this number</label>
-                        </div>
+{{--                        <div class="form-group mb-3">--}}
+{{--                            <input name="send_message" id="send_message" type="checkbox" value="true" />--}}
+{{--                            <label for="send_message">Do you want to send message to this number</label>--}}
+{{--                        </div>--}}
 
-                        <div class="form-group mb-3">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+{{--                        <div class="form-group mb-3">--}}
+{{--                            <button type="submit" class="btn btn-primary">Submit</button>--}}
+{{--                        </div>--}}
+{{--                    </form>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 
 
     <style>
@@ -254,18 +318,17 @@
     </style>
     <script>
         function showResponseModal(numberId) {
-            console.log('Number ID:', numberId);
             $('#example1 tbody tr').removeClass('highlighted-row'); // Remove highlight from other rows
             $('#row-' + numberId).addClass('highlighted-row'); // Highlight the clicked row
 
             setTimeout(function() {
                 console.log('Showing modal now');
-                $('#responseModal').modal('show'); // Show the modal after 5 seconds
+                $(`#responseModal${numberId}`).modal('show'); // Show the modal after 5 seconds
             }, 5000);
         }
         document.addEventListener('DOMContentLoaded', function() {
     const textarea = document.getElementById('autoResizeTextarea');
-    
+
     textarea.addEventListener('input', function() {
         this.style.height = 'auto';
         this.style.height = (this.scrollHeight) + 'px';

@@ -26,8 +26,9 @@ class NumberController extends Controller
             $query->where('city', $request->city);
         }
 
-        if ($request->filled('date')) {
-            $query->whereDate('created_at', $request->date);
+        if ($request->filled('from') && $request->to ) {
+
+            $query->whereBetween('created_at', [$request->from, $request->to]);
         }
 
         $numbers = $query->where('assigned' , '0')->paginate(100);
