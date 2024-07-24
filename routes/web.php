@@ -62,7 +62,7 @@ Route::middleware('auth')->group(function () {
         Route::post('store/{number}', [CallRecordController::class, 'store'])->name('store');
         Route::get('markAsRecalled/{record}', [CallRecordController::class, 'markAsRecalled'])->name('markAsRecalled');
         Route::get('dayWise', [CallRecordController::class, 'dayWise'])->name('dayWise');
-        Route::get('statusWise/{status?}', [CallRecordController::class, 'callRecordStatusWise'])->name('statusWise');
+        Route::get('statusWise/{status?}/{user?}', [CallRecordController::class, 'callRecordStatusWise'])->name('statusWise');
     });
 
     Route::prefix('user')->name('user.')->group(function(){

@@ -3,6 +3,22 @@
 
 
     <!-- /.card -->
+
+    <div class="card">
+        <div class="card-body">
+            @php
+                $users = App\Models\User::whereDoesntHave('roles', function ($query) {
+                    $query->where('name', 'super_admin');
+                })->get();
+
+            @endphp
+
+            @foreach($users as $user)
+                <a href="{{route('callRecord.statusWise', ['status' => $status ?? 'all', 'user' => $user->id])}}" class="btn-success">{{$user->name}}</a>
+            @endforeach
+        </div>
+    </div>
+
     <div class="card">
 
         <div class="card-header">
@@ -10,7 +26,7 @@
         </div>
 
         <div class="card-body">
-            <form action="{{route('callRecord.dayWise')}}" method="GET" class="form-inline mb-3">
+            <form action="{{route('callRecord.statusWise', ['status' => $status ?? 'all', 'user' => $user])}}" method="GET" class="form-inline mb-3">
                 <div class="row w-100">
                     <div class="col-12 col-sm-4 col-md-3 mb-2 mb-sm-0">
                         <input type="date" name="from" placeholder="From" class="form-control w-100">

@@ -7,6 +7,7 @@ use App\Models\Demo;
 use App\Models\DemoRecord;
 use App\Models\Status;
 use App\Models\StatusWiseMessage;
+use App\Models\User;
 use App\Models\UserInstanceAccess;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -100,18 +101,23 @@ class CallRecordController extends Controller
         return view('dashboard.callRecord.dayWise', compact('callRecords'));
     }
 
-    public function callRecordStatusWise(Request $request, $status = null){
-
+    public function callRecordStatusWise(Request $request, $status = null, User $user = null){
         $callRecords = CallRecord::query();
-        if($status != null){
+        if($status == 'all'){
 //            $callRecords = auth()->user()->hasRole('calling team') ? CallRecord::whereDate('created_at', Carbon::today())->where('user_id', auth()->user()->id)->get() : CallRecord::whereDate('created_at', Carbon::today())->get();
+            $callRecords = auth()->user()->hasRole('calling team') ? $callRecords->where([ 'user_id' => auth()->user()->id]) : $callRecords;
+        }else{
             $callRecords = auth()->user()->hasRole('calling team') ? $callRecords->where(['status' => $status, 'user_id' => auth()->user()->id]) : $callRecords->where('status', $status);
+
         }
         if ($request->from && $request->to){
             $callRecords = $callRecords->whereBetween('created_at', [$request->from, $request->to]);
         }
+        if ($user){
+            $callRecords = $callRecords->where('user_id',$user->id);
+        }
         $callRecords = $callRecords->get();
 
-        return view('dashboard.callRecord.dayWise', compact('callRecords'));
+        return view('dashboard.callRecord.dayWise', compact('callRecords', 'status', 'user'));
     }
 }
