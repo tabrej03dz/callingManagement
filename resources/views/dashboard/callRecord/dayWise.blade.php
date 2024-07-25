@@ -18,13 +18,15 @@
                     <div class="small-box bg-success">
                         <div class="inner">
                             @php
+
                                 if ($from == null && $to == null){
                                     $userCallRecords = \App\Models\CallRecord::whereDate('created_at', \Carbon\Carbon::today())->where('user_id', $user->id)->get();
                                 }else{
-                                    $userCallRecords = \App\Models\CallRecord::whereBetween('created_at', [$from, $to])->where('user_id', $user->id)->where('status', $status)->get();
+                                    $userCallRecords = \App\Models\CallRecord::whereBetween('created_at', [$from, $to])->where('user_id', $user->id)->get();
+
                                 }
                             @endphp
-                            <h3> {{$callRecords->count()}}<sup style="font-size: 20px"></sup></h3>
+                            <h3> {{$userCallRecords->count()}}<sup style="font-size: 20px"></sup></h3>
                             <p>{{$user->name}}</p>
                         </div>
                         <div class="icon">

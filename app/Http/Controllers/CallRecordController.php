@@ -104,28 +104,27 @@ class CallRecordController extends Controller
     public function callRecordStatusWise(Request $request, $status = null) {
         $callRecords = CallRecord::query();
         $authUser = auth()->user();
-
-        if ($status == 'all') {
-            $callRecords =
-                $callRecords->where('user_id', $authUser->id);
-        } else {
-            $callRecords =
-                $callRecords->where([ 'user_id' => $authUser->id]);
-        }
-
-        if ($request->from && $request->to) {
-//            dd('hsdkj');
+        if ($request->from && $request->to){
             $from = $request->from;
             $to = $request->to;
             $callRecords = $callRecords->whereBetween('created_at', [$from, $to]);
-        } else {
-            $from = '';
-            $to = '';
+        }else{
+            $from = null;
+            $to = null;
             $callRecords = $callRecords->whereDate('created_at', today());
+        }
+
+        if ($status != 'all'){
+            $callRecords = $callRecords->where('status', $status);
+        }
+
+        if (!auth()->user()->hasRole(['super_admin', 'admin'])){
+            $callRecords = $callRecords->where('user_id', $authUser->id);
         }
 
 
         $callRecords = $callRecords->get();
+//        dd($callRecords);
 
         return view('dashboard.callRecord.dayWise', compact('callRecords', 'status', 'from', 'to'));
     }
