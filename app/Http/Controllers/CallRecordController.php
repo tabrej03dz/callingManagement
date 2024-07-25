@@ -36,11 +36,11 @@ class CallRecordController extends Controller
             'description' => '',
             'date_and_time' => Rule::requiredIf($request->status === 'call back'),
             'send_message' => '',
+            'converted_price' => Rule::requiredIf($request->status === 'converted'),
         ]);
 
         if ($request->number_status) {
-            $number->status = $request->number_status;
-            $number->save();
+            $number->update(['status' => $request->number_status, 'updated_by' => auth()->user()->id, 'converted_price' => $request->converted_price ?? 0.0]);
         }
 
         CallRecord::create($request->all() + [

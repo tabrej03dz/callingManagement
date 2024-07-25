@@ -180,6 +180,11 @@
                                                                 </div>
 
                                                                 <div class="form-group mb-3">
+                                                                    <label for="">Price</label>
+                                                                    <input name="converted_price" type="text" class="form-control" placeholder="Price" value="{{old('converted_price')}}"/>
+                                                                </div>
+
+                                                                <div class="form-group mb-3">
                             <textarea name="description" id="description" cols="30" rows="5" class="form-control"
                                       placeholder="Description" style="resize: none;">{{ old('description') }}</textarea>
                                                                 </div>
