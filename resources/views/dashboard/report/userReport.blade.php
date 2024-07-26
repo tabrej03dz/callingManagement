@@ -63,7 +63,7 @@
                                     $callRecord = App\Models\CallRecord::where('user_id', $user->id)->whereBetween(
                                         'created_at', [$from, $to]
                                     )->pluck('created_at');
-                                    dd($callRecord)
+
                                 }else{
                                     $callRecord = App\Models\CallRecord::whereDate(
                                         'created_at', today()
@@ -92,7 +92,7 @@
                                 )
                                     ->where('user_id', $user->id)
                                     ->count() : App\Models\CallRecord::whereDate(
-                                    'created_at', \Carbon\Carbon::today()
+                                    'created_at', Carbon::today()
                                 )
                                     ->where('user_id', $user->id)
                                     ->count();
@@ -111,7 +111,7 @@
 
                 @php
                     $assignedNumbersToUsersCount = App\Models\UserNumber::where('assigned_by', $user->id)
-                        ->whereDate('assigned_at', $date ?? Carbon\Carbon::today())
+                        ->whereDate('assigned_at', $date ?? Carbon::today())
                         ->count();
                 @endphp
 

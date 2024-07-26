@@ -14,6 +14,7 @@
                             <option value="not interested">Not Interested</option>
                             <option value="wrong number">Wrong Number</option>
                             <option value="converted">Converted</option>
+                            <option value="not call">Not Called Till Now</option>
                         </select>
                     </div>
                     <div class="form-group col-md-6 col-lg-3 mb-2">
@@ -541,164 +542,168 @@
                 @php
                     $record = $number->callRecords()->latest()->first();
                 @endphp
-                <div class="card mb-3 shadow-sm">
-                    <div class="card-body p-3">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <h5 class="mb-0 font-weight-bold">{{ $number->business_name }}</h5>
-                            <small class="text-muted">{{ $record?->created_at->format('d-M h:i') }}</small>
+                <div class="card mb-4 shadow-lg rounded-lg border-0 hover-shadow-xl transition-shadow duration-300">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0 font-weight-bold text-primary">{{ $number->business_name }}</h5>
+                            <small class="text-muted bg-light px-2 py-1 rounded-pill shadow-sm">
+                                <i class="far fa-clock mr-1 text-info"></i>
+                                {{ $record?->created_at->format('d-M h:i A') }}
+                            </small>
                         </div>
-                        <p class="mb-1 text-muted small">
-                            <i class="fas fa-map-marker-alt mr-1"></i> {{ $number->city }} •
-                            <i class="fas fa-user mr-1"></i>
-                            {{ $number->userNumbers->first()->user->name ?? 'Unassigned' }}
+                        <p class="mb-2 text-muted">
+                            <i class="fas fa-map-marker-alt mr-2 text-danger"></i>
+                            <span class="text-dark font-weight-medium">{{ $number->city }}</span> •
+                            <i class="fas fa-user ml-2 mr-2 text-success"></i>
+                            <span class="text-dark font-weight-medium">{{ $number->userNumbers->first()->user->name ?? 'Unassigned' }}</span>
                         </p>
-                        <div class="d-flex justify-content-between align-items-center mt-2">
-                            <button class="btn btn-link p-0 text-primary" type="button" data-toggle="collapse"
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <button class="btn btn-outline-primary btn-sm rounded-pill shadow-sm hover-shadow-md transition-shadow duration-300" type="button" data-toggle="collapse"
                                 data-target="#collapse{{ $number->id }}">
                                 <i class="fas fa-chevron-down mr-1"></i> More details
                             </button>
-                            <a href="tel:{{ $number->phone_number }}" class="btn btn-success btn-sm rounded-circle"
-                                onclick="showResponseMobileModal('{{ $number->id }}'); return false;">
+                            <a href="tel:{{ $number->phone_number }}" class="btn btn-success btn-sm rounded-circle shadow-sm hover-shadow-lg transition-shadow duration-300"
+                                onclick="showResponseMobileModal('{{ $number->id }}');">
                                 <i class="fas fa-phone"></i>
                             </a>
-
-                            <!-- Mobile Modal -->
-                            <div class="modal fade" id="responseModalMobile{{ $number->id }}" tabindex="-1"
-                                role="dialog" aria-labelledby="responseModalMobileLabel{{ $number->id }}"
-                                aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="responseModalMobileLabel{{ $number->id }}">
-                                                Response Form</h5>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form role="form"
-                                                action="{{ route('callRecord.store', ['number' => $number->id]) }}"
-                                                method="post">
-                                                @csrf
-
-                                                <div class="form-group mb-3">
-                                                    <select name="status" class="form-control custom-select">
-                                                        <option value="">Response</option>
-                                                        <option value="call pick"
-                                                            {{ old('status') == 'call pick' ? 'selected' : '' }}>Call Pick
-                                                        </option>
-                                                        <option value="call not pick"
-                                                            {{ old('status') == 'call not pick' ? 'selected' : '' }}>
-                                                            Call Not Pick</option>
-                                                        <option value="call back"
-                                                            {{ old('status') == 'call back' ? 'selected' : '' }}>Call Back
-                                                        </option>
-                                                    </select>
+                        </div>
+        
+                        <!-- Mobile Modal (Styling enhanced) -->
+                        <div class="modal fade" id="responseModalMobile{{ $number->id }}" tabindex="-1"
+                            role="dialog" aria-labelledby="responseModalMobileLabel{{ $number->id }}"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content border-0 shadow-lg rounded-lg">
+                                    <div class="modal-header bg-primary text-white">
+                                        <h5 class="modal-title" id="responseModalMobileLabel{{ $number->id }}">
+                                            Response Form</h5>
+                                        <button type="button" class="close text-white" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form role="form"
+                                            action="{{ route('callRecord.store', ['number' => $number->id]) }}"
+                                            method="post">
+                                            @csrf
+        
+                                            <div class="form-group mb-3">
+                                                <select name="status" class="form-control custom-select shadow-sm">
+                                                    <option value="">Response</option>
+                                                    <option value="call pick"
+                                                        {{ old('status') == 'call pick' ? 'selected' : '' }}>Call Pick
+                                                    </option>
+                                                    <option value="call not pick"
+                                                        {{ old('status') == 'call not pick' ? 'selected' : '' }}>
+                                                        Call Not Pick</option>
+                                                    <option value="call back"
+                                                        {{ old('status') == 'call back' ? 'selected' : '' }}>Call Back
+                                                    </option>
+                                                </select>
+                                            </div>
+        
+                                            <div class="form-group mb-3">
+                                                <select name="number_status" class="form-control custom-select shadow-sm">
+                                                    <option value="">Number Status</option>
+                                                    <option value="interested"
+                                                        {{ old('number_status') == 'interested' ? 'selected' : '' }}>
+                                                        Interested</option>
+                                                    <option value="not interested"
+                                                        {{ old('number_status') == 'not interested' ? 'selected' : '' }}>
+                                                        Not Interested
+                                                    </option>
+                                                    <option value="wrong number"
+                                                        {{ old('number_status') == 'wrong number' ? 'selected' : '' }}>
+                                                        Wrong Number</option>
+                                                    <option value="converted"
+                                                        {{ old('number_status') == 'converted' ? 'selected' : '' }}>
+                                                        Converted</option>
+                                                </select>
+                                            </div>
+        
+                                            <div class="form-group mb-3">
+                                                <textarea name="description" id="description{{ $number->id }}" cols="30" rows="5"
+                                                    class="form-control shadow-sm" placeholder="Description" style="resize: none;">{{ old('description') }}</textarea>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label for="" class="text-muted">Call back time</label>
+                                                <input name="date_and_time" type="datetime-local"
+                                                    class="form-control shadow-sm" placeholder="Have to call"
+                                                    value="{{ old('date_and_time') }}" />
+                                            </div>
+        
+                                            <div class="form-group mb-3">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" name="send_message" id="send_message{{ $number->id }}" value="true">
+                                                    <label class="custom-control-label" for="send_message{{ $number->id }}">Send message to this number</label>
                                                 </div>
-
-                                                <div class="form-group mb-3">
-                                                    <select name="number_status" class="form-control custom-select">
-                                                        <option value="">Number Status</option>
-                                                        <option value="interested"
-                                                            {{ old('number_status') == 'interested' ? 'selected' : '' }}>
-                                                            Interested</option>
-                                                        <option value="not interested"
-                                                            {{ old('number_status') == 'not interested' ? 'selected' : '' }}>
-                                                            Not Interested
-                                                        </option>
-                                                        <option value="wrong number"
-                                                            {{ old('number_status') == 'wrong number' ? 'selected' : '' }}>
-                                                            Wrong Number</option>
-                                                        <option value="converted"
-                                                            {{ old('number_status') == 'converted' ? 'selected' : '' }}>
-                                                            Converted</option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="form-group mb-3">
-                                                    <textarea name="description" id="description{{ $number->id }}" cols="30" rows="5"
-                                                        class="form-control" placeholder="Description" style="resize: none;">{{ old('description') }}</textarea>
-                                                </div>
-                                                <div class="form-group mb-3">
-                                                    <label for="">Call back time</label>
-                                                    <input name="date_and_time" type="datetime-local"
-                                                        class="form-control" placeholder="Have to call"
-                                                        value="{{ old('date_and_time') }}" />
-                                                </div>
-
-                                                <div class="form-group mb-3">
-                                                    <input name="send_message" id="send_message{{ $number->id }}"
-                                                        type="checkbox" value="true" />
-                                                    <label for="send_message{{ $number->id }}">Do you want to send
-                                                        message to this number</label>
-                                                </div>
-
-                                                <div class="form-group mb-3">
-                                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
+                                            </div>
+        
+                                            <div class="form-group mb-3">
+                                                <button type="submit" class="btn btn-primary btn-block shadow-sm hover-shadow-md transition-shadow duration-300">Submit</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="collapse mt-3" id="collapse{{ $number->id }}">
+        
+                        <div class="collapse mt-4" id="collapse{{ $number->id }}">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item d-flex justify-content-between align-items-center py-2">
-                                    <span class="font-weight-bold">Number</span>
-                                    <span>{{ $number->phone_number }}</span>
+                                <li class="list-group-item d-flex justify-content-between align-items-center py-2 bg-light rounded-sm mb-1">
+                                    <span class="font-weight-bold text-primary">Number</span>
+                                    <span class="text-dark">{{ $number->phone_number }}</span>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center py-2">
-                                    <span class="font-weight-bold">N/S</span>
+                                <li class="list-group-item d-flex justify-content-between align-items-center py-2 bg-light rounded-sm mb-1">
+                                    <span class="font-weight-bold text-primary">N/S</span>
                                     <span
-                                        class="badge {{ getStatusClass($number?->status) }} badge-pill">{{ $number?->status }}</span>
+                                        class="badge {{ getStatusClass($number?->status) }} badge-pill shadow-sm">{{ $number?->status }}</span>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center py-2">
-                                    <span class="font-weight-bold">Response</span>
-                                    <span>{{ $record?->status }}</span>
+                                <li class="list-group-item d-flex justify-content-between align-items-center py-2 bg-light rounded-sm mb-1">
+                                    <span class="font-weight-bold text-primary">Response</span>
+                                    <span class="text-dark">{{ $record?->status }}</span>
                                 </li>
-                                <li class="list-group-item py-2">
-                                    <span class="font-weight-bold">Description</span>
-                                    <p class="mb-0 mt-1 small">{{ $record?->description }}</p>
+                                <li class="list-group-item py-2 bg-light rounded-sm mb-1">
+                                    <span class="font-weight-bold text-primary">Description</span>
+                                    <p class="mb-0 mt-1 small text-dark">{{ $record?->description }}</p>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center py-2">
-                                    <span class="font-weight-bold">Callback</span>
-                                    <span>{{ $record?->have_to_call?->format('d-M h:i') }}</span>
+                                <li class="list-group-item d-flex justify-content-between align-items-center py-2 bg-light rounded-sm mb-1">
+                                    <span class="font-weight-bold text-primary">Callback</span>
+                                    <span class="text-dark">{{ $record?->have_to_call?->format('d-M h:i A') }}</span>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center py-2">
-                                    <span class="font-weight-bold">Count</span>
+                                <li class="list-group-item d-flex justify-content-between align-items-center py-2 bg-light rounded-sm mb-1">
+                                    <span class="font-weight-bold text-primary">Count</span>
                                     <span
-                                        class="badge badge-primary badge-pill">{{ $number->callRecords->count() }}</span>
+                                        class="badge badge-primary badge-pill shadow-sm">{{ $number->callRecords->count() }}</span>
                                 </li>
                                 @role('super_admin|admin')
-                                    <li class="list-group-item py-2">
-                                        <span class="font-weight-bold">Assigned Users</span>
+                                    <li class="list-group-item py-2 bg-light rounded-sm mb-1">
+                                        <span class="font-weight-bold text-primary">Assigned Users</span>
                                         <ul class="list-unstyled mb-0 mt-1 small">
                                             @foreach ($number->userNumbers as $user)
-                                                <li><i class="fas fa-user-check mr-1"></i> {{ $user->user->name }}</li>
+                                                <li><i class="fas fa-user-check mr-2 text-success"></i>{{ $user->user->name }}</li>
                                             @endforeach
                                         </ul>
                                     </li>
                                 @endrole
-                                <li class="list-group-item py-2">
+                                <li class="list-group-item py-2 bg-light rounded-sm mb-1">
                                     <div class="btn-group d-flex" role="group">
-                                        <button type="button" class="btn btn-warning btn-sm flex-grow-1"
+                                        <button type="button" class="btn btn-warning btn-sm flex-grow-1 shadow-sm hover-shadow-md transition-shadow duration-300"
                                             data-toggle="modal" data-target="#responseModalMobile{{ $number->id }}">
                                             <i class="fas fa-reply mr-1"></i> Response
                                         </button>
                                         <a href="{{ route('callRecord.show', ['number' => $number->id]) }}"
-                                            class="btn btn-primary btn-sm flex-grow-1">
+                                            class="btn btn-primary btn-sm flex-grow-1 shadow-sm hover-shadow-md transition-shadow duration-300">
                                             <i class="fas fa-history mr-1"></i> Records
                                         </a>
                                     </div>
                                 </li>
-                                <li class="list-group-item py-2">
+                                <li class="list-group-item py-2 bg-light rounded-sm mb-1">
                                     <form action="{{ route('demo.send', ['number' => $number->id]) }}" method="post">
                                         @csrf
                                         <div class="form-group">
-                                            <select name="demo_id" class="form-control form-control-sm mb-2">
+                                            <select name="demo_id" class="form-control form-control-sm mb-2 shadow-sm">
                                                 <option value="">Select Demo</option>
                                                 @foreach ($demos as $demo)
                                                     <option value="{{ $demo->id }}">
@@ -707,10 +712,10 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <textarea name="custom_message" class="form-control form-control-sm mb-2" placeholder="Custom Message"
+                                            <textarea name="custom_message" class="form-control form-control-sm mb-2 shadow-sm" placeholder="Custom Message"
                                                 rows="2"></textarea>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-sm btn-block">
+                                        <button type="submit" class="btn btn-primary btn-sm btn-block shadow-sm hover-shadow-md transition-shadow duration-300">
                                             <i class="fas fa-paper-plane mr-1"></i> Send Demo
                                         </button>
                                     </form>

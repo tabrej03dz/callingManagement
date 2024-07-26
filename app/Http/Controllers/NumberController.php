@@ -108,13 +108,21 @@ class NumberController extends Controller
         if ($request->city){
             $numbers = $numbers->where('city', $request->city);
         }
+
         if($request->status){
-            $numbers = $numbers->where('status', $request->status);
+            $status = $request->status;
+            if ($status == 'not call'){
+                $numbers = $numbers->doesntHave('callRecords');
+            }else{
+                $numbers = $numbers->where('status', $request->status);
+            }
+        }else{
+            $status = null;
         }
         $allNumbers = $numbers->orderBy('updated_at', 'desc')->get();
         $withoutCallRecordsNumbers = $numbers->doesntHave('callRecords')->get();
         $demos = Demo::all();
-        return view('dashboard.number.assigned', compact('allNumbers', 'withoutCallRecordsNumbers', 'demos'));
+        return view('dashboard.number.assigned', compact('allNumbers', 'withoutCallRecordsNumbers', 'demos', 'status'));
     }
 
     public function status(Number $number, $status){
