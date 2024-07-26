@@ -90,7 +90,6 @@
                                         <span class="font-weight-bold d-md-none">Number: </span>
                                         <a href="tel:{{ $number->phone_number }}"
                                             onclick="showResponseModal('{{ $number->id }}')">{{ $number->phone_number }}</a>
-                                        {{--                                                                                <a href="tel:{{ $number->phone_number }}">{{ $number->phone_number }}</a> --}}
                                     </td>
                                     <td class="d-block d-md-table-cell">
                                         <span class="font-weight-bold d-md-none">City: </span>
@@ -228,7 +227,7 @@
                                                 </div>
                                             </div>
 
-                                           
+
                                             <a href="{{ route('callRecord.show', ['number' => $number->id]) }}"
                                                 class="btn btn-primary btn-sm">Records</a>
                                         </div>
@@ -730,11 +729,7 @@
             /* Adjust as needed */
         }
     </style>
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 80ddf5e8851d440cdf26a400de3f3f9a0badf566
 
     <script>
         function showResponseModal(rowId) {
