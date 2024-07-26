@@ -799,7 +799,7 @@
             console.log('Saved Number ID:', savedNumberId);
 
             if (savedNumberId) {
-                const row = document.getElementById(row-${savedNumberId});
+                const row = document.getElementById(`row-${savedNumberId}`);
                 console.log('Row Element:', row);
 
                 if (row) {
