@@ -228,7 +228,7 @@
                                                 </div>
                                             </div>
 
-                                           
+
                                             <a href="{{ route('callRecord.show', ['number' => $number->id]) }}"
                                                 class="btn btn-primary btn-sm">Records</a>
                                         </div>
@@ -731,7 +731,7 @@
         }
     </style>
 <<<<<<< HEAD
-    
+
 =======
 
 >>>>>>> 80ddf5e8851d440cdf26a400de3f3f9a0badf566
@@ -800,9 +800,7 @@
             console.log('Saved Number ID:', savedNumberId);
 
             if (savedNumberId) {
-                const row = document.getElementById(row - $ {
-                    savedNumberId
-                });
+                const row = document.getElementById(`row-${savedNumberId}`);
                 console.log('Row Element:', row);
 
                 if (row) {
