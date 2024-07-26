@@ -1,24 +1,58 @@
-@extends('dash_layouts.aap', ['title' => 'Call Records'])
+@extends('dash_layouts.aap', ['title' => ucfirst($status).' Call Records'])
 @section('content')
-
-
-    <!-- /.card -->
 
     <div class="card">
         <div class="card-body">
             @php
-                $users = App\Models\User::whereDoesntHave('roles', function ($query) {
-                    $query->where('name', 'super_admin');
-                })->get();
+                //$users = App\Models\User::whereDoesntHave('roles', function ($query) {
+                //    $query->where('name', 'super_admin');
+                //})->get();
+                $users = App\Models\User::all();
 
             @endphp
+            <div class="row">
+                @foreach($users as $user)
+                    @if($user->hasRole('super_admin'))
+                        @continue
+                    @endif
+                    @if(!auth()->user()->hasRole(['super_admin', 'admin']))
+                        @if(auth()->user()->id != $user->id)
+                            @continue
+                        @endif
+                    @endif
 
-            @foreach($users as $user)
-
-                <a href="{{route('callRecord.statusWise', ['status' => $status ?? 'all', 'user' => $user->id])}}" class="btn btn-success">{{$user->name}}</a>
-            @endforeach
+                    <div class="col-lg-2 col-4">
+                        <!-- small box -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                @php
+                                    $userCallRecords = \App\Models\CallRecord::where('user_id', $user->id);
+                                    if ($from == null && $to == null){
+                                        $userCallRecords = $userCallRecords->whereDate('created_at', \Carbon\Carbon::today());
+                                    }else{
+                                        $userCallRecords = $userCallRecords->whereBetween('created_at', [$from, $to]);
+                                    }
+                                    if ($status != 'all'){
+                                        $userCallRecords = $userCallRecords->where('status', $status);
+                                    }
+                                    $userCallRecords = $userCallRecords->get();
+                                @endphp
+                                <h3> {{$userCallRecords->count()}}<sup style="font-size: 20px"></sup></h3>
+                                <p>{{$user->name}}</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-pie-graph"></i>
+                            </div>
+                            {{--                        <a href="{{route('number.statusWise', ['status' => 'converted'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>--}}
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
+    <!-- /.card -->
+
+
 
     <div class="card">
 
@@ -27,7 +61,7 @@
         </div>
 
         <div class="card-body">
-            <form action="{{route('callRecord.statusWise', ['status' => $status ?? 'all', 'user' => $user])}}" method="GET" class="form-inline mb-3">
+            <form action="{{route('callRecord.statusWise', ['status' => $status ?? 'all'])}}" method="GET" class="form-inline mb-3">
                 <div class="row w-100">
                     <div class="col-12 col-sm-4 col-md-3 mb-2 mb-sm-0">
                         <input type="date" name="from" placeholder="From" class="form-control w-100">

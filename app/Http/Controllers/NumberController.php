@@ -123,26 +123,26 @@ class NumberController extends Controller
     }
 
     public function statusWise(Request $request, $status = null){
-        if ($status == null){
-            if (auth()->user()->hasRole('calling team')){
-                $numberIds = auth()->user()->userNumbers()->pluck('number_id');
-                $numbers = Number::whereIn('id', $numberIds)->get();
-            }else{
-                $numbers = Number::all();
-            }
+        if (auth()->user()->hasRole(['super_admin', 'admin'])){
+            $numbers = Number::query();
         }else{
-
-            if (auth()->user()->hasRole('calling team')){
-                $numberIds = auth()->user()->userNumbers()->pluck('number_id');
-                $numbers = Number::whereIn('id', $numberIds)->where('status', $status)->get();
-            }else{
-                $numbers = Number::where('status', $status)->get();
-            }
-
-            $numbers = Number::where('status', $status)->get();
-//            dd($numbers);
+            $numberIds = auth()->user()->userNumbers()->pluck('number_id');
+            $numbers = Number::whereIn('id', $numberIds);
         }
-        return view('dashboard.number.statusWise', compact('numbers', 'status'));
+        if ($status != 'all'){
+            $numbers = $numbers->where('status', $status);
+        }
+        if ($request->from && $request->to){
+            $from = $request->from;
+            $to = $request->to;
+            $numbers = $numbers->whereBetween('updated_at', [$from, $to]);
+        }else{
+            $from = null;
+            $to = null;
+            $numbers = $numbers->whereDate('updated_at', today());
+        }
+        $numbers = $numbers->get();
+        return view('dashboard.number.statusWise', compact('numbers', 'status', 'from', 'to'));
     }
 
     public function addForm(){

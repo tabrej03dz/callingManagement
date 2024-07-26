@@ -28,22 +28,18 @@
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 @can('show all numbers')
-
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3>{{$allNumbers->count()}}</h3>
-
                             <p>Total Numbers</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                        <a href="{{route('number.statusWise')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('number.statusWise', ['status' => 'all'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
-
                 </div>
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
@@ -119,7 +115,7 @@
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
                             </div>
-                            <a href="{{route('number.statusWise')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="{{route('number.statusWise', ['status' => 'all'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -168,7 +164,7 @@
                                 @php
                                     $numberIds = auth()->user()->userNumbers()->pluck('number_id');
                                 @endphp
-                                <h3> {{$numbers->whereIn('id', $numberIds)->where('status', 'wrong interested')->count()}}<sup style="font-size: 20px"></sup></h3>
+                                <h3> {{$numbers->whereIn('id', $numberIds)->where('status', 'wrong number')->count()}}<sup style="font-size: 20px"></sup></h3>
                                 <p>Wrong Numbers</p>
                             </div>
                             <div class="icon">
@@ -185,7 +181,7 @@
                                 @php
                                     $numberIds = auth()->user()->userNumbers()->pluck('number_id');
                                 @endphp
-                                <h3> {{$numbers->whereIn('id', $numberIds)->where('status', 'wrong interested')->count()}}<sup style="font-size: 20px"></sup></h3>
+                                <h3> {{$numbers->whereIn('id', $numberIds)->where('status', 'converted')->count()}}<sup style="font-size: 20px"></sup></h3>
                                 <p>Converted</p>
                             </div>
                             <div class="icon">
@@ -232,7 +228,7 @@
                                 <div class="icon">
                                     <i class="ion ion-pie-graph"></i>
                                 </div>
-                                <a href="{{route('callRecord.statusWise')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="{{route('callRecord.statusWise', ['status' => 'all'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <div class="col-lg-3 col-6">
@@ -282,7 +278,7 @@
                                 <div class="icon">
                                     <i class="ion ion-pie-graph"></i>
                                 </div>
-                                <a href="{{route('callRecord.statusWise')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="{{route('callRecord.statusWise', ['status' => 'all'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
 

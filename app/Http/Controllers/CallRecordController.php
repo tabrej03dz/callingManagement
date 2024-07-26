@@ -36,11 +36,11 @@ class CallRecordController extends Controller
             'description' => '',
             'date_and_time' => Rule::requiredIf($request->status === 'call back'),
             'send_message' => '',
+            'converted_price' => Rule::requiredIf($request->status === 'converted'),
         ]);
 
         if ($request->number_status) {
-            $number->status = $request->number_status;
-            $number->save();
+            $number->update(['status' => $request->number_status, 'updated_by' => auth()->user()->id, 'converted_price' => $request->converted_price ?? 0.0]);
         }
 
         CallRecord::create($request->all() + [
@@ -101,23 +101,32 @@ class CallRecordController extends Controller
         return view('dashboard.callRecord.dayWise', compact('callRecords'));
     }
 
-    public function callRecordStatusWise(Request $request, $status = null, User $user = null){
+    public function callRecordStatusWise(Request $request, $status = null) {
         $callRecords = CallRecord::query();
-        if($status == 'all'){
-//            $callRecords = auth()->user()->hasRole('calling team') ? CallRecord::whereDate('created_at', Carbon::today())->where('user_id', auth()->user()->id)->get() : CallRecord::whereDate('created_at', Carbon::today())->get();
-            $callRecords = auth()->user()->hasRole('calling team') ? $callRecords->where([ 'user_id' => auth()->user()->id]) : $callRecords;
-        }else{
-            $callRecords = auth()->user()->hasRole('calling team') ? $callRecords->where(['status' => $status, 'user_id' => auth()->user()->id]) : $callRecords->where('status', $status);
-
-        }
+        $authUser = auth()->user();
         if ($request->from && $request->to){
-            $callRecords = $callRecords->whereBetween('created_at', [$request->from, $request->to]);
+            $from = $request->from;
+            $to = $request->to;
+            $callRecords = $callRecords->whereBetween('created_at', [$from, $to]);
+        }else{
+            $from = null;
+            $to = null;
+            $callRecords = $callRecords->whereDate('created_at', today());
         }
-        if ($user){
-            $callRecords = $callRecords->where('user_id',$user->id);
-        }
-        $callRecords = $callRecords->get();
 
-        return view('dashboard.callRecord.dayWise', compact('callRecords', 'status', 'user'));
+        if ($status != 'all'){
+            $callRecords = $callRecords->where('status', $status);
+        }
+
+        if (!auth()->user()->hasRole(['super_admin', 'admin'])){
+            $callRecords = $callRecords->where('user_id', $authUser->id);
+        }
+
+
+        $callRecords = $callRecords->get();
+//        dd($callRecords);
+
+        return view('dashboard.callRecord.dayWise', compact('callRecords', 'status', 'from', 'to'));
     }
+
 }

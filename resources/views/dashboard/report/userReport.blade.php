@@ -5,7 +5,10 @@
             <form action="{{ route('report.user', ['user' => $user]) }}" method="get">
                 <div class="row g-3 align-items-center">
                     <div class="col-12 col-sm-auto mb-3 mb-sm-0">
-                        <input type="date" name="date" class="form-control" placeholder="Date">
+                        <input type="date" name="from" class="form-control" placeholder="Date">
+                    </div>
+                    <div class="col-12 col-sm-auto mb-3 mb-sm-0">
+                        <input type="date" name="to" class="form-control" placeholder="Date">
                     </div>
                     <div class="col-12 col-sm-auto mb-3 mb-sm-0">
                         <button type="submit" class="btn btn-primary w-100">Filter</button>
@@ -54,12 +57,19 @@
                     <div class="small-box bg-info">
                         <div class="inner">
                             @php
-                                $callRecord = App\Models\CallRecord::whereDate(
-                                    'created_at',
-                                    $date ?? \Carbon\Carbon::today(),
-                                )
-                                    ->where('user_id', $user->id)
-                                    ->first();
+                                use Carbon\Carbon;
+                                use Carbon\CarbonInterval;
+                                if ($from && $to){
+                                    $callRecord = App\Models\CallRecord::where('user_id', $user->id)->whereBetween(
+                                        'created_at', [$from, $to]
+                                    )->pluck('created_at');
+                                    dd($callRecord)
+                                }else{
+                                    $callRecord = App\Models\CallRecord::whereDate(
+                                        'created_at', today()
+                                    )
+                                        ->where('user_id', $user->id)->first();
+                                }
                             @endphp
                             <h3>{{ $callRecord?->created_at->format('h:i') ?? '__:__' }}</h3>
 
@@ -77,16 +87,19 @@
                     <div class="small-box bg-info">
                         <div class="inner">
                             @php
-                                $callRecord = App\Models\CallRecord::whereDate(
-                                    'created_at',
-                                    $date ?? \Carbon\Carbon::today(),
+                                $callRecord = ($from && $to) ? App\Models\CallRecord::whereBetween(
+                                    'created_at', [$from , $to]
+                                )
+                                    ->where('user_id', $user->id)
+                                    ->count() : App\Models\CallRecord::whereDate(
+                                    'created_at', \Carbon\Carbon::today()
                                 )
                                     ->where('user_id', $user->id)
                                     ->count();
                             @endphp
                             <h3>{{ $callRecord }}</h3>
 
-                            <p>Calls of the day</p>
+                            <p>Calls</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
@@ -191,7 +204,7 @@
             </div>
         </div>
     </div>
-    
+
     <style>
         @media (max-width: 768px) {
             .title-name-header {
