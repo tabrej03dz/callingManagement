@@ -90,6 +90,7 @@
                                         <span class="font-weight-bold d-md-none">Number: </span>
                                         <a href="tel:{{ $number->phone_number }}"
                                             onclick="showResponseModal('{{ $number->id }}')">{{ $number->phone_number }}</a>
+                                        {{--                                                                                <a href="tel:{{ $number->phone_number }}">{{ $number->phone_number }}</a> --}}
                                     </td>
                                     <td class="d-block d-md-table-cell">
                                         <span class="font-weight-bold d-md-none">City: </span>
@@ -556,7 +557,7 @@
                                 <i class="fas fa-chevron-down mr-1"></i> More details
                             </button>
                             <a href="tel:{{ $number->phone_number }}" class="btn btn-success btn-sm rounded-circle"
-                                onclick="showResponseMobileModal('{{ $number->id }}'); return false;">
+                                onclick="showResponseMobileModal('{{ $number->id }}');">
                                 <i class="fas fa-phone"></i>
                             </a>
 
@@ -730,7 +731,6 @@
         }
     </style>
 
-
     <script>
         function showResponseModal(rowId) {
 
@@ -795,9 +795,7 @@
             console.log('Saved Number ID:', savedNumberId);
 
             if (savedNumberId) {
-                const row = document.getElementById(row - $ {
-                    savedNumberId
-                });
+                const row = document.getElementById(row-${savedNumberId});
                 console.log('Row Element:', row);
 
                 if (row) {
