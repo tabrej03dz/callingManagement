@@ -105,15 +105,16 @@ class NumberController extends Controller
                 }
             }
         }
-        if($request->status){
-            $numbers = $numbers->where('status', $request->status);
-        }
         if ($request->city){
             $numbers = $numbers->where('city', $request->city);
         }
-        $numbers = $numbers->get();
+        if($request->status){
+            $numbers = $numbers->where('status', $request->status);
+        }
+        $allNumbers = $numbers->orderBy('updated_at', 'desc')->get();
+        $withoutCallRecordsNumbers = $numbers->doesntHave('callRecords')->get();
         $demos = Demo::all();
-        return view('dashboard.number.assigned', compact('numbers', 'demos'));
+        return view('dashboard.number.assigned', compact('allNumbers', 'withoutCallRecordsNumbers', 'demos'));
     }
 
     public function status(Number $number, $status){
