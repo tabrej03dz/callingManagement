@@ -557,7 +557,7 @@
                                 <i class="fas fa-chevron-down mr-1"></i> More details
                             </button>
                             <a href="tel:{{ $number->phone_number }}" class="btn btn-success btn-sm rounded-circle"
-                                onclick="showResponseMobileModal('{{ $number->id }}'); return false;">
+                                onclick="showResponseMobileModal('{{ $number->id }}');">
                                 <i class="fas fa-phone"></i>
                             </a>
 
