@@ -730,7 +730,11 @@
             /* Adjust as needed */
         }
     </style>
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 80ddf5e8851d440cdf26a400de3f3f9a0badf566
 
     <script>
         function showResponseModal(rowId) {
