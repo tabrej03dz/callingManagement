@@ -78,7 +78,6 @@
                         </tr>
                         </thead>
                         <tbody>
-<<<<<<< HEAD
                             @foreach ($withoutCallRecordsNumbers as $number)
                                 <tr id="row-{{ $number->id }}"
                                     class=" d-md-table-row d-flex flex-column mb-4 p-3 bg-white rounded shadow-sm">
@@ -239,89 +238,8 @@
                                     </td>
                                 </tr>
                             @endforeach
+
                             @foreach ($allNumbers as $number)
-=======
-
-                        @foreach ($numbers as $number)
-                            @php
-                                $record = $number->callRecords()->latest()->first();
-                            @endphp
-                            <tr id="row-{{ $loop->iteration }}" class="{{ getStatusClass($record?->status) }} d-md-table-row d-flex flex-column mb-4 p-3 bg-white rounded shadow-sm">
-                                <td class="d-block d-md-table-cell">
-                                    <span class="font-weight-bold d-md-none">Name: </span>
-                                    <label class="form-check-label" for="{{ $number->id }}">{{ $number->business_name }}</label>
-                                </td>
-                                <td class="d-block d-md-table-cell">
-                                    <span class="font-weight-bold d-md-none">Number: </span>
-                                    <a href="tel:{{ $number->phone_number }}" onclick="showResponseModal({{ $loop->iteration }})">{{ $number->phone_number }}</a>
-                                </td>
-                                <td class="d-block d-md-table-cell">
-                                    <span class="font-weight-bold d-md-none">City: </span>
-                                    {{ $number->city }}
-                                </td>
-                                <td class="d-block d-md-table-cell {{ getStatusClass($number?->status) }}">
-                                    <span class="font-weight-bold d-md-none">N/S: </span>
-                                    {{ $number?->status }}
-                                </td>
-                                <td class="d-block d-md-table-cell">
-                                    <span class="font-weight-bold d-md-none">Response: </span>
-                                    {{ $record?->status }}
-                                </td>
-                                <td class="d-block d-md-table-cell">
-                                    <span class="font-weight-bold d-md-none">Description: </span>
-                                    {{ $record?->description }}
-                                </td>
-                                <td class="d-block d-md-table-cell">
-                                    <span class="font-weight-bold d-md-none">Last Call: </span>
-                                    {{ $record?->created_at->format('d-M h:i') }}
-                                </td>
-                                <td class="d-block d-md-table-cell">
-                                    <span class="font-weight-bold d-md-none">Callback: </span>
-                                    {{ $record?->have_to_call?->format('d-M h:i') }}
-                                </td>
-                                <td class="d-block d-md-table-cell">
-                                    <span class="font-weight-bold d-md-none">Count: </span>
-                                    {{ $number->callRecords->count() }}
-                                </td>
-                                @role('super_admin|admin')
-                                <td class="d-block d-md-table-cell">
-                                    <span class="font-weight-bold d-md-none">Assigned User: </span>
-                                    <ul style="list-style: none; padding: 0;">
-                                        @foreach ($number->userNumbers as $user)
-                                            <li>{{ $user->user->name }}</li>
-                                        @endforeach
-                                    </ul>
-                                </td>
-                                @endrole
-                                <td class="d-block d-md-table-cell">
-                                    <span class="font-weight-bold d-md-none">Action: </span>
-                                    <div class="btn-group d-flex flex-column flex-md-row ml-10">
-                                        <button class="btn btn-warning btn-sm mb-2 mb-md-0 mr-md-2" type="button" data-toggle="modal" data-target="#responseModal{{ $loop->iteration }}">
-                                            <i class="fas fa-reply mr-1"></i> Response
-                                        </button>
-                                        <a href="{{ route('callRecord.show', ['number' => $number->id]) }}" class="btn btn-primary btn-sm">
-                                            <i class="fas fa-history mr-1"></i> Records
-                                        </a>
-                                    </div>
-                                </td>
-                                <td class="d-block d-md-table-cell" style="min-width: 300px;">
-                                    <form action="{{ route('demo.send', ['number' => $number->id]) }}" class="form-inline" method="post">
-                                        @csrf
-                                        <div class="btn-group w-100">
-                                            <div class="d-flex flex-column flex-md-row w-100 align-items-center">
-                                                <select name="demo_id" class="form-control form-control-sm mb-2 mb-md-0 mr-md-2 w-32 h-12">
-                                                    <option value="">Select Demo</option>
-                                                    @foreach ($demos as $demo)
-                                                        <option value="{{ $demo->id }}">{{ $demo->name . ' - ' . $demo->city }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <textarea id="autoResizeTextarea" name="custom_message"
-                                                        class="form-control form-control-sm mb-2 mb-md-0 mr-md-2 flex-grow-1 w-32" placeholder="Custom Message"></textarea>
-                                                <button type="submit" class="btn btn-success btn-sm mb-2 mb-md-0 mr-md-2">Send Demo</button>
-
-                            @endforeach
-                            @foreach ($numbers as $number)
->>>>>>> 5c551fa2e4d9ef0dbdb19e84a5f48fb93da834ec
                                 @php
                                 if($number->callRecords->count() == 0){
                                     continue;
@@ -517,11 +435,11 @@
         </div>
 
 
-      
+
        <!-- Mobile view -->
 
        <div class="d-md-none">
-        @foreach ($numbers as $number)
+        @foreach ($allNumbers as $number)
             @php
                 $record = $number->callRecords()->latest()->first();
             @endphp
