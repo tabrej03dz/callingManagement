@@ -20,6 +20,8 @@ class ReportController extends Controller
             $to = null;
         }
 
+            $userNumbers = $userNumbers->where('user_id', $user->id);
+
         $userNumbers = $userNumbers->get();
 
         return view('dashboard.report.userReport', compact('user', 'userNumbers', 'from', 'to'));

@@ -88,32 +88,7 @@ class NumberController extends Controller
             $numbers = Number::where('phone_number', $request->number);
         }else{
 
-
-            if (auth()->user()->hasRole('calling team')){
-                $userNumebrs = auth()->user()->userNumbers->pluck('number_id');
-                if ($request->keyword){
-                    $numberIds = CallRecord::where('description', 'like', '%'.$request->keyword.'%')->where('user_id', auth()->user()->id)->pluck('number_id');
-
-                    $numbers = Number::whereIn('id', $numberIds);
-
-                }else{
-                    $numbers = Number::whereIn('id', $userNumebrs);
-                }
-            }else{
-
-                if ($request->keyword){
-                    $numberIds = CallRecord::where('description', 'like', '%'.$request->keyword.'%')->pluck('number_id');
-                    $numbers = Number::whereIn('id', $numberIds);
-                }else{
-                    $numbers = Number::where('assigned', '1');
-                }
-            }
-
-
-            if ($request->city){
-                $numbers = $numbers->where('city', $request->city);
-            }
-
+            $numbers = Number::query();
             if($request->status){
                 $status = $request->status;
                 if ($status == 'not call'){
@@ -122,9 +97,37 @@ class NumberController extends Controller
                     $numbers = $numbers->where('status', $request->status);
                 }
             }else{
-//                $numbers = $numbers->whereIn('status', ['interested']);
+                $numbers = $numbers->whereNotIn('status', ['not interested', 'converted', 'wrong number'])
+                    ->orWhereNull('status');
                 $status = null;
             }
+
+            if (auth()->user()->hasRole('calling team')){
+                $userNumebrs = auth()->user()->userNumbers->pluck('number_id');
+                if ($request->keyword){
+                    $numberIds = CallRecord::where('description', 'like', '%'.$request->keyword.'%')->where('user_id', auth()->user()->id)->pluck('number_id');
+
+                    $numbers = $numbers->whereIn('id', $numberIds);
+
+                }else{
+                    $numbers = $numbers->whereIn('id', $userNumebrs);
+                }
+            }else{
+
+                if ($request->keyword){
+                    $numberIds = CallRecord::where('description', 'like', '%'.$request->keyword.'%')->pluck('number_id');
+                    $numbers = $numbers->whereIn('id', $numberIds);
+                }else{
+                    $numbers = $numbers->where('assigned', '1');
+                }
+            }
+
+
+            if ($request->city){
+                $numbers = $numbers->where('city', $request->city);
+            }
+
+
             $allNumbers = $numbers->orderBy('updated_at', 'desc')->get();
 //        $withoutCallRecordsNumbers = $numbers->doesntHave('callRecords')->get();
 
