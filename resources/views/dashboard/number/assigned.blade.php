@@ -44,7 +44,8 @@
             </form>
 
             @php
-                $lastCall = $allNumbers->first();
+                $lastCall = $allNumbers->whereHas('callRecords')->orderBy('updated_at', 'desc')->first();
+                dd($lastCall->id);
             @endphp
             <div class="w-100 text-right text-center text-md-right">
                 <a href="{{ route('number.add') }}" class="btn btn-primary ml-2 mb-2">Add Number</a>
