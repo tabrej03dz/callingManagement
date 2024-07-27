@@ -27,7 +27,7 @@
                             <option value="not interested">Not Interested</option>
                             <option value="wrong number">Wrong Number</option>
                             <option value="converted">Converted</option>
-                            <option value="not call">Converted</option>
+                            <option value="not call">Not call</option>
                         </select>
                     </div>
                     <div class="form-group col-md-6 col-lg-3 mb-2">
@@ -554,7 +554,7 @@
             height: 3rem;
         }
         #preloader p {
-            color: #007bff; 
+            color: #007bff;
             font-size: 1.5rem;
         }
 
