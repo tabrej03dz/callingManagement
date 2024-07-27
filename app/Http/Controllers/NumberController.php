@@ -63,7 +63,7 @@ class NumberController extends Controller
     public function numberUpload(Request $request){
 //        dd($request->all());
         $request->validate([
-            'file' => 'required|mimes:xlsx,xls|max:2048',
+            'file' => 'required|max:2048',
         ]);
 
         $file = $request->file('file');
@@ -88,41 +88,53 @@ class NumberController extends Controller
             $numbers = Number::where('phone_number', $request->number);
         }else{
 
+            $numbers = Number::query();
+            if($request->status){
+                $status = $request->status;
+                if ($status == 'not call'){
+                    $numbers = $numbers->doesntHave('callRecords');
+                }else{
+                    $numbers = $numbers->where('status', $request->status);
+                }
+            }else{
+//                $numbers = $numbers->whereNotIn('status', ['not interested', 'converted', 'wrong number'])
+//                    ->orWhereNull('status');
+                $status = null;
+            }
+
             if (auth()->user()->hasRole('calling team')){
                 $userNumebrs = auth()->user()->userNumbers->pluck('number_id');
                 if ($request->keyword){
                     $numberIds = CallRecord::where('description', 'like', '%'.$request->keyword.'%')->where('user_id', auth()->user()->id)->pluck('number_id');
-                    $numbers = Number::whereIn('id', $numberIds);
+
+                    $numbers = $numbers->whereIn('id', $numberIds);
+
                 }else{
-                    $numbers = Number::whereIn('id', $userNumebrs);
+                    $numbers = $numbers->whereIn('id', $userNumebrs);
                 }
             }else{
+
                 if ($request->keyword){
                     $numberIds = CallRecord::where('description', 'like', '%'.$request->keyword.'%')->pluck('number_id');
-                    $numbers = Number::whereIn('id', $numberIds);
+                    $numbers = $numbers->whereIn('id', $numberIds);
                 }else{
-                    $numbers = Number::where('assigned', '1');
+                    $numbers = $numbers->where('assigned', '1');
                 }
             }
-        }
-        if ($request->city){
-            $numbers = $numbers->where('city', $request->city);
-        }
 
-        if($request->status){
-            $status = $request->status;
-            if ($status == 'not call'){
-                $numbers = $numbers->doesntHave('callRecords');
-            }else{
-                $numbers = $numbers->where('status', $request->status);
+
+            if ($request->city){
+                $numbers = $numbers->where('city', $request->city);
             }
-        }else{
-            $status = null;
+
+//            $lastCall = $numbers->orderBy('updated_at', 'desc')->first();
+            $allNumbers = $numbers->orderBy('updated_at', 'desc')->get();
+
+//        $withoutCallRecordsNumbers = $numbers->doesntHave('callRecords')->get();
+
         }
-        $allNumbers = $numbers->orderBy('updated_at', 'desc')->get();
-        $withoutCallRecordsNumbers = $numbers->doesntHave('callRecords')->get();
         $demos = Demo::all();
-        return view('dashboard.number.assigned', compact('allNumbers', 'withoutCallRecordsNumbers', 'demos', 'status'));
+        return view('dashboard.number.assigned', compact('allNumbers', 'demos', 'status'));
     }
 
     public function status(Number $number, $status){
