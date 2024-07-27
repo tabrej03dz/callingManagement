@@ -13,6 +13,7 @@
                             <option value="not interested">Not Interested</option>
                             <option value="wrong number">Wrong Number</option>
                             <option value="converted">Converted</option>
+                            <option value="not call">Converted</option>
                         </select>
                     </div>
                     <div class="form-group col-md-6 col-lg-3 mb-2">

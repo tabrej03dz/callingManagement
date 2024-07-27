@@ -117,6 +117,7 @@ class NumberController extends Controller
                 $numbers = $numbers->where('status', $request->status);
             }
         }else{
+            $numbers = $numbers->whereNotIn('status', ['not interested', 'converted', 'wrong number'])->orWhereNull('status');
             $status = null;
         }
         $allNumbers = $numbers->orderBy('updated_at', 'desc')->get();
