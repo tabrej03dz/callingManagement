@@ -44,12 +44,20 @@
             </form>
 
             @php
-                //$lastCall = $allNumbers->whereHas('callRecords')->orderBy('updated_at', 'desc')->first();
-                //dd($lastCall->id);
+                if (auth()->user()->hasRole('super_admin|admin')){
+                $lastCall = \App\Models\Number::whereHas('callRecords')->orderBy('updated_at', 'desc')->first();
+                }else{
+                    $numberIds = \App\Models\UserNumber::where('user_id', auth()->user()->id)->pluck('number_id');
+                    $lastCall = \App\Models\Number::whereIn('id', $numberIds)
+                                  ->whereHas('callRecords')
+                                  ->orderBy('updated_at', 'desc')
+                                  ->first();
+                }
+
             @endphp
             <div class="w-100 text-right text-center text-md-right">
                 <a href="{{ route('number.add') }}" class="btn btn-primary ml-2 mb-2">Add Number</a>
-                <a href="#lastCall" class="btn btn-primary ml-2 mb-2">Last Call</a>
+                <a href="#lastCall" class="btn btn-warning ml-2 mb-2">Last Call</a>
             </div>
         </div>
 
@@ -275,7 +283,7 @@
                         }
                         $record = $number->callRecords()->latest()->first();
                     @endphp
-                    <div class="card mb-4 shadow-lg rounded-lg overflow-hidden border border-light" id="">
+                    <div class="card mb-4 shadow-lg rounded-lg overflow-hidden border border-light" id="{{$lastCall->id == $number->id ? 'lastCall' : ''}}">
                         <div class="card-header bg-primary text-white p-3">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0 font-weight-bold text-truncate">{{ $number->business_name }}</h5>
