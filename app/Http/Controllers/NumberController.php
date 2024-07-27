@@ -120,9 +120,9 @@ class NumberController extends Controller
             $status = null;
         }
         $allNumbers = $numbers->orderBy('updated_at', 'desc')->get();
-        $withoutCallRecordsNumbers = $numbers->doesntHave('callRecords')->get();
+//        $withoutCallRecordsNumbers = $numbers->doesntHave('callRecords')->get();
         $demos = Demo::all();
-        return view('dashboard.number.assigned', compact('allNumbers', 'withoutCallRecordsNumbers', 'demos', 'status'));
+        return view('dashboard.number.assigned', compact('allNumbers', 'demos', 'status'));
     }
 
     public function status(Number $number, $status){
