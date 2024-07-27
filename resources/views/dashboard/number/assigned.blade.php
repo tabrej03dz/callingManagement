@@ -171,11 +171,14 @@
                     <!-- Modal -->
                     <div class="modal fade" id="responseModal{{ $number->id }}" tabindex="-1" role="dialog"
                          aria-labelledby="responseModalLabel{{ $number->id }}" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="responseModalLabel{{ $number->id }}">Response Form</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <div class="modal-header bg-primary text-white">
+                                    <h5 class="modal-title" id="responseModalLabel{{ $number->id }}">
+                                        <i class="fas fa-comment-alt mr-2"></i>Response Form
+                                    </h5>
+                                    <button type="button" class="close text-white" data-dismiss="modal"
+                                            aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
@@ -184,40 +187,60 @@
                                           action="{{ route('callRecord.store', ['number' => $number->id]) }}"
                                           method="post">
                                         @csrf
-                                        <div class="form-group mb-3">
-                                            <select name="status" class="form-control custom-select">
-                                                <option value="">Response</option>
+                                        <div class="form-group">
+                                            <label for="status{{ $number->id }}">Response</label>
+                                            <select name="status" id="status{{ $number->id }}" class="form-control">
+                                                <option value="">Select Response</option>
                                                 <option value="call pick">Call Pick</option>
                                                 <option value="call not pick">Call Not Pick</option>
                                                 <option value="call back">Call Back</option>
                                             </select>
                                         </div>
-                                        <div class="form-group mb-3">
-                                            <select name="number_status" class="form-control custom-select">
-                                                <option value="">Number Status</option>
+                                        <div class="form-group">
+                                            <label for="number_status{{ $number->id }}">Number Status</label>
+                                            <select name="number_status" id="number_status{{ $number->id }}"
+                                                    class="form-control">
+                                                <option value="">Select Number Status</option>
                                                 <option value="interested">Interested</option>
                                                 <option value="not interested">Not Interested</option>
                                                 <option value="wrong number">Wrong Number</option>
                                                 <option value="converted">Converted</option>
                                             </select>
                                         </div>
-                                        <div class="form-group mb-3">
-                                            <textarea name="description" cols="30" rows="5" class="form-control" placeholder="Description"
-                                                      style="resize: none;"></textarea>
+                                        <div class="form-group">
+                                            <label for="description{{ $number->id }}">Description</label>
+                                            <textarea name="description" id="description{{ $number->id }}" rows="4" class="form-control"
+                                                      placeholder="Enter description"></textarea>
                                         </div>
-                                        <div class="form-group mb-3">
-                                            <label for="">Call back time</label>
-                                            <input name="date_and_time" type="datetime-local" class="form-control"
-                                                   placeholder="Have to call" />
+                                        <div class="form-group">
+                                            <label for="date_and_time{{ $number->id }}">Call back time</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i
+                                                            class="far fa-calendar-alt"></i></span>
+                                                </div>
+                                                <input name="date_and_time" id="date_and_time{{ $number->id }}"
+                                                       type="datetime-local" class="form-control"
+                                                       placeholder="Select date and time" />
+                                            </div>
                                         </div>
-                                        <div class="form-group mb-3">
-                                            <input name="send_message" id="send_message{{ $number->id }}"
-                                                   type="checkbox" value="true" />
-                                            <label for="send_message{{ $number->id }}">Do you want to send message to
-                                                this number</label>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input"
+                                                       id="send_message{{ $number->id }}" name="send_message"
+                                                       value="true">
+                                                <label class="custom-control-label"
+                                                       for="send_message{{ $number->id }}">
+                                                    Send message to this number
+                                                </label>
+                                            </div>
                                         </div>
-                                        <div class="form-group mb-3">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        <div class="text-right">
+                                            <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-paper-plane mr-2"></i>Submit
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
