@@ -43,8 +43,12 @@
                 </div>
             </form>
 
+            @php
+                $lastCall = $allNumbers->first();
+            @endphp
             <div class="w-100 text-right text-center text-md-right">
                 <a href="{{ route('number.add') }}" class="btn btn-primary ml-2 mb-2">Add Number</a>
+                <a href="#lastCall" class="btn btn-primary ml-2 mb-2">Last Call</a>
             </div>
         </div>
 
@@ -57,13 +61,13 @@
                     case 'call not pick':
                         return 'bg-warning';
                     case 'call back':
-                        return 'bg-dark';
+                        return 'grey';
                     case 'interested':
-                        return 'bg-primary';
+                        return 'green';
                     case 'not interested':
-                        return 'bg-danger';
+                        return 'yellow';
                     case 'wrong number':
-                        return '';
+                        return 'red';
                     default:
                         return '';
                 }
@@ -270,7 +274,7 @@
                         }
                         $record = $number->callRecords()->latest()->first();
                     @endphp
-                    <div class="card mb-4 shadow-lg rounded-lg overflow-hidden border border-light">
+                    <div class="card mb-4 shadow-lg rounded-lg overflow-hidden border border-light" id="">
                         <div class="card-header bg-primary text-white p-3">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0 font-weight-bold text-truncate">{{ $number->business_name }}</h5>
@@ -279,7 +283,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="card-body p-4" style="border-left: 5px solid green">
+                        <div class="card-body p-4" style="border-left: 5px solid {{getStatusClass($number->status)}}">
                             <p class="mb-3 text-muted">
                                 <i class="fas fa-map-marker-alt mr-2 text-danger"></i>{{ $number->city }}
                                 @if ($number->userNumbers->first())
@@ -457,10 +461,21 @@
             </div>
         </div>
 
+        <div id="hello">
+            helloo
+        </div>
+
 
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{{--    <script>--}}
+{{--        document.querySelector('a[href="#Number{{$lastCall->id}}"]').addEventListener('click', function(e) {--}}
+{{--            e.preventDefault();--}}
+{{--            document.getElementById('Number{{$lastCall->id}}').scrollIntoView({ behavior: 'smooth' });--}}
+{{--        });--}}
+{{--    </script>--}}
 
     <script>
         $(window).on('load', function() {
@@ -492,14 +507,14 @@
                 });
             }
 
-            document.querySelectorAll('.qr-code').forEach(function(element) {
-                var phoneNumber = element.getAttribute('data-phone');
-                new QRCode(element, {
-                    text: 'tel:' + phoneNumber,
-                    width: 100,
-                    height: 100
-                });
-            });
+            // document.querySelectorAll('.qr-code').forEach(function(element) {
+            //     var phoneNumber = element.getAttribute('data-phone');
+            //     new QRCode(element, {
+            //         text: 'tel:' + phoneNumber,
+            //         width: 100,
+            //         height: 100
+            //     });
+            // });
 
             const params = new URLSearchParams(window.location.search);
             const savedNumberId = params.get('saved_number_id');
@@ -573,4 +588,6 @@
             }
         }
     </style>
+
+
 @endsection

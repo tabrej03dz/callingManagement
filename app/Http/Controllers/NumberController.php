@@ -97,8 +97,8 @@ class NumberController extends Controller
                     $numbers = $numbers->where('status', $request->status);
                 }
             }else{
-                $numbers = $numbers->whereNotIn('status', ['not interested', 'converted', 'wrong number'])
-                    ->orWhereNull('status');
+//                $numbers = $numbers->whereNotIn('status', ['not interested', 'converted', 'wrong number'])
+//                    ->orWhereNull('status');
                 $status = null;
             }
 
@@ -127,8 +127,9 @@ class NumberController extends Controller
                 $numbers = $numbers->where('city', $request->city);
             }
 
-
+//            $lastCall = $numbers->orderBy('updated_at', 'desc')->first();
             $allNumbers = $numbers->orderBy('updated_at', 'desc')->get();
+
 //        $withoutCallRecordsNumbers = $numbers->doesntHave('callRecords')->get();
 
         }
