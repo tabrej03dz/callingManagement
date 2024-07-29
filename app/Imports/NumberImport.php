@@ -27,7 +27,9 @@ class NumberImport implements ToModel, WithHeadingRow
 
         if(!Number::where('phone_number', $phoneNumber)->exists()){
             $number = Number::create($row);
-            $number->phone_number = $phoneNumber;
+            $number->phone_number = $phoneNumber.'hello';
+            $number->save();
+            $number->phone_number = str_replace('hello', '', $number->phone_number);
             $number->save();
         }
         // Create the Number model

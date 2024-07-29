@@ -304,6 +304,11 @@
                         if ($number->callRecords->count() == 0) {
                             continue;
                         }
+                        if($status == null){
+                            if ($number->status != 'interested'){
+                                continue;
+                            }
+                        }
                         $record = $number->callRecords()->latest()->first();
                     @endphp
                     <div class="card mb-4 shadow-lg rounded-lg overflow-hidden border border-light" id="{{$lastCall->id == $number->id ? 'lastCall' : ''}}">
@@ -639,6 +644,4 @@
             }
         }
     </style>
-
-
 @endsection

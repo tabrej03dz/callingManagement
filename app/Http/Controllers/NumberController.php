@@ -85,7 +85,8 @@ class NumberController extends Controller
 
     public function assignedNumbers(Request $request){
         if ($request->number){
-            $numbers = Number::where('phone_number', $request->number);
+            $allNumbers = Number::where('phone_number', $request->number);
+            $status = null;
         }else{
 
             $numbers = Number::query();
@@ -97,22 +98,21 @@ class NumberController extends Controller
                     $numbers = $numbers->where('status', $request->status);
                 }
             }else{
-//                $numbers = $numbers->whereNotIn('status', ['not interested', 'converted', 'wrong number'])
+//                $numbers = $numbers->whereIn('status', ['interested'])
 //                    ->orWhereNull('status');
                 $status = null;
             }
 
 
-            if (auth()->user()->hasRole('calling team')){
-                $userNumebrs = auth()->user()->userNumbers->pluck('number_id');
+            if (!auth()->user()->hasRole('super_admin|admin')){
+                $userNumbers = UserNumber::where('user_id', auth()->user()->id)->pluck('number_id');
+//                dd( $userNumbers->pluck('number_id'));
                 if ($request->keyword){
                     $numberIds = CallRecord::where('description', 'like', '%'.$request->keyword.'%')->where('user_id', auth()->user()->id)->pluck('number_id');
-
                     $numbers = $numbers->whereIn('id', $numberIds);
 
                 }else{
-                    $numbers = $numbers->whereIn('id', $userNumebrs);
-
+                    $numbers = $numbers->whereIn('id', $userNumbers);
                 }
             }else{
 
