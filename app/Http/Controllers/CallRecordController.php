@@ -71,6 +71,7 @@ class CallRecordController extends Controller
                 'message' => 'Record created successfully' . ($flash ?? ''),
                 'record' => $callRecord,
                 'callBack' => $callRecord->have_to_call?->format('d-M h:i'),
+                'created_at' => $callRecord->created_at->format('d-M h:i'),
             ]);
         } else {
             return redirect()->route('number.assigned', ['saved_number_id' => $number->id])->with('success', 'Record created successfully' . ($flash ?? ''));

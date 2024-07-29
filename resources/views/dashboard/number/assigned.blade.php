@@ -97,7 +97,7 @@
                         <div class="card-header bg-primary text-white p-3">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0 font-weight-bold text-truncate">{{ $number->business_name }}</h5>
-                                <span class="badge badge-light badge-pill">
+                                <span class="badge badge-light badge-pill" id="lastCall{{$number->id}}">
                                     {{ $record?->created_at->format('d-M h:i') }}
                                 </span>
                             </div>
@@ -283,6 +283,7 @@
                                                     $('#rowBody{{ $number->id }}').css({
                                                         'border-left': '5px solid {{getStatusClass($number->status)}}'
                                                     });
+                                                    $('#lastCall{{ $number->id }}').text(response.created_at);
                                                     alert(response.message);
                                                 },
                                                 error: function(response) {
@@ -316,7 +317,7 @@
                         <div class="card-header bg-primary text-white p-3">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0 font-weight-bold text-truncate">{{ $number->business_name }}</h5>
-                                <span class="badge badge-light badge-pill">
+                                <span class="badge badge-light badge-pill" id="callBack{{$number->id}}">
                                     {{ $record?->created_at->format('d-M h:i') }}
                                 </span>
                             </div>
