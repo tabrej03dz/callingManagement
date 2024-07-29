@@ -85,7 +85,8 @@ class NumberController extends Controller
 
     public function assignedNumbers(Request $request){
         if ($request->number){
-            $numbers = Number::where('phone_number', $request->number);
+            $allNumbers = Number::where('phone_number', $request->number);
+            $status = null;
         }else{
 
             $numbers = Number::query();
