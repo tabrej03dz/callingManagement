@@ -30,7 +30,6 @@ class CallRecordController extends Controller
 
     public function store(Request $request, Number $number)
     {
-//        dd('hello');
         $request->validate([
             'number_status' => '',
             'status' => '',
@@ -75,9 +74,8 @@ class CallRecordController extends Controller
             ]);
         } else {
             return redirect()->route('number.assigned', ['saved_number_id' => $number->id])->with('success', 'Record created successfully' . ($flash ?? ''));
-        }    }
-
-
+        }
+    }
 
 //    public function store(Request $request, Number $number){
 //        $request->validate([

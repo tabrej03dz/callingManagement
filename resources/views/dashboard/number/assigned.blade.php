@@ -304,7 +304,7 @@
                             continue;
                         }
                         if($status == null){
-                            if ($number->status != 'interested'){
+                            if ($number->status == 'not interested' || $number->status == 'wrong number' || $number->status == 'converted'){
                                 if ($numberSearch == null){
                                 continue;
                                 }
