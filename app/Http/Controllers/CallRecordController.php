@@ -30,6 +30,7 @@ class CallRecordController extends Controller
 
     public function store(Request $request, Number $number)
     {
+//        dd('hello');
         $request->validate([
             'number_status' => '',
             'status' => '',
@@ -43,7 +44,7 @@ class CallRecordController extends Controller
             $number->update(['status' => $request->number_status, 'updated_by' => auth()->user()->id, 'converted_price' => $request->converted_price ?? 0.0]);
         }
 
-        CallRecord::create($request->all() + [
+        $callRecord = CallRecord::create($request->all() + [
             'number_id' => $number->id,
             'user_id' => auth()->user()->id,
             'number_status' => $request->number_status,
@@ -65,8 +66,16 @@ class CallRecordController extends Controller
             $flash = '';
         }
 
-        return redirect()->route('number.assigned', ['saved_number_id' => $number->id])->with('success', 'Record created successfully'.$flash??'');
-    }
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Record created successfully' . ($flash ?? ''),
+                'record' => $callRecord,
+                'callBack' => $callRecord->have_to_call?->format('d-M h:i'),
+            ]);
+        } else {
+            return redirect()->route('number.assigned', ['saved_number_id' => $number->id])->with('success', 'Record created successfully' . ($flash ?? ''));
+        }    }
 
 
 
