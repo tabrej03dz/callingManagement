@@ -1,7 +1,8 @@
 
 @extends('dash_layouts.aap', ['title' => 'Assigned Numbers'])
 @section('content')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <div id="preloader">
         <div class="d-flex justify-content-center">
             <div class="spinner-grow text-primary m-2" role="status">
@@ -45,12 +46,20 @@
             </form>
 
             @php
-                //$lastCall = $allNumbers->whereHas('callRecords')->orderBy('updated_at', 'desc')->first();
-                //dd($lastCall->id);
+                if (auth()->user()->hasRole('super_admin|admin')){
+                $lastCall = \App\Models\Number::whereHas('callRecords')->orderBy('updated_at', 'desc')->first();
+                }else{
+                    $numberIds = \App\Models\UserNumber::where('user_id', auth()->user()->id)->pluck('number_id');
+                    $lastCall = \App\Models\Number::whereIn('id', $numberIds)
+                                  ->whereHas('callRecords')
+                                  ->orderBy('updated_at', 'desc')
+                                  ->first();
+                }
+
             @endphp
             <div class="w-100 text-right text-center text-md-right">
                 <a href="{{ route('number.add') }}" class="btn btn-primary ml-2 mb-2">Add Number</a>
-                <a href="#lastCall" class="btn btn-primary ml-2 mb-2">Last Call</a>
+                <a href="#lastCall" class="btn btn-warning ml-2 mb-2">Last Call</a>
             </div>
         </div>
 
@@ -94,7 +103,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="card-body p-4">
+                        <div class="card-body p-4" id="rowBody{{$number->id}}">
                             <p class="mb-3 text-muted">
                                 <i class="fas fa-map-marker-alt mr-2 text-danger"></i>{{ $number->city }}
                                 @if ($number->userNumbers->first())
@@ -122,24 +131,24 @@
                                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                                         <span class="font-weight-bold">N/S</span>
                                         <span
-                                            class="badge badge-{{ $number?->status == 'Interested' ? 'success' : 'secondary' }} badge-pill">{{ $number?->status }}</span>
+                                            class="badge badge-{{ $number?->status == 'Interested' ? 'success' : 'secondary' }} badge-pill" id="numberStatus{{$number->id}}">{{ $number?->status }}</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                                         <span class="font-weight-bold">Response</span>
-                                        <span class="badge badge-info badge-pill">{{ $record?->status }}</span>
+                                        <span class="badge badge-info badge-pill" id="recordStatus{{$number->id}}">{{ $record?->status }}</span>
                                     </li>
                                     <li class="list-group-item py-2">
                                         <span class="font-weight-bold">Description</span>
-                                        <p class="mb-0 mt-2 text-muted">{{ $record?->description }}</p>
+                                        <p class="mb-0 mt-2 text-muted" id="description{{$number->id}}">{{ $record?->description }}</p>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                                         <span class="font-weight-bold">Callback</span>
-                                        <span class="text-danger">{{ $record?->have_to_call?->format('d-M h:i') }}</span>
+                                        <span class="text-danger" id="callBack{{$number->id}}">{{ $record?->have_to_call?->format('d-M h:i') }}</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                                         <span class="font-weight-bold">Count</span>
                                         <span
-                                            class="badge badge-primary badge-pill">{{ $number->callRecords->count() }}</span>
+                                            class="badge badge-primary badge-pill" id="count{{$number->id}}">{{ $number->callRecords->count() }}</span>
                                     </li>
                                     @role('super_admin|admin')
                                         <li class="list-group-item py-2">
@@ -191,7 +200,7 @@
 
                     <!-- Modal -->
                     <div class="modal fade" id="responseModal{{ $number->id }}" tabindex="-1" role="dialog"
-                        aria-labelledby="responseModalLabel{{ $number->id }}" aria-hidden="true">
+                         aria-labelledby="responseModalLabel{{ $number->id }}" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header bg-primary text-white">
@@ -199,14 +208,12 @@
                                         <i class="fas fa-comment-alt mr-2"></i>Response Form
                                     </h5>
                                     <button type="button" class="close text-white" data-dismiss="modal"
-                                        aria-label="Close">
+                                            aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form role="form"
-                                        action="{{ route('callRecord.store', ['number' => $number->id]) }}"
-                                        method="post">
+                                    <form id="callRecordForm{{ $number->id }}" role="form" action="{{ route('callRecord.store', ['number' => $number->id]) }}" method="post">
                                         @csrf
                                         <div class="form-group">
                                             <label for="status{{ $number->id }}">Response</label>
@@ -219,8 +226,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="number_status{{ $number->id }}">Number Status</label>
-                                            <select name="number_status" id="number_status{{ $number->id }}"
-                                                class="form-control">
+                                            <select name="number_status" id="number_status{{ $number->id }}" class="form-control">
                                                 <option value="">Select Number Status</option>
                                                 <option value="interested">Interested</option>
                                                 <option value="not interested">Not Interested</option>
@@ -230,40 +236,64 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="description{{ $number->id }}">Description</label>
-                                            <textarea name="description" id="description{{ $number->id }}" rows="4" class="form-control"
-                                                placeholder="Enter description"></textarea>
+                                            <textarea name="description" id="description{{ $number->id }}" rows="4" class="form-control" placeholder="Enter description"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="date_and_time{{ $number->id }}">Call back time</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i
-                                                            class="far fa-calendar-alt"></i></span>
+                                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                                 </div>
-                                                <input name="date_and_time" id="date_and_time{{ $number->id }}"
-                                                    type="datetime-local" class="form-control"
-                                                    placeholder="Select date and time" />
+                                                <input name="date_and_time" id="date_and_time{{ $number->id }}" type="datetime-local" class="form-control" placeholder="Select date and time" />
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-switch">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="send_message{{ $number->id }}" name="send_message"
-                                                    value="true">
-                                                <label class="custom-control-label"
-                                                    for="send_message{{ $number->id }}">
-                                                    Send message to this number
-                                                </label>
+                                                <input type="checkbox" class="custom-control-input" id="send_message{{ $number->id }}" name="send_message" value="true">
+                                                <label class="custom-control-label" for="send_message{{ $number->id }}">Send message to this number</label>
                                             </div>
                                         </div>
                                         <div class="text-right">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Cancel</button>
-                                            <button type="submit" class="btn btn-primary">
-                                                <i class="fas fa-paper-plane mr-2"></i>Submit
-                                            </button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane mr-2"></i>Submit</button>
                                         </div>
                                     </form>
+
+                                    <script>
+                                        // $(document).ready(function() {
+                                        $('#callRecordForm{{ $number->id }}').on('submit', function(e) {
+                                            e.preventDefault();
+
+                                            let form = $(this);
+                                            let actionUrl = form.attr('action');
+                                            let formData = form.serialize();
+
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: actionUrl,
+                                                data: formData,
+                                                success: function(response) {
+                                                    $('#responseModal{{ $number->id }}').modal('hide');
+                                                    // Handle success - you can show a success message, close the modal, etc.
+                                                    $('#numberStatus{{ $number->id }}').text(response.record.number_status);
+                                                    $('#recordStatus{{ $number->id }}').text(response.record.status);
+                                                    $('#description{{ $number->id }}').text(response.record.description);
+                                                    $('#callBack{{ $number->id }}').text(response.callBack);
+                                                    $('#count{{ $number->id }}').text({{$number->callRecords->count() + 1}});
+                                                    $('#count{{ $number->id }}').text({{$number->callRecords->count() + 1}});
+                                                    $('#rowBody{{ $number->id }}').css({
+                                                        'border-left': '5px solid {{getStatusClass($number->status)}}'
+                                                    });
+                                                    alert(response.message);
+                                                },
+                                                error: function(response) {
+                                                    // Handle error - you can show an error message, etc.
+                                                    alert('An error occurred. Please try again.');
+                                                }
+                                            });
+                                        });
+                                        // });
+                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -276,7 +306,7 @@
                         }
                         $record = $number->callRecords()->latest()->first();
                     @endphp
-                    <div class="card mb-4 shadow-lg rounded-lg overflow-hidden border border-light" id="">
+                    <div class="card mb-4 shadow-lg rounded-lg overflow-hidden border border-light" id="{{$lastCall->id == $number->id ? 'lastCall' : ''}}">
                         <div class="card-header bg-primary text-white p-3">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0 font-weight-bold text-truncate">{{ $number->business_name }}</h5>
@@ -285,7 +315,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="card-body p-4" style="border-left: 5px solid {{getStatusClass($number->status)}}">
+                        <div class="card-body p-4" id="rowBody{{$number->id}}" style="border-left: 5px solid {{getStatusClass($number->status)}}">
                             <p class="mb-3 text-muted">
                                 <i class="fas fa-map-marker-alt mr-2 text-danger"></i>{{ $number->city }}
                                 @if ($number->userNumbers->first())
@@ -312,25 +342,25 @@
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                                         <span class="font-weight-bold">N/S</span>
-                                        <span
+                                        <span id="numberStatus{{$number->id}}"
                                             class="badge badge-{{ $number?->status == 'Interested' ? 'success' : 'secondary' }} badge-pill">{{ $number?->status }}</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                                         <span class="font-weight-bold">Response</span>
-                                        <span class="badge badge-info badge-pill">{{ $record?->status }}</span>
+                                        <span class="badge badge-info badge-pill" id="recordStatus{{$number->id}}">{{ $record?->status }}</span>
                                     </li>
                                     <li class="list-group-item py-2">
                                         <span class="font-weight-bold">Description</span>
-                                        <p class="mb-0 mt-2 text-muted">{{ $record?->description }}</p>
+                                        <p class="mb-0 mt-2 text-muted" id="description{{$number->id}}">{{ $record?->description }}</p>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                                         <span class="font-weight-bold">Callback</span>
-                                        <span class="text-danger">{{ $record?->have_to_call?->format('d-M h:i') }}</span>
+                                        <span class="text-danger" id="callBack{{$number->id}}">{{ $record?->have_to_call?->format('d-M h:i') }}</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                                         <span class="font-weight-bold">Count</span>
                                         <span
-                                            class="badge badge-primary badge-pill">{{ $number->callRecords->count() }}</span>
+                                            class="badge badge-primary badge-pill" id="count{{$number->id}}">{{ $number->callRecords->count() }}</span>
                                     </li>
                                     @role('super_admin|admin')
                                         <li class="list-group-item py-2">
@@ -379,7 +409,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Modal -->
                     <div class="modal fade" id="responseModal{{ $number->id }}" tabindex="-1" role="dialog"
                         aria-labelledby="responseModalLabel{{ $number->id }}" aria-hidden="true">
@@ -395,9 +424,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form role="form"
-                                        action="{{ route('callRecord.store', ['number' => $number->id]) }}"
-                                        method="post">
+                                    <form id="callRecordForm{{ $number->id }}" role="form" action="{{ route('callRecord.store', ['number' => $number->id]) }}" method="post">
                                         @csrf
                                         <div class="form-group">
                                             <label for="status{{ $number->id }}">Response</label>
@@ -410,8 +437,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="number_status{{ $number->id }}">Number Status</label>
-                                            <select name="number_status" id="number_status{{ $number->id }}"
-                                                class="form-control">
+                                            <select name="number_status" id="number_status{{ $number->id }}" class="form-control">
                                                 <option value="">Select Number Status</option>
                                                 <option value="interested">Interested</option>
                                                 <option value="not interested">Not Interested</option>
@@ -421,40 +447,63 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="description{{ $number->id }}">Description</label>
-                                            <textarea name="description" id="description{{ $number->id }}" rows="4" class="form-control"
-                                                placeholder="Enter description"></textarea>
+                                            <textarea name="description" id="description{{ $number->id }}" rows="4" class="form-control" placeholder="Enter description"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="date_and_time{{ $number->id }}">Call back time</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i
-                                                            class="far fa-calendar-alt"></i></span>
+                                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                                 </div>
-                                                <input name="date_and_time" id="date_and_time{{ $number->id }}"
-                                                    type="datetime-local" class="form-control"
-                                                    placeholder="Select date and time" />
+                                                <input name="date_and_time" id="date_and_time{{ $number->id }}" type="datetime-local" class="form-control" placeholder="Select date and time" />
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-switch">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="send_message{{ $number->id }}" name="send_message"
-                                                    value="true">
-                                                <label class="custom-control-label"
-                                                    for="send_message{{ $number->id }}">
-                                                    Send message to this number
-                                                </label>
+                                                <input type="checkbox" class="custom-control-input" id="send_message{{ $number->id }}" name="send_message" value="true">
+                                                <label class="custom-control-label" for="send_message{{ $number->id }}">Send message to this number</label>
                                             </div>
                                         </div>
                                         <div class="text-right">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Cancel</button>
-                                            <button type="submit" class="btn btn-primary">
-                                                <i class="fas fa-paper-plane mr-2"></i>Submit
-                                            </button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane mr-2"></i>Submit</button>
                                         </div>
                                     </form>
+
+                                    <script>
+                                        // $(document).ready(function() {
+                                        $('#callRecordForm{{ $number->id }}').on('submit', function(e) {
+                                            e.preventDefault();
+
+                                            let form = $(this);
+                                            let actionUrl = form.attr('action');
+                                            let formData = form.serialize();
+
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: actionUrl,
+                                                data: formData,
+                                                success: function(response) {
+                                                    $('#responseModal{{ $number->id }}').modal('hide');
+                                                    // Handle success - you can show a success message, close the modal, etc.
+                                                    $('#numberStatus{{ $number->id }}').text(response.record.number_status);
+                                                    $('#recordStatus{{ $number->id }}').text(response.record.status);
+                                                    $('#description{{ $number->id }}').text(response.record.description);
+                                                    $('#callBack{{ $number->id }}').text(response.callBack);
+                                                    $('#count{{ $number->id }}').text({{$number->callRecords->count() + 1}});
+                                                    $('#rowBody{{ $number->id }}').css({
+                                                        'border-left': '5px solid {{getStatusClass($number->status)}}'
+                                                    });
+                                                    alert(response.message);
+                                                },
+                                                error: function(response) {
+                                                    // Handle error - you can show an error message, etc.
+                                                    alert('An error occurred. Please try again.');
+                                                }
+                                            });
+                                        });
+                                        // });
+                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -462,17 +511,17 @@
                 @endforeach
             </div>
         </div>
-
-        <div id="hello">
-            helloo
-        </div>
-
-
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-{{--    <script>--}}
+
+
+
+
+
+
+
+    {{--    <script>--}}
 {{--        document.querySelector('a[href="#Number{{$lastCall->id}}"]').addEventListener('click', function(e) {--}}
 {{--            e.preventDefault();--}}
 {{--            document.getElementById('Number{{$lastCall->id}}').scrollIntoView({ behavior: 'smooth' });--}}

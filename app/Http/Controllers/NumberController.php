@@ -102,6 +102,7 @@ class NumberController extends Controller
                 $status = null;
             }
 
+
             if (auth()->user()->hasRole('calling team')){
                 $userNumebrs = auth()->user()->userNumbers->pluck('number_id');
                 if ($request->keyword){
@@ -111,6 +112,7 @@ class NumberController extends Controller
 
                 }else{
                     $numbers = $numbers->whereIn('id', $userNumebrs);
+
                 }
             }else{
 
@@ -122,13 +124,14 @@ class NumberController extends Controller
                 }
             }
 
-
             if ($request->city){
                 $numbers = $numbers->where('city', $request->city);
             }
 
+
 //            $lastCall = $numbers->orderBy('updated_at', 'desc')->first();
             $allNumbers = $numbers->orderBy('updated_at', 'desc')->get();
+
 
 //        $withoutCallRecordsNumbers = $numbers->doesntHave('callRecords')->get();
 
