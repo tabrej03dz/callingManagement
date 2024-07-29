@@ -85,7 +85,8 @@ class NumberController extends Controller
 
     public function assignedNumbers(Request $request){
         if ($request->number){
-            $allNumbers = Number::where('phone_number', $request->number);
+            $numberSearch = $request->number;
+            $allNumbers = Number::where('phone_number', $request->number)->get();
             $status = null;
         }else{
 
@@ -135,9 +136,10 @@ class NumberController extends Controller
 
 //        $withoutCallRecordsNumbers = $numbers->doesntHave('callRecords')->get();
 
+            $numberSearch = null;
         }
         $demos = Demo::all();
-        return view('dashboard.number.assigned', compact('allNumbers', 'demos', 'status'));
+        return view('dashboard.number.assigned', compact('allNumbers', 'demos', 'status', 'numberSearch'));
     }
 
     public function status(Number $number, $status){

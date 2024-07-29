@@ -71,13 +71,13 @@
                     case 'call not pick':
                         return 'bg-warning';
                     case 'call back':
-                        return 'grey';
+                        return 'blue';
                     case 'interested':
                         return 'green';
                     case 'not interested':
-                        return 'yellow';
-                    case 'wrong number':
                         return 'red';
+                    case 'wrong number':
+                        return 'black';
                     default:
                         return '';
                 }
@@ -305,7 +305,9 @@
                         }
                         if($status == null){
                             if ($number->status != 'interested'){
+                                if ($numberSearch == null){
                                 continue;
+                                }
                             }
                         }
                         $record = $number->callRecords()->latest()->first();
