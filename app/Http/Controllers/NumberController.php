@@ -141,7 +141,8 @@ class NumberController extends Controller
         if (auth()->user()->hasRole('super_admin|admin')){
             $demos = Demo::all();
         }else{
-            $demos = Demo::where('created_by', auth()->user()->id)->get();
+            $adminIds = User::role(['super_admin', 'admin'])->pluck('id');
+            $demos = Demo::whereIn('created_by', $adminIds)->orWhere('created_by', auth()->user()->id)->get();
         }
 
         return view('dashboard.number.assigned', compact('allNumbers', 'demos', 'status', 'numberSearch'));

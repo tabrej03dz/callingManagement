@@ -6,6 +6,7 @@ use App\Models\Demo;
 use App\Models\DemoRecord;
 use App\Models\Image;
 use App\Models\Number;
+use App\Models\User;
 use App\Models\UserInstanceAccess;
 use GuzzleHttp\Client;
 use http\Env\Response;
@@ -17,7 +18,8 @@ class DemoController extends Controller
         if (auth()->user()->hasRole('super_admin|admin')){
             $demoes = Demo::all();
         }else{
-            $demoes = Demo::where('created_by', auth()->user()->id)->get();
+            $adminIds = User::role(['super_admin', 'admin'])->pluck('id');
+            $demoes = Demo::whereIn('created_by', $adminIds)->orWhere('created_by', auth()->user()->id)->get();
         }
         return view('dashboard.demo.index', compact('demoes'));
     }
@@ -40,14 +42,16 @@ class DemoController extends Controller
 
         $demo = Demo::create(['name' => $request->name, 'city' => $request->city, 'created_by' => auth()->user()->id, 'description' => $request->description]);
 
-        foreach ($request->file('images') as $media){
-            $file = $media->store('public/images');
-            $image = new Image();
-            $image->title = $request->image_title;
-            $image->demo_id = $demo->id;
-            $image->model_type = 'App\Models\Demo';
-            $image->path = str_replace('public/', '', $file);
-            $image->save();
+        if ($request->file('images')){
+            foreach ($request->file('images') as $media){
+                $file = $media->store('public/images');
+                $image = new Image();
+                $image->title = $request->image_title;
+                $image->demo_id = $demo->id;
+                $image->model_type = 'App\Models\Demo';
+                $image->path = str_replace('public/', '', $file);
+                $image->save();
+            }
         }
 
         return redirect('demo')->with('success', 'Demo created successfully');
