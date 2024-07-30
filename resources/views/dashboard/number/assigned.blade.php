@@ -177,7 +177,7 @@
                                     </div>
                                 </div>
 
-                                <form action="{{ route('demo.send', ['number' => $number->id]) }}" method="post"
+                                <form action="{{ route('demo.send', ['number' => $number->id]) }}" id="demoSendForm{{$number->id}}" method="post"
                                     class="mt-3">
                                     @csrf
                                     <select name="demo_id" class="form-control form-control-sm mb-2">
@@ -293,6 +293,37 @@
                                             });
                                         });
                                         // });
+
+
+                                        $('#demoSendForm{{ $number->id }}').on('submit', function(e) {
+                                            e.preventDefault();
+
+                                            let form = $(this);
+                                            let actionUrl = form.attr('action');
+                                            let formData = form.serialize();
+
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: actionUrl,
+                                                data: formData,
+                                                success: function(response) {
+                                                    if (response.success) {
+                                                        alert(response.success); // Show success message
+                                                    } else if (response.error) {
+                                                        alert(response.error); // Show error message from response
+                                                    }
+                                                },
+                                                error: function(xhr, status, error) {
+                                                    // If the response status is not 200 (success), this block will be executed
+                                                    if (xhr.responseJSON && xhr.responseJSON.error) {
+                                                        alert(xhr.responseJSON.error); // Show error message from response JSON
+                                                    } else {
+                                                        alert('An unexpected error occurred.'); // Show a general error message
+                                                    }
+                                                }
+                                            });
+                                        });
+
                                     </script>
                                 </div>
                             </div>

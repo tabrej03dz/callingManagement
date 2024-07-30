@@ -138,7 +138,12 @@ class NumberController extends Controller
 
             $numberSearch = null;
         }
-        $demos = Demo::all();
+        if (auth()->user()->hasRole('super_admin|admin')){
+            $demos = Demo::all();
+        }else{
+            $demos = Demo::where('created_by', auth()->user()->id)->get();
+        }
+
         return view('dashboard.number.assigned', compact('allNumbers', 'demos', 'status', 'numberSearch'));
     }
 
