@@ -120,8 +120,8 @@ class DemoController extends Controller
                     $message = $demo->description ?? '';
                     $images = Image::where('demo_id', $demo->id)->get();
                     foreach ($images as $image) {
-//                        $imageUrl = asset('storage/' . $image->path);
-                        $imageUrl = 'https://realvictorygroups.xyz/assets/logo.png';
+                        $imageUrl = asset('storage/' . $image->path);
+//                        $imageUrl = 'https://realvictorygroups.xyz/assets/logo.png';
                         $fileName = $image->title;
                         $client = new Client(['verify' => false]);
                         $response = $client->request('GET', 'https://rvgwp.in/api/send?number=91' . $phoneNumber . '&type=media&message=' . $message . '&media_url=' . $imageUrl . '&filename=' . $fileName . '&instance_id=' . $userInstanceAccess->instance_id . '&access_token=' . $userInstanceAccess->access_token);
