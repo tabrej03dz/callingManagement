@@ -31,7 +31,7 @@ class CallRecordController extends Controller
     public function store(Request $request, Number $number)
     {
         $request->validate([
-            'number_status' => '',
+            'number_status' => Rule::requiredIf($request->status === 'call pick'),
             'status' => '',
             'description' => '',
             'date_and_time' => Rule::requiredIf($request->status === 'call back'),
