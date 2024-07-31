@@ -38,8 +38,7 @@ class CallRecordController extends Controller
             'send_message' => '',
             'converted_price' => Rule::requiredIf($request->status === 'converted'),
         ]);
-
-        if ($request->number_status) {
+        if ($request->number_status || $request->status == 'wrong number') {
             $number->update(['status' => $request->status == 'wrong number' ? $request->status : $request->number_status, 'updated_by' => auth()->user()->id, 'converted_price' => $request->converted_price ?? 0.0]);
         }
 
