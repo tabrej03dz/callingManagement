@@ -221,6 +221,7 @@
                                                 <option value="call pick">Call Pick</option>
                                                 <option value="call not pick">Call Not Pick</option>
                                                 <option value="call back">Call Back</option>
+                                                <option value="wrong number">Wrong Number</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -229,7 +230,8 @@
                                                 <option value="">Select Number Status</option>
                                                 <option value="interested">Interested</option>
                                                 <option value="not interested">Not Interested</option>
-                                                <option value="wrong number">Wrong Number</option>
+                                                <option value="neutral">Neutral</option>
+                                                <option value="demo send">Demo Send</option>
                                                 <option value="converted">Converted</option>
                                             </select>
                                         </div>
@@ -482,6 +484,7 @@
                                                 <option value="call pick">Call Pick</option>
                                                 <option value="call not pick">Call Not Pick</option>
                                                 <option value="call back">Call Back</option>
+                                                <option value="wrong number">Wrong Number</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -490,7 +493,8 @@
                                                 <option value="">Select Number Status</option>
                                                 <option value="interested">Interested</option>
                                                 <option value="not interested">Not Interested</option>
-                                                <option value="wrong number">Wrong Number</option>
+                                                <option value="demo send">Demo Send</option>
+                                                <option value="neutral">Neutral</option>
                                                 <option value="converted">Converted</option>
                                             </select>
                                         </div>
@@ -523,7 +527,6 @@
                                         // $(document).ready(function() {
                                         $('#callRecordForm{{ $number->id }}').on('submit', function(e) {
                                             e.preventDefault();
-
                                             let form = $(this);
                                             let actionUrl = form.attr('action');
                                             let formData = form.serialize();

@@ -40,7 +40,7 @@ class CallRecordController extends Controller
         ]);
 
         if ($request->number_status) {
-            $number->update(['status' => $request->number_status, 'updated_by' => auth()->user()->id, 'converted_price' => $request->converted_price ?? 0.0]);
+            $number->update(['status' => $request->status == 'wrong number' ? $request->status : $request->number_status, 'updated_by' => auth()->user()->id, 'converted_price' => $request->converted_price ?? 0.0]);
         }
 
         $callRecord = CallRecord::create($request->all() + [

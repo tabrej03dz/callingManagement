@@ -7,11 +7,12 @@
                 <table class="table table-bordered table-striped text-xs w-100">
                     <thead class="title-name-header w-full">
                         <tr>
-                            <th style="min-width: 50px;">#</th>
-                            <th style="min-width: 150px;">Name</th>
-                            <th style="min-width: 200px;">Email</th>
-                            <th style="min-width: 100px;">Role</th>
-                            <th style="min-width: 200px;">Action</th>
+                            <th >#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Instance & Access</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,12 +35,27 @@
                                 {{$user->getRoleNames()}}
                             </td>
                             <td class="d-block d-md-table-cell">
+                                <span class="font-weight-bold d-md-none">Instance & Access: </span>
+                                <form action="{{ route('setInstanceAndAccess', ['user' => $user->id]) }}" method="POST" class="form-inline">
+                                    @csrf
+                                    <div class="form-group mx-2">
+                                        <input type="text" name="instance_id" class="form-control form-control-sm" placeholder="Instance Id" value="{{ $user->instanceAccess?->instance_id }}">
+                                    </div>
+                                    <div class="form-group mx-2">
+                                        <input type="text" name="access_token" class="form-control form-control-sm" placeholder="Access Token" value="{{ $user->instanceAccess?->access_token }}">
+                                    </div>
+                                    <button type="submit" class="btn btn-success btn-sm mx-2">Save</button>
+                                    <a href="{{ route('clearInstanceAndAccess', ['user' => $user->id]) }}" class="btn btn-secondary btn-sm">Clear</a>
+                                </form>
+
+                            </td>
+                            <td class="d-block d-md-table-cell">
                                 <span class="font-weight-bold d-md-none">Action: </span>
-                                <div class="d-flex flex-column flex-md-row gap-2">
-                                    <a href="{{route('user.edit', ['user' => $user])}}" class="btn btn-primary btn-sm mb-2 mb-md-0 w-100 w-md-auto">Edit</a>
-                                    <a href="{{route('user.delete', ['user' => $user])}}" class="btn btn-danger btn-sm mb-2 mb-md-0 w-100 w-md-auto">Delete</a>
-                                    <a href="{{route('user.assignedNumbers', ['user' => $user])}}" class="btn btn-info btn-sm mb-2 mb-md-0 w-100 w-md-auto">Assigned Numbers</a>
-                                    <a href="{{route('user.permissions', ['user' => $user])}}" class="btn btn-secondary btn-sm mb-2 mb-md-0 w-100 w-md-auto">Permissions</a>
+                                <div class="d-flex btn-group flex-column flex-md-row gap-2">
+                                    <a href="{{route('user.edit', ['user' => $user])}}" class="btn btn-primary btn-sm ">Edit</a>
+                                    <a href="{{route('user.delete', ['user' => $user])}}" class="btn btn-danger btn-sm ">Delete</a>
+                                    <a href="{{route('user.assignedNumbers', ['user' => $user])}}" class="btn btn-info btn-sm ">Assigned Numbers</a>
+                                    <a href="{{route('user.permissions', ['user' => $user])}}" class="btn btn-secondary btn-sm ">Permissions</a>
                                 </div>
                             </td>
                         </tr>

@@ -128,8 +128,8 @@ Route::middleware('auth')->group(function () {
         Route::get('delete/{message}', [StatusWiseMessageController::class, 'delete'])->name('delete');
     });
 
-    Route::post('setInstanceAndAccess', [UserInstanceAccessController::class, 'setInstanceAndAccess'])->name('setInstanceAndAccess');
-    Route::get('clearInstanceAndAccess', [UserInstanceAccessController::class, 'clearInstanceAndAccess'])->name('clearInstanceAndAccess');
+    Route::post('setInstanceAndAccess/{user}', [UserInstanceAccessController::class, 'setInstanceAndAccess'])->name('setInstanceAndAccess');
+    Route::get('clearInstanceAndAccess/{user}', [UserInstanceAccessController::class, 'clearInstanceAndAccess'])->name('clearInstanceAndAccess');
 });
 
 require __DIR__.'/auth.php';
