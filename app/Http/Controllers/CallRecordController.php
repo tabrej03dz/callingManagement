@@ -30,18 +30,16 @@ class CallRecordController extends Controller
 
     public function store(Request $request, Number $number)
     {
-//        dd('hello');
         $request->validate([
-            'number_status' => '',
+            'number_status' => Rule::requiredIf($request->status === 'call pick'),
             'status' => '',
             'description' => '',
             'date_and_time' => Rule::requiredIf($request->status === 'call back'),
             'send_message' => '',
             'converted_price' => Rule::requiredIf($request->status === 'converted'),
         ]);
-
-        if ($request->number_status) {
-            $number->update(['status' => $request->number_status, 'updated_by' => auth()->user()->id, 'converted_price' => $request->converted_price ?? 0.0]);
+        if ($request->number_status || $request->status == 'wrong number') {
+            $number->update(['status' => $request->status == 'wrong number' ? $request->status : $request->number_status, 'updated_by' => auth()->user()->id, 'converted_price' => $request->converted_price ?? 0.0]);
         }
 
         $callRecord = CallRecord::create($request->all() + [
@@ -72,12 +70,12 @@ class CallRecordController extends Controller
                 'message' => 'Record created successfully' . ($flash ?? ''),
                 'record' => $callRecord,
                 'callBack' => $callRecord->have_to_call?->format('d-M h:i'),
+                'created_at' => $callRecord->created_at->format('d-M h:i'),
             ]);
         } else {
             return redirect()->route('number.assigned', ['saved_number_id' => $number->id])->with('success', 'Record created successfully' . ($flash ?? ''));
-        }    }
-
-
+        }
+    }
 
 //    public function store(Request $request, Number $number){
 //        $request->validate([

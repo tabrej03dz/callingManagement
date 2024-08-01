@@ -1,5 +1,10 @@
 @extends('dash_layouts.aap', ['title' => ($status ?? 'All') . ' Numbers'])
 @section('content')
+    <style>
+        .neutralColor{
+            background-color: #f57102;
+        }
+    </style>
 <div class="card">
     <div class="card-body">
         <form action="{{route('number.statusWise', ['status' => $status])}}" method="GET" class="form-inline mb-3">
@@ -50,7 +55,7 @@
 
                 <div class="col-lg-2 col-4">
                     <!-- small box -->
-                    <div class="small-box {{$bgColor}}">
+                    <div class="small-box {{$status == 'neutral'? 'neutralColor' : $bgColor}}">
                         <div class="inner">
                             @php
                                 $numberIds = \App\Models\UserNumber::where('user_id', $user->id)->pluck('number_id');

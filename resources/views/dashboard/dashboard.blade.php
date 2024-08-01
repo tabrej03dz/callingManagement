@@ -103,6 +103,20 @@
                         </div>
                     </div>
 
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box" style="background-color: #f57102">
+                            <div class="inner">
+                                <h3>{{$numbers->where('status', 'neutral')->count()}}</h3>
+                                <p>Neutral</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-pie-graph"></i>
+                            </div>
+                            <a href="{{route('number.statusWise', ['status' => 'neutral'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+
                 @else
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
@@ -188,6 +202,24 @@
                                 <i class="ion ion-pie-graph"></i>
                             </div>
                             <a href="{{route('number.statusWise', ['status' => 'converted'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box" style="background-color: #f57102">
+                            <div class="inner">
+                                @php
+                                    $numberIds = auth()->user()->userNumbers()->pluck('number_id');
+                                @endphp
+                                <h3> {{$numbers->whereIn('id', $numberIds)->where('status', 'neutral')->count()}}<sup style="font-size: 20px"></sup></h3>
+                                <p>Neutral</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-pie-graph"></i>
+                            </div>
+                            <a href="{{route('number.statusWise', ['status' => 'neutral'])}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 @endcan

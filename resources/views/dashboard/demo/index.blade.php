@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-body">
             <!-- Form for setting instance and access -->
-            <form action="{{ route('setInstanceAndAccess') }}" method="POST" class="row g-3">
+            <form action="{{ route('setInstanceAndAccess', ['user' => auth()->user()->id]) }}" method="POST" class="row g-3">
                 @csrf
                 @php
                     $record = App\Models\UserInstanceAccess::where('user_id', auth()->user()->id)->first();
@@ -20,7 +20,7 @@
                     <button type="submit" class="btn btn-primary w-100">Save</button>
                 </div>
                 <div class="col-md-6 mt-2">
-                    <a href="{{ route('clearInstanceAndAccess') }}" class="btn btn-danger w-100">Clear</a>
+                    <a href="{{ route('clearInstanceAndAccess', auth()->user()->id) }}" class="btn btn-danger w-100">Clear</a>
                 </div>
             </form>
 
@@ -81,7 +81,7 @@
             </div>
         </div>
     </div>
-    
+
     <style>
         @media (max-width: 768px) {
             .title-name-header {
@@ -89,6 +89,6 @@
             }
         }
     </style>
-    
+
     <!-- /.card -->
 @endsection

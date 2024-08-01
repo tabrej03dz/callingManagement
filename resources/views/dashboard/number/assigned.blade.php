@@ -72,13 +72,13 @@
                     case 'call not pick':
                         return 'bg-warning';
                     case 'call back':
-                        return 'grey';
+                        return 'blue';
                     case 'interested':
                         return 'green';
                     case 'not interested':
-                        return 'yellow';
-                    case 'wrong number':
                         return 'red';
+                    case 'wrong number':
+                        return 'black';
                     default:
                         return '';
                 }
@@ -98,7 +98,7 @@
                         <div class="card-header bg-primary text-white p-3">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0 font-weight-bold text-truncate">{{ $number->business_name }}</h5>
-                                <span class="badge badge-light badge-pill">
+                                <span class="badge badge-light badge-pill" id="lastCall{{$number->id}}">
                                     {{ $record?->created_at->format('d-M h:i') }}
                                 </span>
                             </div>
@@ -178,7 +178,7 @@
                                     </div>
                                 </div>
 
-                                <form action="{{ route('demo.send', ['number' => $number->id]) }}" method="post"
+                                <form action="{{ route('demo.send', ['number' => $number->id]) }}" id="demoSendForm{{$number->id}}" method="post"
                                     class="mt-3">
                                     @csrf
                                     <select name="demo_id" class="form-control form-control-sm mb-2">
@@ -222,6 +222,7 @@
                                                 <option value="call pick">Call Pick</option>
                                                 <option value="call not pick">Call Not Pick</option>
                                                 <option value="call back">Call Back</option>
+                                                <option value="wrong number">Wrong Number</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -230,7 +231,8 @@
                                                 <option value="">Select Number Status</option>
                                                 <option value="interested">Interested</option>
                                                 <option value="not interested">Not Interested</option>
-                                                <option value="wrong number">Wrong Number</option>
+                                                <option value="neutral">Neutral</option>
+                                                <option value="demo send">Demo Send</option>
                                                 <option value="converted">Converted</option>
                                             </select>
                                         </div>
@@ -279,20 +281,63 @@
                                                     $('#recordStatus{{ $number->id }}').text(response.record.status);
                                                     $('#description{{ $number->id }}').text(response.record.description);
                                                     $('#callBack{{ $number->id }}').text(response.callBack);
+                                                    $('#lastCall{{ $number->id }}').text(response.created_at);
                                                     $('#count{{ $number->id }}').text({{$number->callRecords->count() + 1}});
                                                     $('#count{{ $number->id }}').text({{$number->callRecords->count() + 1}});
+                                                    let statusClass = getStatusClass(response.record.number_status);
                                                     $('#rowBody{{ $number->id }}').css({
-                                                        'border-left': '5px solid {{getStatusClass($number->status)}}'
+                                                        'border-left': '5px solid ' + statusClass
                                                     });
                                                     alert(response.message);
                                                 },
-                                                error: function(response) {
-                                                    // Handle error - you can show an error message, etc.
-                                                    alert('An error occurred. Please try again.');
+                                                error: function(xhr) {
+                                                    if (xhr.status === 422) {
+                                                        // Validation error
+                                                        let errors = xhr.responseJSON.errors;
+                                                        let errorMessages = '';
+                                                        $.each(errors, function(key, value) {
+                                                            errorMessages += value + '\n';
+                                                        });
+                                                        alert('Validation error:\n' + errorMessages);
+                                                    } else {
+                                                        // General error
+                                                        alert('An error occurred. Please try again.');
+                                                    }
                                                 }
                                             });
                                         });
                                         // });
+
+
+                                        $('#demoSendForm{{ $number->id }}').on('submit', function(e) {
+                                            e.preventDefault();
+
+                                            let form = $(this);
+                                            let actionUrl = form.attr('action');
+                                            let formData = form.serialize();
+
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: actionUrl,
+                                                data: formData,
+                                                success: function(response) {
+                                                    if (response.success) {
+                                                        alert(response.success); // Show success message
+                                                    } else if (response.error) {
+                                                        alert(response.error); // Show error message from response
+                                                    }
+                                                },
+                                                error: function(xhr, status, error) {
+                                                    // If the response status is not 200 (success), this block will be executed
+                                                    if (xhr.responseJSON && xhr.responseJSON.error) {
+                                                        alert(xhr.responseJSON.error); // Show error message from response JSON
+                                                    } else {
+                                                        alert('An unexpected error occurred.'); // Show a general error message
+                                                    }
+                                                }
+                                            });
+                                        });
+
                                     </script>
                                 </div>
                             </div>
@@ -305,8 +350,10 @@
                             continue;
                         }
                         if($status == null){
-                            if ($number->status != 'interested'){
+                            if ($number->status == 'not interested' || $number->status == 'wrong number' || $number->status == 'converted'){
+                                if ($numberSearch == null){
                                 continue;
+                                }
                             }
                         }
                         $record = $number->callRecords()->latest()->first();
@@ -315,7 +362,7 @@
                         <div class="card-header bg-primary text-white p-3">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0 font-weight-bold text-truncate">{{ $number->business_name }}</h5>
-                                <span class="badge badge-light badge-pill">
+                                <span class="badge badge-light badge-pill" id="lastCall{{$number->id}}">
                                     {{ $record?->created_at->format('d-M h:i') }}
                                 </span>
                             </div>
@@ -395,7 +442,7 @@
                                     </div>
                                 </div>
 
-                                <form action="{{ route('demo.send', ['number' => $number->id]) }}" method="post"
+                                <form action="{{ route('demo.send', ['number' => $number->id]) }}" id="demoSendForm{{$number->id}}" method="post"
                                     class="mt-3">
                                     @csrf
                                     <select name="demo_id" class="form-control form-control-sm mb-2">
@@ -438,6 +485,7 @@
                                                 <option value="call pick">Call Pick</option>
                                                 <option value="call not pick">Call Not Pick</option>
                                                 <option value="call back">Call Back</option>
+                                                <option value="wrong number">Wrong Number</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -446,7 +494,8 @@
                                                 <option value="">Select Number Status</option>
                                                 <option value="interested">Interested</option>
                                                 <option value="not interested">Not Interested</option>
-                                                <option value="wrong number">Wrong Number</option>
+                                                <option value="demo send">Demo Send</option>
+                                                <option value="neutral">Neutral</option>
                                                 <option value="converted">Converted</option>
                                             </select>
                                         </div>
@@ -479,7 +528,6 @@
                                         // $(document).ready(function() {
                                         $('#callRecordForm{{ $number->id }}').on('submit', function(e) {
                                             e.preventDefault();
-
                                             let form = $(this);
                                             let actionUrl = form.attr('action');
                                             let formData = form.serialize();
@@ -495,19 +543,61 @@
                                                     $('#recordStatus{{ $number->id }}').text(response.record.status);
                                                     $('#description{{ $number->id }}').text(response.record.description);
                                                     $('#callBack{{ $number->id }}').text(response.callBack);
+                                                    $('#lastCall{{ $number->id }}').text(response.callBack);
                                                     $('#count{{ $number->id }}').text({{$number->callRecords->count() + 1}});
+                                                    let statusClass = getStatusClass(response.record.number_status);
                                                     $('#rowBody{{ $number->id }}').css({
-                                                        'border-left': '5px solid {{getStatusClass($number->status)}}'
+                                                        'border-left': '5px solid ' + statusClass
                                                     });
                                                     alert(response.message);
                                                 },
-                                                error: function(response) {
-                                                    // Handle error - you can show an error message, etc.
-                                                    alert('An error occurred. Please try again.');
+                                                error: function(xhr) {
+                                                    if (xhr.status === 422) {
+                                                        // Validation error
+                                                        let errors = xhr.responseJSON.errors;
+                                                        let errorMessages = '';
+                                                        $.each(errors, function(key, value) {
+                                                            errorMessages += value + '\n';
+                                                        });
+                                                        alert('Validation error:\n' + errorMessages);
+                                                    } else {
+                                                        // General error
+                                                        alert('An error occurred. Please try again.');
+                                                    }
                                                 }
                                             });
                                         });
                                         // });
+
+                                        $('#demoSendForm{{ $number->id }}').on('submit', function(e) {
+                                            e.preventDefault();
+
+                                            let form = $(this);
+                                            let actionUrl = form.attr('action');
+                                            let formData = form.serialize();
+
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: actionUrl,
+                                                data: formData,
+                                                success: function(response) {
+                                                    if (response.success) {
+                                                        alert(response.success); // Show success message
+                                                    } else if (response.error) {
+                                                        alert(response.error); // Show error message from response
+                                                    }
+                                                },
+                                                error: function(xhr, status, error) {
+                                                    // If the response status is not 200 (success), this block will be executed
+                                                    if (xhr.responseJSON && xhr.responseJSON.error) {
+                                                        alert(xhr.responseJSON.error); // Show error message from response JSON
+                                                    } else {
+                                                        alert('An unexpected error occurred.'); // Show a general error message
+                                                    }
+                                                }
+                                            });
+                                        });
+
                                     </script>
                                 </div>
                             </div>
@@ -602,6 +692,26 @@
                 }
             }
         });
+
+
+        function getStatusClass($status) {
+            switch ($status) {
+                case 'call pick':
+                    return '';
+                case 'call not pick':
+                    return 'bg-warning';
+                case 'call back':
+                    return 'blue';
+                case 'interested':
+                    return 'green';
+                case 'not interested':
+                    return 'red';
+                case 'wrong number':
+                    return 'black';
+                default:
+                    return '';
+            }
+        }
     </script>
 
     <style>
