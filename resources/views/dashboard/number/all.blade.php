@@ -92,6 +92,12 @@
 
     <!-- /.card -->
     <div class="card">
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+                <p>Assigned Numbers: {{ session('assignedCount') }}</p>
+            </div>
+        @endif
 
         <form action="{{ route('number.assignToUser') }}" method="post">
             @csrf
