@@ -98,7 +98,11 @@
                 <p>Assigned Numbers: {{ session('assignedCount') }}</p>
             </div>
         @endif
-
+            @if(session('alreadyAssigned'))
+                <div class="alert alert-warning">
+                    Some numbers were already assigned.
+                </div>
+            @endif
         <form action="{{ route('number.assignToUser') }}" method="post">
             @csrf
             <div class="card">
