@@ -457,6 +457,9 @@
                                         <i class="fas fa-paper-plane mr-1"></i> Send Demo
                                     </button>
                                 </form>
+
+                                <a href="{{route('addCustomer', ['number', $number->id])}}">Add Customer</a>
+
                             </div>
                         </div>
                     </div>

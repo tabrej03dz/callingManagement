@@ -239,6 +239,7 @@
                     </li>
                 @endcan
 
+
                 @can('show message')
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
@@ -274,10 +275,6 @@
                         <p>Logout</p>
                     </a>
                 </li>
-
-
-
-
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

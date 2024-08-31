@@ -29,6 +29,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('addCustomer', [\App\Http\Controllers\DashboardController::class, 'addCustomer'])->name('addCustomer');
+
 Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
