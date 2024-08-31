@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Http;
 class DashboardController extends Controller
 {
     public function __construct(){
-        $dateThreeMonthsAgo = Carbon::now()->subMonths(1);
+        $dateThreeMonthsAgo = Carbon::now()->subMonths(3);
 
         $records = Number::where('status', 'not interested')->where('updated_at', '<=', $dateThreeMonthsAgo)->get();
         foreach ($records as $record){
