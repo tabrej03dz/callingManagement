@@ -129,6 +129,10 @@
                                         <span class="text-primary">{{ $number->phone_number }}</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
+                                        <span class="font-weight-bold">Owner Name</span>
+                                        <span class="text-primary">{{ $number->name }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                                         <span class="font-weight-bold">N/S</span>
                                         <span
                                             class="badge badge-{{ $number?->status == 'Interested' ? 'success' : 'secondary' }} badge-pill" id="numberStatus{{$number->id}}">{{ $number?->status }}</span>
@@ -391,6 +395,10 @@
                                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                                         <span class="font-weight-bold">Number</span>
                                         <span class="text-primary">{{ $number->phone_number }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center py-2">
+                                        <span class="font-weight-bold">Owner Name</span>
+                                        <span class="text-primary">{{ $number->name }}</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                                         <span class="font-weight-bold">N/S</span>

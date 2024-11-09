@@ -91,6 +91,7 @@
                         <thead class="title-name-header w-full">
                             <tr>
                                 <th style="min-width: auto;">Business Name</th>
+                                <th style="min-width: auto;">Owner Name</th>
                                 <th style="min-width: auto;">Phone Number</th>
                                 <th style="min-width: auto;">City</th>
                                 <th style="min-width: auto;">Msg</th>
@@ -104,6 +105,10 @@
                                     <td class="d-block d-md-table-cell">
                                         <span class="font-weight-bold d-md-none">Business Name: </span>
                                         {{ $number->business_name }}
+                                    </td>
+                                    <td class="d-block d-md-table-cell">
+                                        <span class="font-weight-bold d-md-none">Owner Name: </span>
+                                        <a href="tel:{{ $number->number }}">{{ $number->name }}</a>
                                     </td>
                                     <td class="d-block d-md-table-cell">
                                         <span class="font-weight-bold d-md-none">Phone Number: </span>
