@@ -174,6 +174,7 @@
                                     </th>
                                 @endrole
                                 <th>Business Name</th>
+                                <th>Owner Name</th>
                                 <th>Phone Number</th>
                                 <th>City</th>
                                 <th>Assigned User</th>
@@ -195,6 +196,7 @@
                                         <label class="form-check-label"
                                             for="{{ $number->id }}">{{ $number->business_name }}</label>
                                     </td>
+                                    <td>{{ $number->name }}</td>
                                     <td>{{ $number->phone_number }}</td>
                                     <td>{{ $number->city }}</td>
                                     <td>
