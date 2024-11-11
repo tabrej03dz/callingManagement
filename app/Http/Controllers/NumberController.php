@@ -129,10 +129,8 @@ class NumberController extends Controller
                 $numbers = $numbers->where('city', $request->city);
             }
 
-
 //            $lastCall = $numbers->orderBy('updated_at', 'desc')->first();
             $allNumbers = $numbers->orderBy('updated_at', 'desc')->get();
-
 
 //        $withoutCallRecordsNumbers = $numbers->doesntHave('callRecords')->get();
 
@@ -241,6 +239,29 @@ class NumberController extends Controller
             $number->delete();
         }
         return back()->with('success', 'Numbers Deleted successfully');
+    }
+
+    public function numberLastResponse(Request $request, $status = null){
+        if (auth()->user()->hasRole(['super_admin', 'admin'])){
+            $numbers = Number::query();
+        }else{
+            $numberIds = auth()->user()->userNumbers()->pluck('number_id');
+            $numbers = Number::whereIn('id', $numberIds);
+        }
+        if ($status != 'all'){
+            $numbers = $numbers->where('last_response', $status);
+        }
+        if ($request->from && $request->to){
+            $from = $request->from;
+            $to = $request->to;
+            $numbers = $numbers->whereBetween('updated_at', [$from, $to]);
+        }else{
+            $from = null;
+            $to = null;
+            $numbers = $numbers->whereDate('updated_at', today());
+        }
+        $numbers = $numbers->get();
+        return view('dashboard.number.statusWise', compact('numbers', 'status', 'from', 'to'));
     }
 
 }

@@ -52,6 +52,8 @@ Route::middleware('auth')->group(function () {
         Route::get('status/{number}/{status}', [NumberController::class, 'status'])->name('status');
         Route::get('statusWise/{status?}', [NumberController::class, 'statusWise'])->name('statusWise');
         Route::get('callBack', [NumberController::class, 'callBack'])->name('callBack');
+        Route::get('lastResponse/{status?}/{user?}', [NumberController::class, 'numberLastResponse'])->name('lastResponse');
+
 
         Route::get('allDelete', [NumberController::class, 'allNumberDelete'])->name('allDelete');
         Route::get('unassignedDelete', [NumberController::class, 'unassignedNumberDelete'])->name('unassignedDelete');

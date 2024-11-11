@@ -120,6 +120,7 @@
                                     onclick="handleCall(event, '{{ $number->phone_number }}', '{{ $number->id }}')">
                                     <i class="fas fa-phone mr-1"></i> Call
                                 </a>
+
                             </div>
 
                             <div class="collapse mt-4" id="collapse{{ $number->id }}">
@@ -353,13 +354,13 @@
                         if ($number->callRecords->count() == 0) {
                             continue;
                         }
-                        if($status == null){
-                            if ($number->status == 'not interested' || $number->status == 'wrong number' || $number->status == 'converted'){
-                                if ($numberSearch == null){
-                                continue;
-                                }
-                            }
-                        }
+                    //    if($status == null){
+                    //        if ($number->status == 'not interested' || $number->status == 'wrong number' || $number->status == 'converted'){
+                    //            if ($numberSearch == null){
+                    //            continue;
+                     //           }
+                     //       }
+                     //   }
                         $record = $number->callRecords()->latest()->first();
                     @endphp
                     <div class="card mb-4 shadow-lg rounded-lg overflow-hidden border border-light" id="{{$lastCall->id == $number->id ? 'lastCall' : ''}}">
@@ -387,6 +388,9 @@
                                 <a href="tel:{{ $number->phone_number }}" class="btn btn-success btn-sm rounded-pill"
                                     onclick="handleCall(event, '{{ $number->phone_number }}', '{{ $number->id }}')">
                                     <i class="fas fa-phone mr-1"></i> Call
+                                </a>
+                                <a href="{{route('callRecord.show', ['number' => $number->id])}}" class="btn btn-primary btn-sm rounded-pill">
+                                    <i class="fas fa-history mr-1"></i> Call History
                                 </a>
                             </div>
 
