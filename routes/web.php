@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
         Route::post('unAssign', [UserNumberController::class, 'unAssignTheNumber'])->name('unAssign');
         Route::get('add', [NumberController::class, 'addForm'])->name('add');
         Route::post('save', [NumberController::class, 'saveNumber'])->name('save');
+        Route::get('removeNotInterested', [NumberController::class, 'removeNotInterested'])->name('removeNotInterested');
 
         Route::get('status/{number}/{status}', [NumberController::class, 'status'])->name('status');
         Route::get('statusWise/{status?}', [NumberController::class, 'statusWise'])->name('statusWise');

@@ -178,6 +178,7 @@
                                 <th>Phone Number</th>
                                 <th>City</th>
                                 <th>Assigned User</th>
+                                <th>Status</th>
                                 {{--                    <th>CSS grade</th> --}}
                             </tr>
                         </thead>
@@ -204,6 +205,8 @@
                                             {{ $user->user->name }}
                                         @endforeach
                                     </td>
+                                    <td>{{ $number->status }}</td>
+
                                 </tr>
                             @endforeach
                         </tbody>

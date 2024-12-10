@@ -58,6 +58,7 @@
 
             @endphp
             <div class="w-100 text-right text-center text-md-right">
+                <a href="{{ route('number.removeNotInterested') }}" class="btn btn-danger ml-2 mb-2">Remove Not Interested Numbers</a>
                 <a href="{{ route('number.add') }}" class="btn btn-primary ml-2 mb-2">Add Number</a>
                 <a href="#lastCall" class="btn btn-warning ml-2 mb-2">Last Call</a>
             </div>
@@ -312,7 +313,6 @@
                                             });
                                         });
                                         // });
-
 
                                         $('#demoSendForm{{ $number->id }}').on('submit', function(e) {
                                             e.preventDefault();

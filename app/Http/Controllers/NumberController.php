@@ -32,7 +32,7 @@ class NumberController extends Controller
             $query->whereBetween('created_at', [$request->from, $request->to]);
         }
 
-        $numbers = $query->where('assigned' , '0')->paginate(100);
+        $numbers = $query->paginate(100);
         $role = Role::where('name', 'calling team')->first();
         $users = $role->users;
         return view('dashboard.number.all', compact('numbers', 'users'));
@@ -262,6 +262,20 @@ class NumberController extends Controller
         }
         $numbers = $numbers->get();
         return view('dashboard.number.statusWise', compact('numbers', 'status', 'from', 'to'));
+    }
+
+
+    public function removeNotInterested(){
+        $user = auth()->user();
+        $numberIds = UserNumber::where('user_id', $user->id)->pluck('number_id');
+        $numbers = Number::whereIn('id', $numberIds)->where('status', 'not interested')->get();
+        $count = 0;
+        foreach ($numbers as $number){
+            UserNumber::where('number_id', $number->id)->delete();
+            $count++;
+        }
+
+        return back()->with('success', $count.' numbers removed successfully');
     }
 
 }
